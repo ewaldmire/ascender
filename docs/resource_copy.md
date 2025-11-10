@@ -7,7 +7,7 @@ structures of existing objects and make a background task-based deep copy when n
 
 ## Usage
 
-If an Ascender resource is able to be copied, all of its object detail API views will have a related URL field
+If an climber resource is able to be copied, all of its object detail API views will have a related URL field
 `"copy"`, which has the form `/api/v2/<resource name>/<object pk>/copy/`. A GET to this endpoint
 will return `can_copy`, which is a boolean indicating whether the current user can execute a copy
 operation; POSTing to this endpoint actually copies the resource object. One field, `name`, is required;

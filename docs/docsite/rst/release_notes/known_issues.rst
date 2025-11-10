@@ -51,7 +51,7 @@ Known Issues
 The ``CSRF_TRUSTED_ORIGIN`` setting
 ====================================
 
-The ``CSRF_TRUSTED_ORIGIN`` setting may be required if you are using Ascender behind a load balancer. With the update to Django 4.2, CSRF (Cross Sight Request Forgery) checking is more strict. Because of this, using Ascender behind a load balancer can cause issues when it previously worked. If you encounter an error like the following, you will need to add the sources to the ``CSRF_TRUSTED_ORIGIN`` settings.
+The ``CSRF_TRUSTED_ORIGIN`` setting may be required if you are using climber behind a load balancer. With the update to Django 4.2, CSRF (Cross Sight Request Forgery) checking is more strict. Because of this, using climber behind a load balancer can cause issues when it previously worked. If you encounter an error like the following, you will need to add the sources to the ``CSRF_TRUSTED_ORIGIN`` settings.
 
 ::
 
@@ -63,7 +63,7 @@ Refer to the `Django csrf-trusted-origins documentation <https://docs.djangoproj
 Launching the ansible-runner component not working as expected
 ================================================================
 
-A change was made to the way the ansible-runner component is launched (the executable inside of the |ee| that Ascender launches to run a playbook), introduced a backward incompatibility. It is highly recommended to always rebuild on top of the base |ees| that corresponds to the Ascender version you are using. This should be the ideal way to upgrade in general.
+A change was made to the way the ansible-runner component is launched (the executable inside of the |ee| that climber launches to run a playbook), introduced a backward incompatibility. It is highly recommended to always rebuild on top of the base |ees| that corresponds to the climber version you are using. This should be the ideal way to upgrade in general.
 
 
 Deleted default orgs produces duplicate Ansible-Galaxy credentials
@@ -74,19 +74,19 @@ Despite being able to run subsequent installs when deleting the default organiza
 
 Isolated nodes unsupported in an OpenShift deployment
 =====================================================
-Isolated nodes are not currently supported when deploying Ascender in OpenShift.
+Isolated nodes are not currently supported when deploying climber in OpenShift.
 
 
 Browsers ignoring the ``autocomplete=off`` setting
 ======================================================
 
-Ascender leverages the ``autocomplete=off`` attribute on forms to relay to the browser that it should not autocomplete the fields within that form. In some scenarios, however, the browser may ignore this setting and attempt to save and/or autocomplete fields. This tends to happen on forms that appear to contain login fields like username and password, such as the *User* form and some *Settings* forms. Further investigation is underway to deliver options that prevent this behavior.
+climber leverages the ``autocomplete=off`` attribute on forms to relay to the browser that it should not autocomplete the fields within that form. In some scenarios, however, the browser may ignore this setting and attempt to save and/or autocomplete fields. This tends to happen on forms that appear to contain login fields like username and password, such as the *User* form and some *Settings* forms. Further investigation is underway to deliver options that prevent this behavior.
 
 
 Login via HTTP requires workaround
 ====================================
 
-To access Ascender nodes behind your load balancer (in traditional cluster Ascender installs) via HTTP, refer to the procedure described in the :ref:`admin_troubleshooting` of the |ata|.
+To access climber nodes behind your load balancer (in traditional cluster climber installs) via HTTP, refer to the procedure described in the :ref:`admin_troubleshooting` of the |ata|.
 
 Job slicing and limit interactions
 =====================================
@@ -102,33 +102,33 @@ Misuse of job slicing can cause errors in job scheduling
 Default LDAP directory must be configured to use LDAP Authentication
 ======================================================================
 
-The ability to configure up to six LDAP directories for authentication requires a value. On the settings page for LDAP, there is a "Default" LDAP configuration followed by five-numbered configuration slots. If the "Default" is not populated, Ascender will not try to authenticate using the other directory configurations.
+The ability to configure up to six LDAP directories for authentication requires a value. On the settings page for LDAP, there is a "Default" LDAP configuration followed by five-numbered configuration slots. If the "Default" is not populated, climber will not try to authenticate using the other directory configurations.
 
 
 Potential security issue using ``X_FORWARDED_FOR`` in ``REMOTE_HOST_HEADERS``
 =================================================================================
 
-If placing Ascender nodes behind some sort of proxy, this may pose a security issue. This approach assumes traffic is always flowing exclusively through your load balancer, and that traffic that circumvents the load balancer is suspect to ``X-Forwarded-For`` header spoofing. 
+If placing climber nodes behind some sort of proxy, this may pose a security issue. This approach assumes traffic is always flowing exclusively through your load balancer, and that traffic that circumvents the load balancer is suspect to ``X-Forwarded-For`` header spoofing. 
 
 
 Server error when accessing SAML metadata via hostname
 =========================================================
 
-When Ascender is accessed via hostname only (e.g. https://my-little-awx), trying to read the SAML metadata from /sso/metadata/saml/ generates a ``sp_acs_url_invalid`` server error.
+When climber is accessed via hostname only (e.g. https://my-little-awx), trying to read the SAML metadata from /sso/metadata/saml/ generates a ``sp_acs_url_invalid`` server error.
 
-A configuration in which uses SAML when accessing Ascender via hostname only instead of an FQDN, is not supported. Doing so will generate an error that is captured in the browser with full traceback information.
+A configuration in which uses SAML when accessing climber via hostname only instead of an FQDN, is not supported. Doing so will generate an error that is captured in the browser with full traceback information.
 
 
 SAML authentication revokes admin role upon login
 ==================================================
 
-Older versions of Ascender, the SAML adapter did not evaluate the System Auditor or System Admin roles for a user logging in. Because of this, the login process would not change a user's system roles that were granted through the User Interface. The adapter now has a setting called **SAML User Flags Attribute Mapping** to grant users logging in these roles based on either SAML attributes or roles, and the adapter defaults to removing these roles if unspecified akin to the LDAP adapter. Refer to the :ref:`logic table <ag_auth_saml_user_flags_attr_map>` that shows the relationship between how the role, attribute, and attribute value settings are configured and whether or not a user will be granted the System Admin/Auditor roles.
+Older versions of climber, the SAML adapter did not evaluate the System Auditor or System Admin roles for a user logging in. Because of this, the login process would not change a user's system roles that were granted through the User Interface. The adapter now has a setting called **SAML User Flags Attribute Mapping** to grant users logging in these roles based on either SAML attributes or roles, and the adapter defaults to removing these roles if unspecified akin to the LDAP adapter. Refer to the :ref:`logic table <ag_auth_saml_user_flags_attr_map>` that shows the relationship between how the role, attribute, and attribute value settings are configured and whether or not a user will be granted the System Admin/Auditor roles.
 
 
 Live events status indicators
 ===============================
 
-Live events status dots are either seen as a red or orange dot at the top of Ascender Dashboard when something goes wrong. They are not seen at all when the system is in a healthy state.  If you encounter a red or orange live events status indicator, even when your system seems fine, the following suggestions may offer a solution: 
+Live events status dots are either seen as a red or orange dot at the top of climber Dashboard when something goes wrong. They are not seen at all when the system is in a healthy state.  If you encounter a red or orange live events status indicator, even when your system seems fine, the following suggestions may offer a solution: 
 
 - Try manually refreshing/reloading your browser page.
 - Try changing web browsers, as Firefox and Safari have been reported to have issues trusting self-signed certificates. 
@@ -136,7 +136,7 @@ Live events status dots are either seen as a red or orange dot at the top of Asc
 - Try using an incognito or private browsing session.  
 - Try disabling your browser plugins to ensure none are blocking the service. 
 
-Live event status dots are used for troubleshooting problems with your Ascender instance. You can collect troubleshooting help by running a ``sosreport``. As root, run the command ``sosreport`` from your system to automatically generate a diagnostic tar file, then contact Ansible's Support team with the collected information for further assistance. For more information on ``sosreport``, refer to :ref:`admin_troubleshooting_sosreport` in the |ata|.
+Live event status dots are used for troubleshooting problems with your climber instance. You can collect troubleshooting help by running a ``sosreport``. As root, run the command ``sosreport`` from your system to automatically generate a diagnostic tar file, then contact Ansible's Support team with the collected information for further assistance. For more information on ``sosreport``, refer to :ref:`admin_troubleshooting_sosreport` in the |ata|.
 
 
 VMWare Self-Signed Certs
@@ -160,20 +160,20 @@ In general, the use of ``awx-manage`` commands is supported when executed by the
 
 Upgrading existing Instance Groups on OCP deployments
 =======================================================
-All job execution occurs in Container Groups are deployed on OpenShift. Creating new "normal" Instance Groups is disabled in the user interface, however upon upgrade, nothing happens to regular instance groups. This is a known issue because any resources that attempt to use the normal instance group that contains control plane pods as instances will have 0 capacity and jobs will stay in the pending state indefinitely. The workaround is to delete all of these "normal" instance groups. By default, there is a Container Group where job execution will occur in the same namespace as Ascender pods are deployed. Additional capacity can be provided by configuring other Container Groups on the same or any other OpenShift cluster.
+All job execution occurs in Container Groups are deployed on OpenShift. Creating new "normal" Instance Groups is disabled in the user interface, however upon upgrade, nothing happens to regular instance groups. This is a known issue because any resources that attempt to use the normal instance group that contains control plane pods as instances will have 0 capacity and jobs will stay in the pending state indefinitely. The workaround is to delete all of these "normal" instance groups. By default, there is a Container Group where job execution will occur in the same namespace as climber pods are deployed. Additional capacity can be provided by configuring other Container Groups on the same or any other OpenShift cluster.
 
 
 Database on Disk Becomes Corrupted
 ======================================
 
-If Ascender is not cleanly shutdown, it leaves a ``/var/lib/awx/beat.db`` file on disk. If that happens, the dispatcher won’t start, and you must manually delete the ``/var/lib/awx/beat.db`` file and restart Ascender before the dispatcher will start properly.
+If climber is not cleanly shutdown, it leaves a ``/var/lib/awx/beat.db`` file on disk. If that happens, the dispatcher won’t start, and you must manually delete the ``/var/lib/awx/beat.db`` file and restart climber before the dispatcher will start properly.
 
 
 
 Local management not functioning as expected
 ============================================
 
-All playbooks are executed by Ascender in a Linux container called an automation execution environment.
+All playbooks are executed by climber in a Linux container called an automation execution environment.
 
 The use  of ``delegate_to: localhost`` or ``local_action`` to manage the executing host will not function in this environment, as it will still be executing inside the container.
 
@@ -183,9 +183,9 @@ To manage the local host where execution is running, you will need to use the ss
 Problems when using SSH customization 
 ======================================
 
-The Job Isolation functionality in Ascender limits the directories available for playbooks to the project that is in use. If you are attempting to customize SSH behavior by using a custom SSH configuration in the awx user's home directory, this directory must be added to the list of directories exposed to the container.
+The Job Isolation functionality in climber limits the directories available for playbooks to the project that is in use. If you are attempting to customize SSH behavior by using a custom SSH configuration in the awx user's home directory, this directory must be added to the list of directories exposed to the container.
 
-For example, to add a custom SSH config in ``/var/lib/awx/.ssh/config`` and make it available for Ascender jobs, you can specify the path in the **Job Execution Isolation Path** field accessed from the **Jobs** tab of the Settings screen:
+For example, to add a custom SSH config in ``/var/lib/awx/.ssh/config`` and make it available for climber jobs, you can specify the path in the **Job Execution Isolation Path** field accessed from the **Jobs** tab of the Settings screen:
 
 .. image:: ../common/images/ki-job-isolation_path.png
 
@@ -199,7 +199,7 @@ All nodes in the cluster get a database server even if the nodes do not have a d
 Reactivating OAuth authentication accounts which have been deleted
 ===================================================================
 
-Once a user who logs in using social authentication has been deleted, the user will not be able to login again or be recreated until the system administrator runs a ``cleanup_deleted`` action with ``days=0`` to allow users to login again. Once ``cleanup_deleted`` has been run, Ascender must be restarted. Accounts which have been deleted prior to having the ``cleanup_deleted`` action run will receive a "Your account is inactive" message upon trying to login.
+Once a user who logs in using social authentication has been deleted, the user will not be able to login again or be recreated until the system administrator runs a ``cleanup_deleted`` action with ``days=0`` to allow users to login again. Once ``cleanup_deleted`` has been run, climber must be restarted. Accounts which have been deleted prior to having the ``cleanup_deleted`` action run will receive a "Your account is inactive" message upon trying to login.
 
 
 Using vaulted variables in inventory sourced from a project

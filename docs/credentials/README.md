@@ -1,1 +1,1 @@
-This folder contains documentation related to credentials in Ascender.
+This folder contains documentation related to credentials in climber.

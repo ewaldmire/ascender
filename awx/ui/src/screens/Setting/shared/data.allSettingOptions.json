@@ -871,7 +871,7 @@
               "category_slug": "ui",
               "default": ""
           },
-          "ASCENDER_DISABLE_GRADIENT": {
+          "climber_DISABLE_GRADIENT": {
               "type": "boolean",
               "required": true,
               "label": "Disable Menu Gradient",
@@ -5164,7 +5164,7 @@
               "category_slug": "ui",
               "defined_in_file": false
           },
-          "ASCENDER_DISABLE_GRADIENT": {
+          "climber_DISABLE_GRADIENT": {
               "type": "boolean",
               "required": true,
               "label": "Disable Menu Gradient",

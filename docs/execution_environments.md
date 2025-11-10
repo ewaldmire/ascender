@@ -27,7 +27,7 @@ the system with some EEs defined in settings. This will create:
  - the control plane EE - corresponding to the `CONTROL_PLANE_EXECUTION_ENVIRONMENT` setting
  - global job EEs - all images enumerated in the `GLOBAL_JOB_EXECUTION_ENVIRONMENTS` setting
 
-These EEs are critical for system function, so this command must be ran for Ascender to be functional.
+These EEs are critical for system function, so this command must be ran for climber to be functional.
 All EEs created by this command are global EEs.
 
 ### Project Update EE Precedence

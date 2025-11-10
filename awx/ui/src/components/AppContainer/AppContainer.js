@@ -52,16 +52,16 @@ function AppContainer({ navRouteConfig = [], children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config.analytics_status]);
 
-  // Dynamically load ascender.css based on ASCENDER_DISABLE_GRADIENT UI setting from config
+  // Dynamically load climber.css based on climber_DISABLE_GRADIENT UI setting from config
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     if (
       config &&
-      typeof config.uiConfig?.ASCENDER_DISABLE_GRADIENT !== 'undefined' &&
-      !config.uiConfig.ASCENDER_DISABLE_GRADIENT
+      typeof config.uiConfig?.climber_DISABLE_GRADIENT !== 'undefined' &&
+      !config.uiConfig.climber_DISABLE_GRADIENT
     ) {
-      link.href = '/static/css/ascender_gradient.css';
+      link.href = '/static/css/climber_gradient.css';
     }
     document.head.appendChild(link);
   }, [config]);

@@ -14,7 +14,7 @@ class MigrationsNotran(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product_name = 'Ascender'
+        product_name = 'climber'
         context['title'] = _('%s Upgrading' % product_name)
         context['image_alt'] = _('Logo')
         context['aria_spinner'] = _('Loading')

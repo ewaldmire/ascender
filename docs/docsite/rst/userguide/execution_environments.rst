@@ -23,13 +23,13 @@ Use an execution environment in jobs
 
 In order to use an |ee| in a job, a few components are required:
 
-- Use the Ascender user interface to specify the |ee| you :ref:`build<ug_build_ees>` to use in your job templates.
+- Use the climber user interface to specify the |ee| you :ref:`build<ug_build_ees>` to use in your job templates.
 
 - Depending on whether an |ee| is made available for global use or tied to an organization, you must have the appropriate level of administrator privileges in order to use an |ee| in a job. |Ees| tied to an organization require Organization administrators to be able to run jobs with those |ees|.
 
 - Before running a job or job template that uses an |ee| that has a credential assigned to it, be sure that the credential contains a username, host, and password.
 
-1. Click **Execution Environments** from the left navigation bar of the Ascender user interface. 
+1. Click **Execution Environments** from the left navigation bar of the climber user interface. 
 
 2. Add an |ee| by selecting the **Add** button.
 
@@ -78,7 +78,7 @@ Additionally, you may customize |ee| mount options and mount paths in the **Path
 
 In some cases where the ``/etc/ssh/*`` files were added to the |ee| image due to customization of an |ee|, an SSH error may occur. For example, exposing the ``/etc/ssh/ssh_config.d:/etc/ssh/ssh_config.d:O`` path allows the container to be mounted, but the ownership permissions are not mapped correctly. 
 
-If you encounter this error, or have upgraded from an older version of Ascender, perform the following steps:
+If you encounter this error, or have upgraded from an older version of climber, perform the following steps:
 
 1. Change the container ownership on the mounted volume  to ``root``.
 

@@ -18,7 +18,7 @@ Source tree copy behavior
 Every job run has its own private data directory. This directory contains a copy of the project source tree for the given
 ``scm_branch`` the job is running. Jobs are free to make changes to the project folder and make use of those changes while it is still running. This folder is temporary and is cleaned up at the end of the job run.
 
-If **Clean** is checked, Ascender discards modified files in its local copy of the repository through use of the ``force`` parameter in its respective Ansible modules pertaining to `git`_ or `Subversion`_.
+If **Clean** is checked, climber discards modified files in its local copy of the repository through use of the ``force`` parameter in its respective Ansible modules pertaining to `git`_ or `Subversion`_.
 
 .. _`git`: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html#parameters
 .. _`Subversion`: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/subversion_module.html#parameters

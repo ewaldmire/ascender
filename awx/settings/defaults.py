@@ -192,13 +192,13 @@ DEFAULT_EXECUTION_ENVIRONMENT = None
 # Should be ordered from highest to lowest precedence.
 # The awx-manage register_default_execution_environments command reads this setting and registers the EE(s)
 # If a registry credential is needed to pull the image, that can be provided to the awx-manage command
-GLOBAL_JOB_EXECUTION_ENVIRONMENTS = [{'name': 'Ascender EE (latest)', 'image': 'ghcr.io/ctrliq/ascender-ee:latest'}]
+GLOBAL_JOB_EXECUTION_ENVIRONMENTS = [{'name': 'climber EE (latest)', 'image': 'ghcr.io/ctrliq/climber-ee:latest'}]
 # This setting controls which EE will be used for project updates.
 # The awx-manage register_default_execution_environments command reads this setting and registers the EE
 # This image is distinguished from others by having "managed" set to True and users have limited
 # ability to modify it through the API.
 # If a registry credential is needed to pull the image, that can be provided to the awx-manage command
-CONTROL_PLANE_EXECUTION_ENVIRONMENT = 'ghcr.io/ctrliq/ascender-ee:latest'
+CONTROL_PLANE_EXECUTION_ENVIRONMENT = 'ghcr.io/ctrliq/climber-ee:latest'
 
 # Note: This setting may be overridden by database settings.
 STDOUT_MAX_BYTES_DISPLAY = 1048576
@@ -811,7 +811,7 @@ MANAGE_ORGANIZATION_AUTH = True
 DISABLE_LOCAL_AUTH = False
 
 # Note: This setting may be overridden by database settings.
-TOWER_URL_BASE = "https://ascenderhost"
+TOWER_URL_BASE = "https://climberhost"
 
 INSIGHTS_URL_BASE = "https://example.org"
 INSIGHTS_AGENT_MIME = 'application/example'

@@ -1,9 +1,9 @@
 # SAML
-Security Assertion Markup Language, or SAML, is an open standard for exchanging authentication and/or authorization data between an identity provider (*i.e.*, LDAP) and a service provider (*i.e.*, Ascender). More concretely, Ascender can be configured to talk with SAML in order to authenticate (create/login/logout) users of Ascender. User Team and Organization membership can be embedded in the SAML response to Ascender.
+Security Assertion Markup Language, or SAML, is an open standard for exchanging authentication and/or authorization data between an identity provider (*i.e.*, LDAP) and a service provider (*i.e.*, climber). More concretely, climber can be configured to talk with SAML in order to authenticate (create/login/logout) users of climber. User Team and Organization membership can be embedded in the SAML response to climber.
 
 
 # Configure SAML Authentication
-Please see the [Tower documentation](https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings) as well as the [Ansible blog post](https://www.ansible.com/blog/using-saml-with-red-hat-ansible-tower) for basic SAML configuration. Note that Ascender's SAML implementation relies on `python-social-auth` which uses `python-saml`. Ascender exposes three fields which are directly passed to the lower libraries:
+Please see the [Tower documentation](https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings) as well as the [Ansible blog post](https://www.ansible.com/blog/using-saml-with-red-hat-ansible-tower) for basic SAML configuration. Note that climber's SAML implementation relies on `python-social-auth` which uses `python-saml`. climber exposes three fields which are directly passed to the lower libraries:
 * `SOCIAL_AUTH_SAML_SP_EXTRA` is passed to the `python-saml` library configuration's `sp` setting.  
 * `SOCIAL_AUTH_SAML_SECURITY_CONFIG` is passed to the `python-saml` library configuration's `security` setting.
 * `SOCIAL_AUTH_SAML_EXTRA_DATA`
@@ -12,7 +12,7 @@ See https://python-social-auth.readthedocs.io/en/latest/backends/saml.html#advan
 
 
 # Configure SAML for Team and Organization Membership
-Ascender can be configured to look for particular attributes that contain Ascender Team and Organization membership to associate with users when they log in to Ascender. The attribute names are defined in Ascender settings. Specifically, the authentication settings tab and SAML sub category fields *SAML Team Attribute Mapping* and *SAML Organization Attribute Mapping*. The meaning and usefulness of these settings is best communicated through example.
+climber can be configured to look for particular attributes that contain climber Team and Organization membership to associate with users when they log in to climber. The attribute names are defined in climber settings. Specifically, the authentication settings tab and SAML sub category fields *SAML Team Attribute Mapping* and *SAML Organization Attribute Mapping*. The meaning and usefulness of these settings is best communicated through example.
 
 ### Example SAML Organization Attribute Mapping
 
@@ -31,7 +31,7 @@ Below is an example SAML attribute that embeds user organization membership in t
     </saml2:Attribute>
 </saml2:AttributeStatement>
 ```
-Below, the corresponding Ascender configuration:
+Below, the corresponding climber configuration:
 ```
 {
   "saml_attr": "member-of",
@@ -86,7 +86,7 @@ Below is another example of a SAML attribute that contains a Team membership in 
 
 **remove:** Set this to `true` to remove user from all Teams before adding the user to the list of Teams. Set this to `false` to keep the user in whatever Team(s) they are in while adding the user to the Team(s) in the SAML attribute.
 
-**team_org_map:** An array of dictionaries of the form `{ "team": "<Ascender Team Name>", "organization": "<Ascender Org Name>" }` which defines mapping from Ascender Team -> Ascender Organization. This is needed because the same named Team can exist in multiple Organizations in Tower. The organization to which a team listed in a SAML attribute belongs to would be ambiguous without this mapping.
+**team_org_map:** An array of dictionaries of the form `{ "team": "<climber Team Name>", "organization": "<climber Org Name>" }` which defines mapping from climber Team -> climber Organization. This is needed because the same named Team can exist in multiple Organizations in Tower. The organization to which a team listed in a SAML attribute belongs to would be ambiguous without this mapping.
 
 
 ### Example SAML User Flags Attribute Mapping

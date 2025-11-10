@@ -36,7 +36,7 @@ register(
 )
 
 register(
-    'ASCENDER_DISABLE_GRADIENT',
+    'climber_DISABLE_GRADIENT',
     field_class=fields.BooleanField,
     default=False,
     label=_('Disable Menu Gradient'),

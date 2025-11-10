@@ -1,6 +1,6 @@
-# Ascender Clustering Overview
+# climber Clustering Overview
 
-Ascender supports multi-node configurations. Here is an example configuration with two control plane nodes.
+climber supports multi-node configurations. Here is an example configuration with two control plane nodes.
 
 ```
        ┌───────────────────────────┐
@@ -10,7 +10,7 @@ Ascender supports multi-node configurations. Here is an example configuration wi
            │   round robin API │
            ▼       requests    ▼
 
-  Ascender Control               Ascender Control
+  climber Control               climber Control
     Node 1                    Node 2
 ┌──────────────┐           ┌──────────────┐
 │              │           │              │
@@ -33,7 +33,7 @@ Ascender supports multi-node configurations. Here is an example configuration wi
                └───────────┘
 ```
 
-There are two main deployment types, virtual machines (VM) or K8S. Ansible Automation Platform (AAP) can be installed via VM or K8S deployments. The upstream Ascender project can only be installed via a K8S deployment. Either deployment type supports cluster scaling.
+There are two main deployment types, virtual machines (VM) or K8S. Ansible Automation Platform (AAP) can be installed via VM or K8S deployments. The upstream climber project can only be installed via a K8S deployment. Either deployment type supports cluster scaling.
 - Control plane nodes run a number of background services that are managed by supervisord
   - dispatcher
   - wsbroadcast
@@ -51,12 +51,12 @@ There are two main deployment types, virtual machines (VM) or K8S. Ansible Autom
 - Each control node is monolithic and contains all the necessary components for handling API requests and running jobs.
 - A load balancer in front of the cluster can handle incoming web requests and send them control nodes based on load balancing rules (e.g. round robin)
 - All control nodes on the cluster interact single, shared Postgres database
-- Ascender is configured in such a way that if any of these services or their components fail, then all services are restarted. If these fail sufficiently (often in a short span of time), then the entire instance will be placed offline in an automated fashion in order to allow remediation without causing unexpected behavior.
+- climber is configured in such a way that if any of these services or their components fail, then all services are restarted. If these fail sufficiently (often in a short span of time), then the entire instance will be placed offline in an automated fashion in order to allow remediation without causing unexpected behavior.
 
 ## Scaling the cluster
 
 For AAP deployments, scaling up involves modifying `inventory`and re-running setup.sh
-For K8s deployments, scaling up is handled by changing the number of replicas in the Ascender replica set.
+For K8s deployments, scaling up is handled by changing the number of replicas in the climber replica set.
 
 After scaling up, the new control plane node is registered in the database as a new `Instance`.
 
@@ -115,7 +115,7 @@ Each control node establishes a websocket connection to each other control node.
              (job event)
 ```
 
-The Ascender UI will open websocket connections to the server to stream certain data in real time. For example, the job events on the Job Detail Page is streaming over a websocket connection and rendered in real time. The browser has no way of choosing which control node it connects to, instead the connection is handled by the load balancer, the same way http API requests are handled.
+The climber UI will open websocket connections to the server to stream certain data in real time. For example, the job events on the Job Detail Page is streaming over a websocket connection and rendered in real time. The browser has no way of choosing which control node it connects to, instead the connection is handled by the load balancer, the same way http API requests are handled.
 
 Therefore, we could have a situation where the browser is connected control node A, but is requesting job events that are emitted from control node B. As such, control node B will send job events over a separate, persistent websocket connection to control node A. Once control node A has received that message, it can then propagate it to the browser.
 
@@ -126,10 +126,10 @@ The websocket backplane is handled by the wsbroadcast service that is part of th
 
 ### Postgres
 
-Ascender is a Django application and uses the psycopg3 library to establish connections to the Postgres database.
+climber is a Django application and uses the psycopg3 library to establish connections to the Postgres database.
 Only control nodes need direct access to the database.
 
-Importantly Ascender relies on the Postgres notify system for inter-process communication. The dispatcher system spawns separate processes/threads that run in parallel. For example, it runs the task manager periodically, and the task manager needs to be able to communicate with the main dispatcher thread. It does this via `pg_notify`.
+Importantly climber relies on the Postgres notify system for inter-process communication. The dispatcher system spawns separate processes/threads that run in parallel. For example, it runs the task manager periodically, and the task manager needs to be able to communicate with the main dispatcher thread. It does this via `pg_notify`.
 
 ## Node health
 
@@ -178,12 +178,12 @@ An `Instance` that is added to an `InstanceGroup` will automatically reconfigure
 
 ### Instance Group Policies
 
-Ascender `Instances` can be configured to automatically join `Instance Groups` when they come online by defining a policy. These policies are evaluated for
+climber `Instances` can be configured to automatically join `Instance Groups` when they come online by defining a policy. These policies are evaluated for
 every new Instance that comes online.
 
 Instance Group Policies are controlled by three optional fields on an `Instance Group`:
 
-- `policy_instance_percentage`: This is a number between 0 - 100. It guarantees that this percentage of active Ascender instances will be added to this `Instance Group`. As new instances come online, if the number of Instances in this group relative to the total number of instances is fewer than the given percentage, then new ones will be added until the percentage condition is satisfied.
+- `policy_instance_percentage`: This is a number between 0 - 100. It guarantees that this percentage of active climber instances will be added to this `Instance Group`. As new instances come online, if the number of Instances in this group relative to the total number of instances is fewer than the given percentage, then new ones will be added until the percentage condition is satisfied.
 - `policy_instance_minimum`: This policy attempts to keep at least this many `Instances` in the `Instance Group`. If the number of available instances is lower than this minimum, then all `Instances` will be placed in this `Instance Group`.
 - `policy_instance_list`: This is a fixed list of `Instance` names to always include in this `Instance Group`.
 
@@ -218,7 +218,7 @@ HTTP PATCH /api/v2/instances/X/
 
 ### Status and Monitoring
 
-Ascender itself reports as much status as it can via the API at `/api/v2/ping` in order to provide validation of the health of the cluster. This includes:
+climber itself reports as much status as it can via the API at `/api/v2/ping` in order to provide validation of the health of the cluster. This includes:
 
 - The instance servicing the HTTP request.
 - The last heartbeat time of all other instances in the cluster.
@@ -229,13 +229,13 @@ information can be seen at `/api/v2/instances/` and `/api/v2/instance_groups`.
 
 ### Job Runtime Behavior
 
-Ideally a regular user of Ascender should not notice any semantic difference to the way jobs are run and reported. Behind the scenes it is worth pointing out the differences in how the system behaves.
+Ideally a regular user of climber should not notice any semantic difference to the way jobs are run and reported. Behind the scenes it is worth pointing out the differences in how the system behaves.
 
-When a job is submitted from the API interface, it gets pushed into the dispatcher queue via postgres notify/listen (https://www.postgresql.org/docs/10/sql-notify.html), and the task is handled by the dispatcher process running on that specific Ascender node.  If an instance fails while executing jobs, then the work is marked as permanently failed.
+When a job is submitted from the API interface, it gets pushed into the dispatcher queue via postgres notify/listen (https://www.postgresql.org/docs/10/sql-notify.html), and the task is handled by the dispatcher process running on that specific climber node.  If an instance fails while executing jobs, then the work is marked as permanently failed.
 
 If a cluster is divided into separate Instance Groups, then the behavior is similar to the cluster as a whole. If two instances are assigned to a group then either one is just as likely to receive a job as any other in the same group.
 
-As Ascender instances are brought online, it effectively expands the work capacity of the Ascender system. If those instances are also placed into Instance Groups, then they also expand that group's capacity. If an instance is performing work and it is a member of multiple groups, then capacity will be reduced from all groups for which it is a member. De-provisioning an instance will remove capacity from the cluster wherever that instance was assigned.
+As climber instances are brought online, it effectively expands the work capacity of the climber system. If those instances are also placed into Instance Groups, then they also expand that group's capacity. If an instance is performing work and it is a member of multiple groups, then capacity will be reduced from all groups for which it is a member. De-provisioning an instance will remove capacity from the cluster wherever that instance was assigned.
 
 It's important to note that not all instances are required to be provisioned with an equal capacity.
 

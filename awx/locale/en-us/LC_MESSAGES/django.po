@@ -4149,16 +4149,16 @@ msgstr ""
 
 #: awx/main/models/credential/__init__.py:956
 #: awx/main/models/credential/__init__.py:962
-msgid "CIQ Ascender Automation Platform"
+msgid "CIQ climber Automation Platform"
 msgstr ""
 
 #: awx/main/models/credential/__init__.py:964
-msgid "CIQ Ascender Automation Platform base URL to authenticate with."
+msgid "CIQ climber Automation Platform base URL to authenticate with."
 msgstr ""
 
 #: awx/main/models/credential/__init__.py:971
 msgid ""
-"CIQ Ascender Automation Platform username id to authenticate as.This should "
+"CIQ climber Automation Platform username id to authenticate as.This should "
 "not be set if an OAuth token is being used."
 msgstr ""
 
@@ -7192,7 +7192,7 @@ msgid "AWX"
 msgstr ""
 
 #: awx/templates/rest_framework/api.html:4
-msgid "ASCENDER REST API"
+msgid "climber REST API"
 msgstr ""
 
 #: awx/templates/rest_framework/api.html:42

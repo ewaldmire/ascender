@@ -11,7 +11,7 @@ The User Interface offers a friendly graphical framework for your IT orchestrati
 
 .. note::
 
-  The new Ascender User Interface is available for tech preview and is subject to change in a future release. To preview the new UI, click the **Enable Preview of New User Interface** toggle to **On** from the Miscellaneous System option of the Settings menu. 
+  The new climber User Interface is available for tech preview and is subject to change in a future release. To preview the new UI, click the **Enable Preview of New User Interface** toggle to **On** from the Miscellaneous System option of the Settings menu. 
 
   .. image:: ../common/images/configure-awx-system-misc-preview-newui.png
      :alt: Enabling preview of new user interface in the Miscellaneous System option of the Settings menu.
@@ -78,7 +78,7 @@ The **Recent Templates** section of this display shows a summary of the most rec
 
 .. note::
 
-    Clicking on **Dashboard** from the left navigation bar or the Ascender logo at any time returns you to the Dashboard. 
+    Clicking on **Dashboard** from the left navigation bar or the climber logo at any time returns you to the Dashboard. 
 
 
 Jobs view
@@ -146,7 +146,7 @@ Access this view to see your workflow approval queue. The list contains actions 
 Resources and Access
 ---------------------
 
-The **Resources** and **Access** menus provide you access to the various components of Ascender and allow you to configure who has permissions for those resources:
+The **Resources** and **Access** menus provide you access to the various components of climber and allow you to configure who has permissions for those resources:
 
 - Templates (:ref:`ug_JobTemplates` and :ref:`ug_wf_templates`)
 - :ref:`ug_credentials`

@@ -13,18 +13,18 @@ This chapter describes the numerous enterprise authentication methods, the best 
 .. contents::
     :local:
 
-Ascender is designed for organizations to centralize and control their automation with a visual dashboard for out-of-the box control while providing a REST API to integrate with your other tooling on a deeper level. Ascender supports a number of authentication methods to make it easy to embed Ascender into existing tools and processes to help ensure the right people can access Ascender resources. 
+climber is designed for organizations to centralize and control their automation with a visual dashboard for out-of-the box control while providing a REST API to integrate with your other tooling on a deeper level. climber supports a number of authentication methods to make it easy to embed climber into existing tools and processes to help ensure the right people can access climber resources. 
 
 .. _api_session_auth:
 
 Session Authentication
 -----------------------
 
-Session authentication is used when logging in directly to Ascender’s API or UI to manually create resources (inventory, project, job template) and launch jobs in the browser. With this method, you can remain logged in for a prolonged period of time, not just for that HTTP request, but for instance, when browsing the UI or API in a browser like Chrome or Firefox. When a user logs in, a session cookie is created, which enables the user to remain logged in when navigating to different pages within Ascender. Below represents the communication that occurs between the client and server in a session.
+Session authentication is used when logging in directly to climber’s API or UI to manually create resources (inventory, project, job template) and launch jobs in the browser. With this method, you can remain logged in for a prolonged period of time, not just for that HTTP request, but for instance, when browsing the UI or API in a browser like Chrome or Firefox. When a user logs in, a session cookie is created, which enables the user to remain logged in when navigating to different pages within climber. Below represents the communication that occurs between the client and server in a session.
 
 .. image:: ../common/images/session-auth-architecture.png
 
-Using the curl tool, you can see the activity that occurs when you log into Ascender.
+Using the curl tool, you can see the activity that occurs when you log into climber.
 
 1. GET to the ``/api/login/`` endpoint to grab the ``csrftoken`` cookie.
 
@@ -46,7 +46,7 @@ Using the curl tool, you can see the activity that occurs when you log into Asce
   	--cookie 'csrftoken=K580zVVm0rWX8pmNylz5ygTPamgUJxifrdJY0UDtMMoOis5Q1UOxRmV9918BUBIN' \
   	https://<awx-host>/api/login/ -k -D - -o /dev/null
 
-All of this is done by the Ascender when you log in to the UI or API in the browser, and should only be used when authenticating in the browser. For programmatic integration with Ascender, see :ref:`api_oauth2_auth`.
+All of this is done by the climber when you log in to the UI or API in the browser, and should only be used when authenticating in the browser. For programmatic integration with climber, see :ref:`api_oauth2_auth`.
 
 A typical response might look like:
 
@@ -96,7 +96,7 @@ For more information about the Basic HTTP Authentication scheme, see `RFC 7617 <
 
 .. note::
 
-	You can disable the Basic Auth for security purposes from the Miscellaneous Authentication settings of the Ascender UI Settings menu:
+	You can disable the Basic Auth for security purposes from the Miscellaneous Authentication settings of the climber UI Settings menu:
 
 	.. image:: ../common/images/configure-awx-auth-basic-off.png
 
@@ -105,15 +105,15 @@ For more information about the Basic HTTP Authentication scheme, see `RFC 7617 <
 OAuth 2 Token Authentication
 -----------------------------
 
-OAuth (Open Authorization) is an open standard for token-based authentication and authorization. OAuth 2 authentication is commonly used when interacting with the Ascender API programmatically. Like Basic Auth, an OAuth 2 token is supplied with each API request via the Authorization header. Unlike Basic Auth, OAuth 2 tokens have a configurable timeout and are scopable. Tokens have a configurable expiration time and can be easily revoked for one user or for the entire Ascender system by an admin if needed. This can be done with the :ref:`ag_manage_utility_revoke_tokens` management command, which is covered in more detail in |ata| or by using the API as explained in :ref:`ag_oauth2_token_revoke`.
+OAuth (Open Authorization) is an open standard for token-based authentication and authorization. OAuth 2 authentication is commonly used when interacting with the climber API programmatically. Like Basic Auth, an OAuth 2 token is supplied with each API request via the Authorization header. Unlike Basic Auth, OAuth 2 tokens have a configurable timeout and are scopable. Tokens have a configurable expiration time and can be easily revoked for one user or for the entire climber system by an admin if needed. This can be done with the :ref:`ag_manage_utility_revoke_tokens` management command, which is covered in more detail in |ata| or by using the API as explained in :ref:`ag_oauth2_token_revoke`.
 
 .. note::
 
-	By default, external users such as those created by SSO are not allowed to generate OAuth tokens for security purposes. This can be changed from the Miscellaneous Authentication settings of the Ascender UI Settings menu:
+	By default, external users such as those created by SSO are not allowed to generate OAuth tokens for security purposes. This can be changed from the Miscellaneous Authentication settings of the climber UI Settings menu:
 
 	.. image:: ../common/images/configure-awx-external-tokens-off.png 
 
-The different methods for obtaining OAuth 2 Access Tokens in Ascender are:
+The different methods for obtaining OAuth 2 Access Tokens in climber are:
 
 - Personal access tokens (PAT)
 - Application Token: Password grant type
@@ -129,7 +129,7 @@ First, a user needs to create an OAuth 2 Access Token in the API or in their Use
 
 	The expiration time of the token can be configured system-wide. See :ref:`ag_use_oauth_pat` for more detail.
 
-Token authentication is best used for any programmatic use of the Ascender API, such as Python scripts or tools like curl, as in the example for creating a PAT (without an associated application) below.
+Token authentication is best used for any programmatic use of the climber API, such as Python scripts or tools like curl, as in the example for creating a PAT (without an associated application) below.
 
 **Curl Example**
 
@@ -142,7 +142,7 @@ This call will return JSON data like:
 
 .. image:: ../common/images/api_oauth2_json_returned_token_value.png
 
-The value of the ``token`` property is what you can now use to perform a GET request for an Ascender resource, e.g., Hosts.
+The value of the ``token`` property is what you can now use to perform a GET request for an climber resource, e.g., Hosts.
 
 .. code-block:: text
 
@@ -164,17 +164,17 @@ Similarly, you can launch a job by making a POST to the job template that you wa
 
 **Python Example**
 
-`awxkit <https://pypi.org/project/awxkit/>`_ is an open source tool that makes it easy to use HTTP requests to access the Ascender API. 
+`awxkit <https://pypi.org/project/awxkit/>`_ is an open source tool that makes it easy to use HTTP requests to access the climber API. 
 You can have awxkit acquire a PAT on your behalf by using the ``awxkit login`` command. Refer to the :ref:`api_start` for more detail.
 
-For more information on how to use OAuth 2 in Ascender in the context of integrating external applications, see :ref:`ag_oauth2_token_auth` in the |ata|. 
+For more information on how to use OAuth 2 in climber in the context of integrating external applications, see :ref:`ag_oauth2_token_auth` in the |ata|. 
 
 If you need to write custom requests, you can write a Python script using `Python library requests <https://pypi.org/project/requests/>`_, like in this example:
 
 .. code-block:: text
 
 	import requests
-	oauth2_token_value = 'y1Q8ye4hPvT61aQq63Da6N1C25jiA'   # your token value from Ascender
+	oauth2_token_value = 'y1Q8ye4hPvT61aQq63Da6N1C25jiA'   # your token value from climber
 	url = 'https://<awx-host>/api/v2/users/'
 	payload = {}
 	headers = {'Authorization': 'Bearer ' + oauth2_token_value,}
@@ -192,9 +192,9 @@ If you need to write custom requests, you can write a Python script using `Pytho
 SSO Authentication
 -------------------
 
-Single sign-on (SSO) authentication methods are fundamentally different from other methods because the authentication of the user happens external to Ascender, like Google SSO, Azure SSO, SAML, or GitHub. For example, with GitHub SSO, GitHub is the single source of truth, which verifies your identity based on the username and password you gave Ascender.
+Single sign-on (SSO) authentication methods are fundamentally different from other methods because the authentication of the user happens external to climber, like Google SSO, Azure SSO, SAML, or GitHub. For example, with GitHub SSO, GitHub is the single source of truth, which verifies your identity based on the username and password you gave climber.
 
-You can configure SSO authentication using Ascender inside a large organization with a central Identity Provider. Once you have configured an SSO method in Ascender, a button for that SSO will be present on the login screen. If you click that button, it will redirect you to the Identity Provider, in this case GitHub, where you will present your credentials. If the Identity Provider verifies you successfully, then Ascender will make a user linked to your GitHub user (if this is your first time logging in via this SSO method), and log you in.
+You can configure SSO authentication using climber inside a large organization with a central Identity Provider. Once you have configured an SSO method in climber, a button for that SSO will be present on the login screen. If you click that button, it will redirect you to the Identity Provider, in this case GitHub, where you will present your credentials. If the Identity Provider verifies you successfully, then climber will make a user linked to your GitHub user (if this is your first time logging in via this SSO method), and log you in.
 
 For the various types of supported SSO authentication methods, see :ref:`ag_social_auth` and :ref:`ag_ent_auth` in the |ata|.
 

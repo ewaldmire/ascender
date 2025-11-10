@@ -1,12 +1,12 @@
 .. _contributor_guide:
 
 =======================
-Ascender Contributor's Guide
+climber Contributor's Guide
 =======================
 
-Want to get involved with the Ascender community?
+Want to get involved with the climber community?
 Great!
-There are so many ways you can contribute to Ascender.
+There are so many ways you can contribute to climber.
 
 **Join us online**
 

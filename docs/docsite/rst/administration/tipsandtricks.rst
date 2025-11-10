@@ -1,7 +1,7 @@
 .. _tips_and_tricks:
 
 ************************
-Ascender Tips and Tricks
+climber Tips and Tricks
 ************************
 
 .. index:: 
@@ -12,22 +12,22 @@ Ascender Tips and Tricks
 .. contents::
     :local:
 
-Using the Ascender CLI Tool
+Using the climber CLI Tool
 ==============================
 
 .. index::
-    pair: Ascender CLI; command line interface
-    pair: tips; Ascender CLI
+    pair: climber CLI; command line interface
+    pair: tips; climber CLI
     pair: tips; command line interface
 
-Ascender has a full-featured command line interface. Refer to `Ascender Command Line Interface`_  documentation for configuration and usage instructions.
+climber has a full-featured command line interface. Refer to `climber Command Line Interface`_  documentation for configuration and usage instructions.
 
-  .. _`Ascender Command Line Interface`: https://docs.ansible.com/automation-controller/latest/html/controllercli/usage.html
+  .. _`climber Command Line Interface`: https://docs.ansible.com/automation-controller/latest/html/controllercli/usage.html
 
 
 .. _tips_change_password:
 
-Changing the Ascender Admin Password
+Changing the climber Admin Password
 =======================================
 
 .. index::
@@ -36,7 +36,7 @@ Changing the Ascender Admin Password
     pair: awx-manage; change password
 
 
-During the installation process, you are prompted to enter an administrator password which is used for the ``admin`` superuser/first user created in Ascender. If you log into the instance via SSH, it will tell you the default admin password in the prompt. If you need to change this password at any point, run the following command as root on the Ascender server:
+During the installation process, you are prompted to enter an administrator password which is used for the ``admin`` superuser/first user created in climber. If you log into the instance via SSH, it will tell you the default admin password in the prompt. If you need to change this password at any point, run the following command as root on the climber server:
 
 ::
 
@@ -48,7 +48,7 @@ Next, enter a new password. After that, the password you have entered will work 
 To set policies at creation time for password validation using Django, see :ref:`ag_security_django_password` for detail.
 
 
-Creating an Ascender Admin from the commandline 
+Creating an climber Admin from the commandline 
 ==================================================
 
 .. index::
@@ -56,14 +56,14 @@ Creating an Ascender Admin from the commandline
     pair: super user creation; awx-manage
     pair: tips; admin creation
 
-Once in a while you may find it helpful to create an admin (superuser) account from the commandline. To create an admin, run the following command as root on the Ascender server and enter in the admin information as prompted:
+Once in a while you may find it helpful to create an admin (superuser) account from the commandline. To create an admin, run the following command as root on the climber server and enter in the admin information as prompted:
 
 ::
 
     awx-manage createsuperuser
 
 
-Setting up a jump host to use with Ascender
+Setting up a jump host to use with climber
 ========================================
 
 .. index::
@@ -72,9 +72,9 @@ Setting up a jump host to use with Ascender
     pair: tips; ProxyCommand
 
 
-Credentials supplied by Ascender will not flow to the jump host via ProxyCommand. They are only used for the end-node once the tunneled connection is set up. 
+Credentials supplied by climber will not flow to the jump host via ProxyCommand. They are only used for the end-node once the tunneled connection is set up. 
 
-To make this work, configure a fixed user/keyfile in the Ascender user's SSH config in the ProxyCommand definition that sets up the connection through the jump host. For example:
+To make this work, configure a fixed user/keyfile in the climber user's SSH config in the ProxyCommand definition that sets up the connection through the jump host. For example:
 
 ::
 
@@ -85,7 +85,7 @@ To make this work, configure a fixed user/keyfile in the Ascender user's SSH con
   Host 10.100..
   Proxycommand ssh -W [jumphostuser]@%h:%p tampa
 
-You can also add a jump host to your Ascender instance through Inventory variables. These variables can be set at either the inventory, group, or host level. To add this, navigate to your inventory and in the ``variables`` field of whichever level you choose, add the following variables:
+You can also add a jump host to your climber instance through Inventory variables. These variables can be set at either the inventory, group, or host level. To add this, navigate to your inventory and in the ``variables`` field of whichever level you choose, add the following variables:
 
 ::
   
@@ -94,13 +94,13 @@ You can also add a jump host to your Ascender instance through Inventory variabl
   ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q <user_name>@<jump_server_name>"'
 
 
-View Ansible outputs for JSON commands when using Ascender
+View Ansible outputs for JSON commands when using climber
 ==================================================================
 .. index::
    single: Ansible output for JSON commands
    single: JSON commands, Ansible output
 
-When working with Ascender, you can use the API to obtain the Ansible outputs for commands in JSON format.
+When working with climber, you can use the API to obtain the Ansible outputs for commands in JSON format.
 
 To view the Ansible outputs, browse to:
 
@@ -118,7 +118,7 @@ Locate and configure the Ansible configuration file
    single: ansible.cfg
    pair: tips; ansible.cfg
 
-While Ansible does not require a configuration file, OS packages often include a default one in ``/etc/ansible/ansible.cfg`` for possible customization. In order to use a custom ``ansible.cfg`` file, place it at the root of your project. Ascender runs ``ansible-playbook`` from the root of the project directory, where it will then find the custom ``ansible.cfg`` file. An ``ansible.cfg`` anywhere else in the project will be ignored.
+While Ansible does not require a configuration file, OS packages often include a default one in ``/etc/ansible/ansible.cfg`` for possible customization. In order to use a custom ``ansible.cfg`` file, place it at the root of your project. climber runs ``ansible-playbook`` from the root of the project directory, where it will then find the custom ``ansible.cfg`` file. An ``ansible.cfg`` anywhere else in the project will be ignored.
 
 To learn which values you can use in this file, refer to the `configuration file on github`_.
 
@@ -126,7 +126,7 @@ To learn which values you can use in this file, refer to the `configuration file
 
 Using the defaults are acceptable for starting out, but know that you can configure the default module path or connection type here, as well as other things.
 
-Ascender overrides some ansible.cfg options. For example, Ascender stores the SSH ControlMaster sockets, the SSH agent socket, and any other per-job run items in a per-job temporary directory that is passed to the container used for job execution.
+climber overrides some ansible.cfg options. For example, climber stores the SSH ControlMaster sockets, the SSH agent socket, and any other per-job run items in a per-job temporary directory that is passed to the container used for job execution.
 
 
 View a listing of all ansible\_ variables
@@ -150,7 +150,7 @@ The ALLOW_JINJA_IN_EXTRA_VARS variable
 
 Setting ``ALLOW_JINJA_IN_EXTRA_VARS = template`` only works for saved job template extra variables. Prompted variables and survey variables are excluded from the 'template'. This parameter has three values: ``template`` to allow usage of Jinja saved directly on a job template definition (the default), ``never`` to disable all Jinja usage (recommended), and ``always`` to always allow Jinja (strongly discouraged, but an option for prior compatibility). 
 
-This parameter is configurable in the Jobs Settings screen of the Ascender UI:
+This parameter is configurable in the Jobs Settings screen of the climber UI:
 
 .. image:: ../common/images/settings-jobs-jinja.png
 
@@ -173,11 +173,11 @@ Configuring the ``awxhost`` hostname for notifications
 .. index:: 
    pair: notifications; hostname configuration
 
-In the :ref:`System Settings <configure_ascender_system>`, you can replace ``https://awxhost`` in the **Base URL of the service** field with your preferred hostname to change the notification hostname.     
+In the :ref:`System Settings <configure_climber_system>`, you can replace ``https://awxhost`` in the **Base URL of the service** field with your preferred hostname to change the notification hostname.     
 
 .. image:: ../common/images/configure-awx-system-misc-baseurl.png
 
-New installations of Ascender should not have to set the hostname for notifications.
+New installations of climber should not have to set the hostname for notifications.
 
 
 .. _launch_jobs_curl:
@@ -187,9 +187,9 @@ Launching Jobs with curl
 .. index::
    pair: tips; curl
 
-Launching jobs with Ascender API is simple. Here are some easy to follow examples using the ``curl`` tool. 
+Launching jobs with climber API is simple. Here are some easy to follow examples using the ``curl`` tool. 
 
-Assuming that your Job Template ID is '1', your Ascender IP is 192.168.42.100, and that ``admin`` and ``awxsecret`` are valid login credentials, you can create a new job this way:
+Assuming that your Job Template ID is '1', your climber IP is 192.168.42.100, and that ``admin`` and ``awxsecret`` are valid login credentials, you can create a new job this way:
 
 ::
 
@@ -222,9 +222,9 @@ Dynamic Inventory and private IP addresses
    pair: tips; private IPs with dynamic inventory
    pair: tips; dynamic inventory and private IPs
 
-By default, Ascender only shows instances in a VPC that have an Elastic IP (EIP) address associated with them. To view all of your VPC instances, perform the following steps:
+By default, climber only shows instances in a VPC that have an Elastic IP (EIP) address associated with them. To view all of your VPC instances, perform the following steps:
 
-- In the Ascender interface, select your inventory. 
+- In the climber interface, select your inventory. 
 - Click on the group that has the Source set to AWS, and click on the Source tab. 
 - In the "Source Variables" box, enter: ``vpc_destination_variable: private_ip_address``
 
@@ -232,10 +232,10 @@ Save and trigger an update of the group. You should now be able to see all of yo
 
 .. note:: 
 
-  Ascender must be running inside the VPC with access to those instances in order to usefully configure them.
+  climber must be running inside the VPC with access to those instances in order to usefully configure them.
 
 
-Filtering instances returned by the dynamic inventory sources in Ascender
+Filtering instances returned by the dynamic inventory sources in climber
 ======================================================================
 .. index:: 
    pair: tips; filtering instances
@@ -243,7 +243,7 @@ Filtering instances returned by the dynamic inventory sources in Ascender
    pair: tips; instance filtering 
 
 
-By default, the dynamic inventory sources in Ascender (AWS, Google, etc) return all instances available to the cloud credentials being used. They are automatically joined into groups based on various attributes. For example, AWS instances are grouped by region, by tag name and value, by security groups, etc. To target specific instances in your environment, write your playbooks so that they target the generated group names. For example:
+By default, the dynamic inventory sources in climber (AWS, Google, etc) return all instances available to the cloud credentials being used. They are automatically joined into groups based on various attributes. For example, AWS instances are grouped by region, by tag name and value, by security groups, etc. To target specific instances in your environment, write your playbooks so that they target the generated group names. For example:
 
 ::
 
@@ -258,14 +258,14 @@ You can also use the ``Limit`` field in the Job Template settings to limit a pla
 You may also create your own groups by copying the auto-generated groups into your custom groups. Make sure that the ``Overwrite`` option is disabled on your dynamic inventory source, otherwise subsequent synchronization operations will delete and replace your custom groups.
 
 
-Using an unreleased module from Ansible source with Ascender
+Using an unreleased module from Ansible source with climber
 ==========================================================
 .. index:: 
    pair: tips; Ansible modules, unreleased
    pair: tips; unreleased modules 
    pair: tips; modules, using unreleased 
 
-If there is a feature that is available in the latest Ansible core branch that you would like to leverage with your Ascender system, making use of it in Ascender is fairly simple.
+If there is a feature that is available in the latest Ansible core branch that you would like to leverage with your climber system, making use of it in climber is fairly simple.
 
 First, determine which is the updated module you want to use from the available Ansible Core Modules or Ansible Extra Modules GitHub repositories. 
 
@@ -274,23 +274,23 @@ Next, create a new directory, at the same directory level of your Ansible source
 Once this is created, copy the module you want to use and drop it into the ``/library`` directory--it will be consumed first over your system modules and can be removed once you have updated the stable version via your normal package manager.
 
 
-Using callback plugins with Ascender
+Using callback plugins with climber
 ================================
 .. index:: 
    pair: tips; callback plugins
    pair: tips; plugins, callback
 
 
-Ansible has a flexible method of handling actions during playbook runs, called callback plugins. You can use these plugins with Ascender to do things like notify services upon playbook runs or failures, send emails after every playbook run, etc. For official documentation on the callback plugin architecture, refer to: http://docs.ansible.com/developing_plugins.html#callbacks
+Ansible has a flexible method of handling actions during playbook runs, called callback plugins. You can use these plugins with climber to do things like notify services upon playbook runs or failures, send emails after every playbook run, etc. For official documentation on the callback plugin architecture, refer to: http://docs.ansible.com/developing_plugins.html#callbacks
 
 .. note::
 
-   Ascender does not support the ``stdout`` callback plugin because Ansible only allows one, and it is already being used by Ascender for streaming event data.
+   climber does not support the ``stdout`` callback plugin because Ansible only allows one, and it is already being used by climber for streaming event data.
 
 You may also want to review some example plugins, which should be modified for site-specific purposes, such as those available at: 
 https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins/callback
 
-To use these plugins, put the callback plugin ``.py`` file into a directory called ``/callback_plugins`` alongside your playbook in your Ascender Project. Then, specify their paths (one path per line) in the **Ansible Callback Plugins** field of the Job settings, located towards the bottom of the screen:
+To use these plugins, put the callback plugin ``.py`` file into a directory called ``/callback_plugins`` alongside your playbook in your climber Project. Then, specify their paths (one path per line) in the **Ansible Callback Plugins** field of the Job settings, located towards the bottom of the screen:
 
 .. image:: ../common/images/configure-awx-jobs-callback.png
 
@@ -306,7 +306,7 @@ Connecting to Windows with winrm
     pair: tips; Windows connection
     pair: tips; winrm
 
-By default Ascender attempts to ``ssh`` to hosts. You must add the ``winrm`` connection info to the group variables to which the Windows hosts belong.  To get started, edit the Windows group in which the hosts reside and place the variables in the source/edit screen for the group.  
+By default climber attempts to ``ssh`` to hosts. You must add the ``winrm`` connection info to the group variables to which the Windows hosts belong.  To get started, edit the Windows group in which the hosts reside and place the variables in the source/edit screen for the group.  
 
 To add ``winrm`` connection info:
 
@@ -317,7 +317,7 @@ Once done, save your edits. If Ansible was previously attempting an SSH connecti
 .. |edit| image:: ../common/images/edit-button.png
 
 
-Importing existing inventory files and host/group vars into Ascender
+Importing existing inventory files and host/group vars into climber
 ================================================================
 
 .. index::
@@ -327,7 +327,7 @@ Importing existing inventory files and host/group vars into Ascender
 
 
 
-To import an existing static inventory and the accompanying host and group vars into Ascender, your inventory should be in a structure that looks similar to the following:
+To import an existing static inventory and the accompanying host and group vars into climber, your inventory should be in a structure that looks similar to the following:
 
 ::
 
@@ -343,21 +343,21 @@ To import these hosts and vars, run the ``awx-manage`` command:
 ::
 
   awx-manage inventory_import --source=inventory/ \
-    --inventory-name="My Ascender Inventory"
+    --inventory-name="My climber Inventory"
 
 If you only have a single flat file of inventory, a file called ansible-hosts, for example, import it like the following:
 
 ::
 
   awx-manage inventory_import --source=./ansible-hosts \
-    --inventory-name="My Ascender Inventory"
+    --inventory-name="My climber Inventory"
 
-In case of conflicts or to overwrite an inventory named "My Ascender Inventory", run:
+In case of conflicts or to overwrite an inventory named "My climber Inventory", run:
 
 ::
 
   awx-manage inventory_import --source=inventory/ \
-    --inventory-name="My Ascender Inventory" \
+    --inventory-name="My climber Inventory" \
     --overwrite --overwrite-vars
 
 If you receive an error, such as:

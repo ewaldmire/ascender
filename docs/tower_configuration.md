@@ -1,11 +1,11 @@
-Ascender configuration gives Ascender users the ability to adjust multiple runtime parameters of Ascender, which enables much more fine-grained control over Ascender runs.
+climber configuration gives climber users the ability to adjust multiple runtime parameters of climber, which enables much more fine-grained control over climber runs.
 
 ## Usage manual
 
 #### To Use:
-The REST endpoint for CRUD operations against Ascender configurations can be found at `/api/v2/settings/`. GETing to that endpoint will return a list of available Ascender configuration categories and their URLs, such as `"system": "/api/v2/settings/system/"`. The URL given to each category is the endpoint for CRUD operations against individual settings under that category.
+The REST endpoint for CRUD operations against climber configurations can be found at `/api/v2/settings/`. GETing to that endpoint will return a list of available climber configuration categories and their URLs, such as `"system": "/api/v2/settings/system/"`. The URL given to each category is the endpoint for CRUD operations against individual settings under that category.
 
-Here is a typical Ascender configuration category GET response:
+Here is a typical climber configuration category GET response:
 ```
 GET /api/v2/settings/github-team/
 HTTP 200 OK
@@ -27,10 +27,10 @@ X-API-Time: 0.026s
 }
 ```
 
-The returned body is a JSON of key-value pairs, where the key is the name of the Ascender configuration setting, and the value is the value of that setting. To update the settings, simply update setting values and PUT/PATCH to the same endpoint.
+The returned body is a JSON of key-value pairs, where the key is the name of the climber configuration setting, and the value is the value of that setting. To update the settings, simply update setting values and PUT/PATCH to the same endpoint.
 
 #### To Develop:
-Each Django app in Ascender should have a `conf.py` file where related settings get registered. Below is the general format for `conf.py`:
+Each Django app in climber should have a `conf.py` file where related settings get registered. Below is the general format for `conf.py`:
 
 ```python
 # Other dependencies
@@ -39,7 +39,7 @@ Each Django app in Ascender should have a `conf.py` file where related settings 
 # Django
 from django.utils.translation import ugettext_lazy as _
 
-# Ascender
+# climber
 from awx.conf import fields, register
 
 # Other dependencies
@@ -52,7 +52,7 @@ register(
 # Other setting registries
 ```
 
-`register` is the endpoint API for registering individual Ascender configurations:
+`register` is the endpoint API for registering individual climber configurations:
 ```
 register(
     setting,
@@ -75,14 +75,14 @@ Here are the details for each argument:
 | `**field_related_kwargs` | `**kwargs`                                                          | Key-worded arguments needed to initialize an instance of `field_class`.                                                                                                       |
 | `category_slug`          | `str`                                                             | The actual identifier used for finding individual setting categories.                                                                                                         |
 | `category`               | transformable string, like `_('foobar')`                          | The human-readable form of `category_slug`, mainly for display.                                                                                                               |
-| `depends_on`             | `list` of `str`s                                                  | A list of setting names this setting depends on. A setting this setting depends on is another Ascender configuration setting whose changes may affect the value of this setting. |
+| `depends_on`             | `list` of `str`s                                                  | A list of setting names this setting depends on. A setting this setting depends on is another climber configuration setting whose changes may affect the value of this setting. |
 | `placeholder`            | transformable string, like `_('foobar')`                          | A human-readable string displaying a typical value for the setting, mainly used by the UI.                                                                                         |
 | `encrypted`              | `boolean`                                                         | A flag which determines whether the setting value should be encrypted.                                                                                                                |
 | `defined_in_file`        | `boolean`                                                         | A flag which determines whether a value has been manually set in the settings file.                                                                                                      |
 
-During Ascender bootstrapping, **all** settings registered in `conf.py` modules of Ascender Django apps will be loaded (registered). This set of Ascender configuration settings will form a new top-level of the `django.conf.settings` object. Later, all Ascender configuration settings will be available as attributes of it, just like the normal Django settings. Note that Ascender configuration settings take higher priority over normal settings, meaning if a setting `FOOBAR` is both defined in a settings file *and* registered in `conf.py`, the registered attribute will be used over the defined attribute every time.
+During climber bootstrapping, **all** settings registered in `conf.py` modules of climber Django apps will be loaded (registered). This set of climber configuration settings will form a new top-level of the `django.conf.settings` object. Later, all climber configuration settings will be available as attributes of it, just like the normal Django settings. Note that climber configuration settings take higher priority over normal settings, meaning if a setting `FOOBAR` is both defined in a settings file *and* registered in `conf.py`, the registered attribute will be used over the defined attribute every time.
 
-Please note that when registering new configurations, it is recommended to provide a default value if it is possible to do so, as the Ascender configuration UI has a 'revert all' functionality that reverts all settings to its default value.
+Please note that when registering new configurations, it is recommended to provide a default value if it is possible to do so, as the climber configuration UI has a 'revert all' functionality that reverts all settings to its default value.
 
 Configuration supports category-specific validation functions. They should also be defined under `conf.py` in the form
 ```python

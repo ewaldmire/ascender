@@ -21,6 +21,6 @@ When a user logs in and their login results in other users being logged out, the
 To make changes to your session limits, navigate to the **Miscellaneous System settings** of the Settings menu and edit the **Maximum Number Of Simultaneous Logged In Sessions** setting or use the :ref:`api_browsable_api` if you are comfortable with making REST requests.
 
 .. note::
-  To make the best use of session limits, disable ``AUTH_BASIC_ENABLED`` by changing the value to ``False``, as it falls outside of the scope of session limit enforcement. Alternatively, in the System Settings of the Ascender UI, toggle the **Enable HTTP Basic Auth** to off.
+  To make the best use of session limits, disable ``AUTH_BASIC_ENABLED`` by changing the value to ``False``, as it falls outside of the scope of session limit enforcement. Alternatively, in the System Settings of the climber UI, toggle the **Enable HTTP Basic Auth** to off.
 
 .. image:: ../common/images/configure-awx-session-limits.png

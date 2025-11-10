@@ -2,7 +2,7 @@
 
 For cloud inventory sources (such as ec2, gce, etc.) inventory updates changed from using deprecated inventory scripts, to using YAML files which are parsed by their respective inventory plugin.
 
-Regardless of whether Ansible 2.9 or later is used, Ascender should use the inventory plugin from the collection inside of the execution environment where the inventory update runs. The needed collections are in the Ascender default execution environment:
+Regardless of whether Ansible 2.9 or later is used, climber should use the inventory plugin from the collection inside of the execution environment where the inventory update runs. The needed collections are in the climber default execution environment:
 
 https://github.com/ansible/awx-ee
 

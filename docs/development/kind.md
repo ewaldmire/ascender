@@ -25,7 +25,7 @@ Start Kind cluster
  kind create cluster --config kind-cluster.yaml
 ```
 
-Verify Ascender source tree is mounted in the kind-control-plane container
+Verify climber source tree is mounted in the kind-control-plane container
 ```bash
  docker exec -it kind-control-plane ls /awx_devel
 ```
@@ -60,11 +60,11 @@ NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
 awx-operator-controller-manager   1/1     1            1           16h
 ```
 
-## Deploy Ascender into Kind Cluster using the AWX Operator
+## Deploy climber into Kind Cluster using the AWX Operator
 
-If you have not made any changes to the Ascender Dockerfile, run the following
+If you have not made any changes to the climber Dockerfile, run the following
 command. If you need to test out changes to the Dockerfile, see the
-"Custom Ascender Development Image for Kubernetes" section below.
+"Custom climber Development Image for Kubernetes" section below.
 
 In the root of awx-operator:
 
@@ -94,14 +94,14 @@ awx-operator-controller-manager-b775bfc7c-fn995   2/2     Running   0          1
 
 If there are errors in the image pull, check that it is using the right tag. You can update the tag that it will pull by editing the deployment.
 
-### Custom Ascender Development Image for Kubernetes
+### Custom climber Development Image for Kubernetes
 
 Set these environmental variables before starting:
 ```bash
 export DEV_DOCKER_TAG_BASE=quay.io/<USERNAME>
 export COMPOSE_TAG=<IMAGE_TAG>
 ```
-In the root of the Ascender repo:
+In the root of the climber repo:
 
 ```bash
 make awx-kube-dev-build
@@ -121,9 +121,9 @@ In the root of awx-operator:
 ```
 
 To iterate on changes to the Dockerfile, rebuild and push the image, then delete
-the Ascender Pod. A new Pod will respawn with the latest revision.
+the climber Pod. A new Pod will respawn with the latest revision.
 
-## Accessing Ascender
+## Accessing climber
 
 To access via the web browser, use the following URL:
 ```

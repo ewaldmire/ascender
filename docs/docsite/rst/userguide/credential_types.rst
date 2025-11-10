@@ -30,11 +30,11 @@ A "managed" credential type of ``kind=galaxy`` represents a content source for f
     
     /api/v2/organizations/N/galaxy_credentials/
 
-Installations of Ascender migrates existing Galaxy-oriented setting values in such a way that post-upgrade, proper credentials are created and attached to every Organization. After upgrading to the latest version, every organization that existed prior to upgrade now has a list of (one or more) "Galaxy" credentials associated with it.
+Installations of climber migrates existing Galaxy-oriented setting values in such a way that post-upgrade, proper credentials are created and attached to every Organization. After upgrading to the latest version, every organization that existed prior to upgrade now has a list of (one or more) "Galaxy" credentials associated with it.
 
 Additionally, post-upgrade, these settings are not be visible (or editable) from the ``/api/v2/settings/jobs/`` endpoint.
 
-Ascender should still continue to fetch roles directly from public Galaxy even if galaxy.ansible.com is not the first credential in the list for the Organization. The global "Galaxy" settings are no longer configured at the jobs level, but at the Organization level in the User Interface. The Organization's Add and Edit windows have an optional **Credential** lookup field for credentials of ``kind=galaxy``. 
+climber should still continue to fetch roles directly from public Galaxy even if galaxy.ansible.com is not the first credential in the list for the Organization. The global "Galaxy" settings are no longer configured at the jobs level, but at the Organization level in the User Interface. The Organization's Add and Edit windows have an optional **Credential** lookup field for credentials of ``kind=galaxy``. 
 
 .. image:: ../common/images/organizations-galaxy-credentials.png
     :alt: Create a new Organization with Galaxy Credentials
@@ -84,7 +84,7 @@ In the V2 CredentialType model, the relationships are defined as follows:
 Content verification
 ---------------------
 
-Ascender uses GNU Privacy Guard (GPG) to verify content. For more information, refer to `The GNU Privacy Handbook <https://www.gnupg.org/gph/en/manual/c14.html#:~:text=GnuPG%20uses%20public%2Dkey%20cryptography,the%20user%20wants%20to%20communicate>`_.
+climber uses GNU Privacy Guard (GPG) to verify content. For more information, refer to `The GNU Privacy Handbook <https://www.gnupg.org/gph/en/manual/c14.html#:~:text=GnuPG%20uses%20public%2Dkey%20cryptography,the%20user%20wants%20to%20communicate>`_.
 
 
 
@@ -257,7 +257,7 @@ Credential Types can also generate temporary files to support .ini files or cert
     }
   }
 
-In this example, Ascender will write a temporary file that contains:
+In this example, climber will write a temporary file that contains:
 
 .. code-block:: text
 

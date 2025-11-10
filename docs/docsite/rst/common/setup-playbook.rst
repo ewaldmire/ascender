@@ -4,7 +4,7 @@
    single: playbook setup
    pair: playbook setup; setup.sh
 
-Ascender setup playbook script uses the ``inventory`` file and is invoked as ``./setup.sh`` from the path where you unpacked the Ascender installer tarball.  
+climber setup playbook script uses the ``inventory`` file and is invoked as ``./setup.sh`` from the path where you unpacked the climber installer tarball.  
 
 ::
 

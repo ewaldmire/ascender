@@ -1,11 +1,11 @@
 .. _ag_performance:
 
-Improving Ascender Performance
+Improving climber Performance
 ==================================
 .. index::
-   pair: performance; Ascender
+   pair: performance; climber
 
-This section aims to provide the guidelines for tuning Ascender for performance and scalability.
+This section aims to provide the guidelines for tuning climber for performance and scalability.
 
 .. _ag_performance_improvements:
 
@@ -14,7 +14,7 @@ Performance improvements
 .. index::
    pair: improvements; process
 
-Ascender brings multiple improvements that support large scale deployments of Ascender. Major gains have been made to support workloads with many more concurrent jobs. In the past, there were issues with excessive database connections, job scheduling issues when there were thousands of pending and running jobs, and issues with successfully starting jobs when operating near 100% capacity of control nodes.
+climber brings multiple improvements that support large scale deployments of climber. Major gains have been made to support workloads with many more concurrent jobs. In the past, there were issues with excessive database connections, job scheduling issues when there were thousands of pending and running jobs, and issues with successfully starting jobs when operating near 100% capacity of control nodes.
 
 Additionally, changes have been made by default to take advantage of CPU capacity available on larger control nodes. This means customers who provision larger control nodes and want to run thousands of concurrent jobs have multiple improvements to look forward to in this release:
 
@@ -34,7 +34,7 @@ Job scheduling improvements
 .. index::
    pair: improvements; scheduling
 
-When jobs are created either via a schedule, a workflow, the UI or the API, they are first created in Pending state. To determine when and where to run this job, a background task called the Task Manager collects all pending and running jobs and determines where capacity is available to run the job. In previous versions of Ascender, scheduling slowed as the number of pending and running jobs increased, and the Task Manager was vulnerable to timing out without having made any progress. The scenario exhibits symptoms of having thousands of pending jobs, available capacity, but no jobs starting.
+When jobs are created either via a schedule, a workflow, the UI or the API, they are first created in Pending state. To determine when and where to run this job, a background task called the Task Manager collects all pending and running jobs and determines where capacity is available to run the job. In previous versions of climber, scheduling slowed as the number of pending and running jobs increased, and the Task Manager was vulnerable to timing out without having made any progress. The scenario exhibits symptoms of having thousands of pending jobs, available capacity, but no jobs starting.
 
 Optimizations in the job scheduler have made scheduling faster, as well as safeguards to better ensure the scheduler commits its progress even if it is nearing time out. Additionally, work that previously occurred in the Task Manager that blocked its progress has been decoupled into separate, non-blocking work units executed by the Dispatcher.
 
@@ -47,13 +47,13 @@ Database resource usage improvements
 
 The use of database connections by running jobs has dramatically decreased, which removes a previous limit to concurrent running jobs, as well reduces pressure on memory consumption of PostgreSQL.
 
-Each job in Ascender has a worker process, called the dispatch worker, on the control node that started the process, which submits the work to the execution node via the Receptor, as well as consumes the output of the job and puts it in the Redis queue for the callback receiver to serialize the output and write it to the database as job events.
+Each job in climber has a worker process, called the dispatch worker, on the control node that started the process, which submits the work to the execution node via the Receptor, as well as consumes the output of the job and puts it in the Redis queue for the callback receiver to serialize the output and write it to the database as job events.
 
 The dispatch worker is also responsible for noticing if the job has been canceled by the user in order to then cancel the receptor work unit. In the past, the worker maintained multiple open database connections per job. This caused two main problems:
 
 - The application would begin to experience errors attempting to open new database connections (for API calls or other essential processes) when there were more than 350 jobs running concurrently, unless users increased the maximum number of connections.
 
-- Even idle connections consume memory. For example, in experiments done by AWS, idle connections to PostgreSQL were shown to consume at least 1.5 MB of memory. So if an Ascender administrator wanted to support running 2,000 concurrent jobs, this could result in 9GB of memory consumed on PostgreSQL from just idle connections alone.
+- Even idle connections consume memory. For example, in experiments done by AWS, idle connections to PostgreSQL were shown to consume at least 1.5 MB of memory. So if an climber administrator wanted to support running 2,000 concurrent jobs, this could result in 9GB of memory consumed on PostgreSQL from just idle connections alone.
 
 The dispatch process closes database connections once the job has started. This means now the number of concurrent running jobs is no longer limited by the maximum number of database connections, and the risk of over-consuming memory on PostgreSQL is greatly reduced.
 
@@ -86,7 +86,7 @@ LDAP login and basic authentication
    pair: improvements; LDAP
    pair: improvements; basic auth
 
-Enhancements were made to the authentication backend that syncs LDAP configuration with the organizations and teams in the Ascender. Logging in with large mappings between LDAP groups and organizations and teams is now up to 10 times faster than in previous versions.
+Enhancements were made to the authentication backend that syncs LDAP configuration with the organizations and teams in the climber. Logging in with large mappings between LDAP groups and organizations and teams is now up to 10 times faster than in previous versions.
 
 
 Capacity Planning
@@ -177,7 +177,7 @@ Factors influencing node size choice
    pair: factors; node size
    single: node size choice
 
-The previous exercise was done given that the cluster administrator already had a preferred node size, which happened to be the minimum recommended node size for Ascender. Increasing the RAM and CPU on nodes increases the calculated capacity of the instances. For each instance type, there are different considerations as to why you may want to vertically scale the node.
+The previous exercise was done given that the cluster administrator already had a preferred node size, which happened to be the minimum recommended node size for climber. Increasing the RAM and CPU on nodes increases the calculated capacity of the instances. For each instance type, there are different considerations as to why you may want to vertically scale the node.
 
 Control nodes
 ^^^^^^^^^^^^^^
@@ -187,7 +187,7 @@ As mentioned in the :ref:`ag_performance_improvements` section, increasing the n
 
 Execution Nodes
 ^^^^^^^^^^^^^^^^
-Vertical scaling an execution node will provide more forks for job execution. As mentioned in the example, a host with 16 GB of memory will by default, be assigned the capacity to run 137 “forks”, which at the default setting of 5 forks/job, will be able to run around 22 jobs concurrently. In general, scaling CPU alongside memory in the same proportion is recommended. Like control and hybrid nodes, there is a “capacity adjustment” on each execution instance that can be used to align actual utilization with the estimation of capacity consumption Ascender makes. By default, all nodes are set to the top range of the capacity Ascender estimates the node to have. If actual monitoring data reveals the node to be over-utilized, decreasing the capacity adjustment can help bring this in line with actual usage.
+Vertical scaling an execution node will provide more forks for job execution. As mentioned in the example, a host with 16 GB of memory will by default, be assigned the capacity to run 137 “forks”, which at the default setting of 5 forks/job, will be able to run around 22 jobs concurrently. In general, scaling CPU alongside memory in the same proportion is recommended. Like control and hybrid nodes, there is a “capacity adjustment” on each execution instance that can be used to align actual utilization with the estimation of capacity consumption climber makes. By default, all nodes are set to the top range of the capacity climber estimates the node to have. If actual monitoring data reveals the node to be over-utilized, decreasing the capacity adjustment can help bring this in line with actual usage.
 
 Vertically scaling execution will do exactly what the user expects and increase the number of concurrent jobs an instance can run. One downside is that concurrently running jobs on the same execution node, while isolated from each other in the sense that they cannot access the other’s data, can impact the other's performance, if a particular job is very resource-consumptive and overwhelms the node to the extent that it degrades performance of the entire node. Horizontal scaling the execution plane (e.g deploying more execution nodes) can provide some additional isolation of workloads, as well as allowing administrators to assign different instances to different instance groups, which can then be assigned to Organizations, Inventories, or Job Templates. This can enable something like an instance group that can only be used for running jobs against a “production” Inventory, this way jobs for development do not end up eating up capacity and causing higher priority jobs to queue waiting for capacity.
 
@@ -209,20 +209,20 @@ Capacity planning for Operator based Deployments
 For Operator based deployments, refer to `Ansible AWX Operator documentation <https://ansible.readthedocs.io/projects/awx-operator>`_.
 
 
-Monitoring Ascender
+Monitoring climber
 ----------------------
 .. index::
-   pair: monitoring; Ascender
+   pair: monitoring; climber
 
-It is a best practice to monitor your Ascender hosts both from a system level as well as at the application level. System level monitoring would include information about disk I/O, RAM utilization, CPU utilization, and network traffic.
+It is a best practice to monitor your climber hosts both from a system level as well as at the application level. System level monitoring would include information about disk I/O, RAM utilization, CPU utilization, and network traffic.
 
-For application level monitoring, Ascender provides Prometheus-style metrics on an API endpoint ``/api/v2/metrics``. This can be used to monitor aggregate data about job status as well as subsystem performance such as for job output processing or job scheduling.
+For application level monitoring, climber provides Prometheus-style metrics on an API endpoint ``/api/v2/metrics``. This can be used to monitor aggregate data about job status as well as subsystem performance such as for job output processing or job scheduling.
 
-Monitoring the actual CPU and memory utilization of your hosts is important because capacity management for instances does not dynamically introspect into the actual resource usage of hosts. The resource impact of automation will vary based on what exactly the playbooks are doing. For example, many cloud or networking modules do most of the actual processing on the node running the Ansible playbook (the execution node), which can have a significantly different impact on Ascender than running ``yum update`` across many hosts, where the execution node spends much of the time during this task waiting on results.
+Monitoring the actual CPU and memory utilization of your hosts is important because capacity management for instances does not dynamically introspect into the actual resource usage of hosts. The resource impact of automation will vary based on what exactly the playbooks are doing. For example, many cloud or networking modules do most of the actual processing on the node running the Ansible playbook (the execution node), which can have a significantly different impact on climber than running ``yum update`` across many hosts, where the execution node spends much of the time during this task waiting on results.
 
-If CPU or memory usage is very high, consider lowering the capacity adjustment on affected instances in Ascender. This will limit how many jobs are run on or controlled by this instance.
+If CPU or memory usage is very high, consider lowering the capacity adjustment on affected instances in climber. This will limit how many jobs are run on or controlled by this instance.
 
-Using this in combination with application level metrics can help identify what was happening in the application when and if any service degradation occurred. Having information about Ascender’s performance over time can be very useful in diagnosing problems or doing capacity planning for future growth.
+Using this in combination with application level metrics can help identify what was happening in the application when and if any service degradation occurred. Having information about climber’s performance over time can be very useful in diagnosing problems or doing capacity planning for future growth.
 
 
 Database Settings
@@ -271,7 +271,7 @@ It is recommended to set this value higher than ``work_mem``; this can improve p
 Max Connections
 ~~~~~~~~~~~~~~~~~~~~~
 
-For a realistic method of determining a value of ``max_connections``, a ballpark formula for Ascender is outlined here.
+For a realistic method of determining a value of ``max_connections``, a ballpark formula for climber is outlined here.
 Database connections will scale with the number of control and hybrid nodes.
 Per-node connection needs are listed here.
 
@@ -299,15 +299,15 @@ Additional connections should be added to account for other platform components.
 This calculation is most sensitive to the number of forks per node. Database connections are briefly opened at the start of and end of jobs. Environments where bursts of many jobs start at once will be most likely to reach the theoretical max number of open database connections.
 The max number of jobs that would be started concurrently can be adjusted by modifying the effective capacity of the instances. This can be done with the SYSTEM_TASK_ABS_MEM setting, the capacity adjustment on instances, or with instance groups max jobs or max forks.
 
-Ascender Settings
+climber Settings
 ~~~~~~~~~~~~~~~~~~~~~
 .. index::
-   pair: settings; Ascender
+   pair: settings; climber
    pair: settings; performance
 
-Many Ascender settings are available to set via Ascender UI or API. There are additional settings that are only available as file-based settings. Refer to product documentation about where each of these settings can be set. This section will focus on why administrators may want to adjust these values.
+Many climber settings are available to set via climber UI or API. There are additional settings that are only available as file-based settings. Refer to product documentation about where each of these settings can be set. This section will focus on why administrators may want to adjust these values.
 
-Live events in the Ascender UI
+Live events in the climber UI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. index::
    pair: settings; live events
@@ -316,7 +316,7 @@ Events are broadcast to all nodes so that the events can be served over websocke
 
 There are a few settings that allow you to influence behavior of how job events are displayed in the UI and served over websockets.
 
-For large clusters with large job event loads, an easy way to avoid the additional overhead is to disable live streaming events (the events are only loaded on hard refresh to a job’s output detail page). This is possible by setting ``UI_LIVE_UPDATES_ENABLED`` to False or set the **Enable Activity Stream** toggle to **Off** from the Ascender UI Miscellaneous System Settings window.
+For large clusters with large job event loads, an easy way to avoid the additional overhead is to disable live streaming events (the events are only loaded on hard refresh to a job’s output detail page). This is possible by setting ``UI_LIVE_UPDATES_ENABLED`` to False or set the **Enable Activity Stream** toggle to **Off** from the climber UI Miscellaneous System Settings window.
 
 .. image:: ../common/images/perf-enable-activity-stream.png
 
@@ -352,7 +352,7 @@ Job Event Processing (Callback Receiver) Settings
 
 The callback receiver is a process with multiple workers. The number of workers spawned is determined by the setting ``JOB_EVENT_WORKERS``. These workers pull events off of a queue in Redis where unprocessed events are placed by jobs’ respective dispatch workers as results are available. As mentioned in the :ref:`ag_performance_improvements` section, this number of workers increased based on the number of CPU detected on the control instance. Previously, this setting was hardcoded to 4 workers, and administrators had to set this file based setting via a custom settings file on each control node.
 
-This setting is still available for administrators to modify, with the knowledge that that values above 1 worker per CPU or less than 4 workers is not recommended. Greater values will have more workers available to clear the Redis queue as events stream to Ascender, but may compete with other processes for CPU seconds. Lower values of workers may compete less for CPU on a node that also has had its number of UWSGI workers increased significantly, to prioritize serving web requests.
+This setting is still available for administrators to modify, with the knowledge that that values above 1 worker per CPU or less than 4 workers is not recommended. Greater values will have more workers available to clear the Redis queue as events stream to climber, but may compete with other processes for CPU seconds. Lower values of workers may compete less for CPU on a node that also has had its number of UWSGI workers increased significantly, to prioritize serving web requests.
 
 
 Task Manager (Job Scheduling) Settings

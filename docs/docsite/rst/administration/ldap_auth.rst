@@ -7,25 +7,25 @@ Setting up LDAP Authentication
    single: LDAP
    pair: authentication; LDAP
    
-This chapter describes how to integrate LDAP authentication with Ascender.
+This chapter describes how to integrate LDAP authentication with climber.
 
 .. note::
 
   If the LDAP server you want to connect to has a certificate that is self-signed or signed by a corporate internal certificate authority (CA), the CA certificate must be added to the system's trusted CAs. Otherwise, connection to the LDAP server will result in an error that the certificate issuer is not recognized.
 
-Administrators use LDAP as a source for account authentication information for Ascender users. User authentication is provided, but not the synchronization of user permissions and credentials. Organization membership (as well as the organization admin) and team memberships can be synchronized.
+Administrators use LDAP as a source for account authentication information for climber users. User authentication is provided, but not the synchronization of user permissions and credentials. Organization membership (as well as the organization admin) and team memberships can be synchronized.
 
-When so configured, a user who logs in with an LDAP username and password automatically gets an Ascender account created for them and they can be automatically placed into organizations as either regular users or organization administrators.
+When so configured, a user who logs in with an LDAP username and password automatically gets an climber account created for them and they can be automatically placed into organizations as either regular users or organization administrators.
 
 Users created locally in the user interface, take precedence over those logging into controller for their first time with an alternative authentication solution. You must delete the local user if you want to re-use it with another authentication method, such as LDAP.
 
 Users created through an LDAP login cannot change their username, given name, surname, or set a local password for themselves. You can also configure this to restrict editing of other field names.
 
-To configure LDAP integration for Ascender:
+To configure LDAP integration for climber:
 
 1. First, create a user in LDAP that has access to read the entire LDAP structure.
 
-2. Test if you can make successful queries to the LDAP server, use the ``ldapsearch`` command, which is a command line tool that can be installed on Ascender command line as well as on other Linux and OSX systems. Use the following command to query the ldap server, where *josie* and *Josie4Cloud* are replaced by attributes that work for your setup:
+2. Test if you can make successful queries to the LDAP server, use the ``ldapsearch`` command, which is a command line tool that can be installed on climber command line as well as on other Linux and OSX systems. Use the following command to query the ldap server, where *josie* and *Josie4Cloud* are replaced by attributes that work for your setup:
 
 ::
 
@@ -35,9 +35,9 @@ Here ``CN=josie,CN=users,DC=website,DC=com`` is the Distinguished Name of the co
 
 .. note::
 
-  The ``ldapsearch`` utility is not automatically pre-installed with Ascender, however, you can install it from the ``openldap-clients`` package.
+  The ``ldapsearch`` utility is not automatically pre-installed with climber, however, you can install it from the ``openldap-clients`` package.
 
-3. In the Ascender User Interface, click **Settings** from the left navigation and click to select **LDAP settings** from the list of Authentication options. 
+3. In the climber User Interface, click **Settings** from the left navigation and click to select **LDAP settings** from the list of Authentication options. 
 
 
   Multiple LDAP configurations are not needed per LDAP server, but you can configure multiple LDAP servers from this page, otherwise, leave the server at **Default**:
@@ -90,18 +90,18 @@ Here ``CN=josie,CN=users,DC=website,DC=com`` is the Distinguished Name of the co
 
 .. image:: ../common/images/configure-awx-auth-ldap-start-tls.png
 
-8. Enter the Distinguished Name in the **LDAP Bind DN** text field to specify the user that Ascender uses to connect (Bind) to the LDAP server. Below uses the example, ``CN=josie,CN=users,DC=website,DC=com``:
+8. Enter the Distinguished Name in the **LDAP Bind DN** text field to specify the user that climber uses to connect (Bind) to the LDAP server. Below uses the example, ``CN=josie,CN=users,DC=website,DC=com``:
 
 .. image:: ../common/images/configure-awx-auth-ldap-bind-dn.png
 
 
 9. If that name is stored in key ``sAMAccountName``, the **LDAP User DN Template** populates with ``(sAMAccountName=%(user)s)``. Active Directory stores the username to ``sAMAccountName``. Similarly, for OpenLDAP, the key is ``uid``--hence the line becomes ``(uid=%(user)s)``.
 
-10. Enter the group distinguish name to allow users within that group to access Ascender in the **LDAP Require Group** field, using the same format as the one shown in the text field, ``CN=awx Users,OU=Users,DC=website,DC=com``.
+10. Enter the group distinguish name to allow users within that group to access climber in the **LDAP Require Group** field, using the same format as the one shown in the text field, ``CN=awx Users,OU=Users,DC=website,DC=com``.
 
 .. image:: ../common/images/configure-awx-auth-ldap-req-group.png
 
-11. Enter the group distinguish name to prevent users within that group to access Ascender in the **LDAP Deny Group** field, using the same format as the one shown in the text field. In this example, leave the field blank. 
+11. Enter the group distinguish name to prevent users within that group to access climber in the **LDAP Deny Group** field, using the same format as the one shown in the text field. In this example, leave the field blank. 
 
 
 12. Enter where to search for users while authenticating in the **LDAP User Search** field using the same format as the one shown in the text field. In this example, use:
@@ -183,7 +183,7 @@ The above example retrieves users by last name from the key ``sn``. You can use 
 
 .. _ldap_grp_params:
 
-15. Depending on the selected **LDAP Group Type**, different parameters are available in the **LDAP Group Type Parameters** field to account for this. ``LDAP_GROUP_TYPE_PARAMS`` is a dictionary, which will be converted by Ascender to kwargs and passed to the LDAP Group Type class selected. There are two common parameters used by any of the LDAP Group Type; ``name_attr`` and ``member_attr``. Where ``name_attr`` defaults to ``cn`` and ``member_attr`` defaults to ``member``:
+15. Depending on the selected **LDAP Group Type**, different parameters are available in the **LDAP Group Type Parameters** field to account for this. ``LDAP_GROUP_TYPE_PARAMS`` is a dictionary, which will be converted by climber to kwargs and passed to the LDAP Group Type class selected. There are two common parameters used by any of the LDAP Group Type; ``name_attr`` and ``member_attr``. Where ``name_attr`` defaults to ``cn`` and ``member_attr`` defaults to ``member``:
 
   ::
 
@@ -217,7 +217,7 @@ With these values entered on this form, you can now make a successful authentica
 
 .. note::
 
-  Ascender does not actively sync users, but they are created during their initial login.
+  climber does not actively sync users, but they are created during their initial login.
   To improve performance associated with LDAP authentication, see :ref:`ldap_auth_perf_tips` at the end of this chapter.
 
 

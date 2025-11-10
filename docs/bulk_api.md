@@ -5,7 +5,7 @@ Bulk API endpoints allows to perform bulk operations in single web request. Ther
 - /api/v2/bulk/host_create
 - /api/v2/bulk/host_delete
 
-Making individual API calls in rapid succession or at high concurrency can overwhelm Ascender's ability to serve web requests. When the application's ability to serve is exhausted, clients often receive 504 timeout errors.
+Making individual API calls in rapid succession or at high concurrency can overwhelm climber's ability to serve web requests. When the application's ability to serve is exhausted, clients often receive 504 timeout errors.
 
  Allowing the client combine actions into fewer requests allows for launching more jobs or adding more hosts with fewer requests and less time without exhauhsting Controller's ability to serve requests, making excessive and repetitive database queries, or using excessive database connections (each web request opens a separate database connection).
 

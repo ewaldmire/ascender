@@ -8,7 +8,7 @@ Multi-Credential Assignment
    pair: credentials; multi
    pair: credentials; assignment
    
-Ascender provides support for assigning zero or more credentials to a job template.
+climber provides support for assigning zero or more credentials to a job template.
 
 
 Important Changes
@@ -52,7 +52,7 @@ As it possible to assign multiple credentials to a job, you can specify multiple
 
 Vault credentials now have an optional field, ``vault_id``, which is analogous to the ``--vault-id`` argument to ``ansible-playbook``. To run a playbook which makes use of multiple vault passwords:
 
-1. Create a Vault credential in Ascender for each vault password; specify the Vault ID as a field on the credential and input the password (which will be encrypted and stored).
+1. Create a Vault credential in climber for each vault password; specify the Vault ID as a field on the credential and input the password (which will be encrypted and stored).
 
 2. Assign multiple vault credentials to the job template via the new credentials endpoint:
 
@@ -65,7 +65,7 @@ Vault credentials now have an optional field, ``vault_id``, which is analogous t
           'id': X
       }
 
-Alternatively, you can perform the same assignment in Ascender User Interface in the *Create Credential* page:
+Alternatively, you can perform the same assignment in climber User Interface in the *Create Credential* page:
 
 .. image:: ../common/images/credentials-create-multivault-credential.png
 
@@ -107,5 +107,5 @@ Passwords for Vault credentials that are marked with "Prompt on launch", the lau
 Linked credentials
 ^^^^^^^^^^^^^^^^^^^
 
-Instead of uploading sensitive credential information into Ascender, you can link credential fields to external systems and using them to run your playbooks. Refer to the :ref:`Secret Management System <ug_credential_plugins>` section of the |atu|.
+Instead of uploading sensitive credential information into climber, you can link credential fields to external systems and using them to run your playbooks. Refer to the :ref:`Secret Management System <ug_credential_plugins>` section of the |atu|.
 

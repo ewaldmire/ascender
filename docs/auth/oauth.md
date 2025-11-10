@@ -1,5 +1,5 @@
 ## Introduction
-OAuth2 is the Ascender means of token-based authentication. Users
+OAuth2 is the climber means of token-based authentication. Users
 will be able to manage OAuth2 tokens as well as applications, a server-side representation of API
 clients used to generate tokens. With OAuth2, a user can authenticate by passing a token as part of
 the HTTP authentication header. The token can be scoped to have more restrictive permissions on top of
@@ -196,7 +196,7 @@ curl -H "Authorization: Bearer kqHqxfpHGRRBXLNCOXxT5Zt3tpJogn" http://<awx>/api/
 ```
 
 According to OAuth2 specification, users should be able to acquire, revoke and refresh an access
-token. In Ascender the equivalent, and easiest, way of doing that is creating a token, deleting
+token. In climber the equivalent, and easiest, way of doing that is creating a token, deleting
 a token, and deleting a token quickly followed by creating a new one.
 
 The specification also provides standard ways of doing this. RFC 6749 elaborates
@@ -205,9 +205,9 @@ authorization information provided by applications (special application fields m
 There are dedicated endpoints for authorization and acquiring tokens. The `token` endpoint
 is also responsible for token refresh, and token revoke can be done by the dedicated token revoke endpoint.
 
-In Ascender, our OAuth2 system is built on top of
+In climber, our OAuth2 system is built on top of
 [Django Oauth Toolkit](https://django-oauth-toolkit.readthedocs.io/en/latest/), which provides full
-support on standard authorization, token revoke and refresh. Ascender implements them and puts related
+support on standard authorization, token revoke and refresh. climber implements them and puts related
 endpoints under `/api/o/` endpoint. Detailed examples on the most typical usage of those endpoints
 are available as description text of `/api/o/`. See below for information on Application Access Token usage.  
 > Note: The `/api/o/` endpoints can only be used for application tokens, and are not valid for personal access tokens.  
@@ -220,7 +220,7 @@ These keywords are configurable and used to specify permission level of the auth
 For the initial OAuth2 implementation, we use the most simple scope configuration, where the only
 valid scope keywords are 'read' and 'write'.
 
-Read and write scopes provide a mask layer over the RBAC permission system of Ascender. In specific, a
+Read and write scopes provide a mask layer over the RBAC permission system of climber. In specific, a
 'write' scope gives the authenticated user the full permissions the RBAC system provides, while 'read'
 scope gives the authenticated user only read permissions the RBAC system provides.
 
@@ -239,7 +239,7 @@ Note endpoints other than `/api/o/authorize/` are not meant to be used in browse
 support HTTP GET. The endpoints here strictly follow
 [RFC specs for OAuth2](https://tools.ietf.org/html/rfc6749), so please use that for detailed
 reference. Below are some examples to demonstrate the typical usage of these endpoints in
-Ascender context (note that the Ascender net location defaults to `http://localhost:8013` in these examples).
+climber context (note that the climber net location defaults to `http://localhost:8013` in these examples).
 
 
 #### Application Using `authorization code` Grant Type
@@ -262,10 +262,10 @@ homepage [here](http://django-oauth-toolkit.herokuapp.com/consumer/) and click s
 application `Django-oauth-toolkit` provides.
 
 From the client app, the user makes a GET to the Authorize endpoint with the `response_type`,
-`client_id`, `redirect_uris`, and `scope`.  Ascender will respond with the authorization `code` and `state`
+`client_id`, `redirect_uris`, and `scope`.  climber will respond with the authorization `code` and `state`
 to the `redirect_uri` specified in the application. The client application will then make a POST to the
-`api/o/token/` endpoint on Ascender with the `code`, `client_id`, `client_secret`, `grant_type`, and `redirect_uri`.
-Ascender will respond with the `access_token`, `token_type`, `refresh_token`, and `expires_in`. For more
+`api/o/token/` endpoint on climber with the `code`, `client_id`, `client_secret`, `grant_type`, and `redirect_uri`.
+climber will respond with the `access_token`, `token_type`, `refresh_token`, and `expires_in`. For more
 information on testing this flow, refer to [django-oauth-toolkit](http://django-oauth-toolkit.readthedocs.io/en/latest/tutorial/tutorial_01.html#test-your-authorization-server).
 
 
@@ -300,7 +300,7 @@ IaUBsaVDgt2eiwOGe0bg5m5vCSstClZmtdy359RVx2rQK5YlIWyPlrolpt2LEpVeKXWaiybo" \
   http://<awx>/api/o/token/ -i
 ```
 In the above POST request, parameters `username` and `password` are the username and password of the related
-Ascender user of the underlying application, and the authentication information is of format
+climber user of the underlying application, and the authentication information is of format
 `<client_id>:<client_secret>`, where `client_id` and `client_secret` are the corresponding fields of
 underlying application.
 
@@ -398,6 +398,6 @@ at `/api/v2/tokens/`.
 * Incoming requests using unexpired OAuth2 token correctly in authentication header should be able
   to successfully authenticate themselves.
 * Token scope mask over RBAC should work as described.
-* Ascender configuration setting `OAUTH2_PROVIDER` should be configurable and function as described.
+* climber configuration setting `OAUTH2_PROVIDER` should be configurable and function as described.
 * `/api/o/` endpoint should work as expected. In specific, all examples given in the description
   help text should be working (a user following the steps should get expected result).

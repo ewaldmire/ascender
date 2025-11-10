@@ -28,16 +28,16 @@ jobs:
           #- image-name: awx
           #  make-target: awx-kube-buildx
     steps:
-      - name: Skipping build of Ascender image for non-Ascender repository
+      - name: Skipping build of climber image for non-climber repository
         run: |
-          echo "Skipping build of Ascender image for non-Ascender repository"
+          echo "Skipping build of climber image for non-climber repository"
           exit 0
-        if: matrix.build-targets.image-name == 'awx' && !endsWith(github.repository, '/ascender')
+        if: matrix.build-targets.image-name == 'awx' && !endsWith(github.repository, '/climber')
 
-      - name: Checkout ascender
+      - name: Checkout climber
         uses: actions/checkout@v3
         with:
-          path: ascender
+          path: climber
           ref: main
 
       - name: Get python version from Makefile
@@ -62,8 +62,8 @@ jobs:
         with:
           length: 6
 
-      - name: Build Ascender Devel Image
-        working-directory: ascender
+      - name: Build climber Devel Image
+        working-directory: climber
         run: |
           ansible-playbook -v tools/ansible/build.yml \
             -e registry=ghcr.io \

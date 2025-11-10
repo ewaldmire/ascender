@@ -3961,19 +3961,19 @@ msgstr "此令牌需要来自您在 GitHub 中的配置文件设置"
 #: awx/main/models/credential/__init__.py:962
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform"
-msgid "CIQ Ascender Automation Platform"
+msgid "CIQ climber Automation Platform"
 msgstr "Red Hat Ansible Automation Platform"
 
 #: awx/main/models/credential/__init__.py:964
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform base URL to authenticate with."
-msgid "CIQ Ascender Automation Platform base URL to authenticate with."
+msgid "CIQ climber Automation Platform base URL to authenticate with."
 msgstr "要进行身份验证的 Red Hat Ansible Automation Platform 基本 URL。"
 
 #: awx/main/models/credential/__init__.py:971
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
-msgid "CIQ Ascender Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
+msgid "CIQ climber Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
 msgstr "要验证的 Red Hat Ansible Automation Platform 用户名 id。如果使用 OAuth 令牌则不要设置。"
 
 #: awx/main/models/credential/__init__.py:982
@@ -6795,7 +6795,7 @@ msgstr "AWX"
 #: awx/templates/rest_framework/api.html:4
 #, fuzzy
 #| msgid "AWX REST API"
-msgid "ASCENDER REST API"
+msgid "climber REST API"
 msgstr "AWX REST API"
 
 #: awx/templates/rest_framework/api.html:42

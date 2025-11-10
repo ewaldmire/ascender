@@ -106,7 +106,7 @@ Special note -- the workflow manager is not scheduled to run periodically *direc
 
 `schedule()` is triggered via both mechanisms because of the following properties:
 1. It reduces the time from launch to running, resulting a better user experience.
-2. It is a fail-safe in case we miss code-paths, in the present and future, that change the scheduling considerations for which we should call `schedule()` (_i.e._, adding new nodes to Ascender changes the capacity, obscure job error handling that fails a job).
+2. It is a fail-safe in case we miss code-paths, in the present and future, that change the scheduling considerations for which we should call `schedule()` (_i.e._, adding new nodes to climber changes the capacity, obscure job error handling that fails a job).
 
 Empirically, the periodic task manager has been effective in the past and will continue to be relied upon with the added event-triggered `schedule()`.
 
@@ -138,7 +138,7 @@ There is an important side effect to this. Because the manager `schedule()` runs
 |:-----------|:-------------------------------------------------------------------------------------------------------------------|
 | pending    | Job has been launched.  <br>1. Hasn't yet been seen by the scheduler <br>2. Is blocked by another task <br>3. Not enough capacity |
 | waiting    | Job submitted to dispatcher via pg_notify
-| running    | Job is running on a Ascender node.
+| running    | Job is running on a climber node.
 | successful | Job finished with `ansible-playbook` return code 0.                                                                  |
 | failed     | Job finished with `ansible-playbook` return code other than 0.                                                       |
 | error      | System failure.                                                                                                    |
@@ -146,7 +146,7 @@ There is an important side effect to this. Because the manager `schedule()` runs
 
 ### Node Affinity Decider
 
-The Task Manager decides which exact node a job will run on. It does so by considering user-configured group execution policy and user-configured capacity. First, the set of groups on which a job _can_ run on is constructed (see the Ascender document on [Clustering](./clustering.md)). The groups are traversed until a node within that group is found. The node with the largest remaining capacity (after accounting for the job's task impact) is chosen first. If there are no instances that can fit the job, then the largest *idle* node is chosen, regardless whether the job fits within its capacity limits. In this second case, it is possible for the instance to exceed its capacity in order to run the job.
+The Task Manager decides which exact node a job will run on. It does so by considering user-configured group execution policy and user-configured capacity. First, the set of groups on which a job _can_ run on is constructed (see the climber document on [Clustering](./clustering.md)). The groups are traversed until a node within that group is found. The node with the largest remaining capacity (after accounting for the job's task impact) is chosen first. If there are no instances that can fit the job, then the largest *idle* node is chosen, regardless whether the job fits within its capacity limits. In this second case, it is possible for the instance to exceed its capacity in order to run the job.
 
 
 ## Managers are short-lived
@@ -177,7 +177,7 @@ There is a distinction between so-called "hard" vs "soft" blocking.
 
 ### Update on Launch Logic
 
-This is a feature in Ascender where dynamic inventory and projects associated with Job Templates may be set to invoke and update when related Job Templates are launched. Related to this feature is a cache feature on dynamic inventory updates and project updates. The rules for these two intertwined features are below:
+This is a feature in climber where dynamic inventory and projects associated with Job Templates may be set to invoke and update when related Job Templates are launched. Related to this feature is a cache feature on dynamic inventory updates and project updates. The rules for these two intertwined features are below:
 
 * Projects marked as `update on launch` should trigger a project update when a related job template is launched.
 * Inventory sources marked as `update on launch` should trigger an inventory update when a related job template is launched.

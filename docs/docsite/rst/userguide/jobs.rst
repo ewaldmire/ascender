@@ -6,7 +6,7 @@ Jobs
 .. index::
    single: jobs
 
-A :term:`job` is an instance of Ascender launching an Ansible playbook against an inventory of hosts.
+A :term:`job` is an instance of climber launching an Ansible playbook against an inventory of hosts.
 
 The **Jobs** link displays a list of jobs and their statuses--shown as completed successfully or failed, or as an active (running) job. 
 The default view is collapsed (**Compact**) with the job name, status, job type, and start/finish times, but you can expand to see more information. You can sort this list by various criteria, and perform a search to filter the jobs of interest.
@@ -103,7 +103,7 @@ Notable details of the job executed are:
 
 -  **Execution node**: The node used to execute the job.
 
--  **Instance Group**: The name of the instance group used with this job (Ascender is the default instance group).
+-  **Instance Group**: The name of the instance group used with this job (climber is the default instance group).
 
 By clicking on these items, where appropriate, you can view the corresponding job templates, projects, and other objects.
 
@@ -246,7 +246,7 @@ Things to note when viewing details in the expand/collapse mode:
 
 Click on a line of an event from the **Standard Out** pane and a **Host Events** dialog displays in a separate window. This window shows the host that was affected by that particular event.
 
-.. note:: Upgrading to the latest versions of Ascender involves progressively migrating all historical playbook output and events. This migration process is gradual, and happens automatically in the background after installation is complete. Installations with very large amounts of historical job output (tens, or hundreds of GB of output) may notice missing job output until migration is complete. Most recent data will show up at the top of the output, followed by older events. Migrating jobs with a large amount of events may take longer than jobs with a smaller amount.
+.. note:: Upgrading to the latest versions of climber involves progressively migrating all historical playbook output and events. This migration process is gradual, and happens automatically in the background after installation is complete. Installations with very large amounts of historical job output (tens, or hundreds of GB of output) may notice missing job output until migration is complete. Most recent data will show up at the top of the output, followed by older events. Migrating jobs with a large amount of events may take longer than jobs with a smaller amount.
 
 
 Host Details
@@ -313,7 +313,7 @@ By clicking on these items, where appropriate, you can view the corresponding jo
 
 .. _ug_job_concurrency:
 
-Ascender Capacity Determination and Job Impact
+climber Capacity Determination and Job Impact
 -------------------------------------------
 
 .. index::

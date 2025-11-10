@@ -1,6 +1,6 @@
 # Container Groups
 
-In a traditional Ascender installation, jobs (ansible-playbook runs) are
+In a traditional climber installation, jobs (ansible-playbook runs) are
 executed directly on a member of the cluster.  The concept of a
 Container Group (working name) allows for job environments to be
 provisioned on-demand as a Pod that exists only for the duration of

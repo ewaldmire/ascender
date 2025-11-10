@@ -6,7 +6,7 @@ The *awx-manage* Utility
 .. index:: 
    single: awx-manage
 
-The ``awx-manage`` utility is used to access detailed internal information of Ascender. Commands for ``awx-manage`` should run as the ``awx`` user only.
+The ``awx-manage`` utility is used to access detailed internal information of climber. Commands for ``awx-manage`` should run as the ``awx`` user only.
 
 .. warning:: 
          Running awx-manage commands via playbook is not recommended or supported.
@@ -17,13 +17,13 @@ Inventory Import
 .. index:: 
    single: awx-manage; inventory import
 
-``awx-manage`` is a mechanism by which an Ascender administrator can import inventory directly into Ascender, for those who cannot use Custom Inventory Scripts.
+``awx-manage`` is a mechanism by which an climber administrator can import inventory directly into climber, for those who cannot use Custom Inventory Scripts.
 
-To use ``awx-manage`` properly, you must first create an inventory in Ascender to use as the destination for the import.
+To use ``awx-manage`` properly, you must first create an inventory in climber to use as the destination for the import.
 
 For help with ``awx-manage``, run the following command: ``awx-manage inventory_import [--help]``
 
-The ``inventory_import`` command synchronizes an Ascender inventory object with a text-based inventory file, dynamic inventory script, or a directory of one or more of the above as supported by core Ansible.
+The ``inventory_import`` command synchronizes an climber inventory object with a text-based inventory file, dynamic inventory script, or a directory of one or more of the above as supported by core Ansible.
 
 When running this command, specify either an ``--inventory-id`` or ``--inventory-name``, and the path to the Ansible inventory source (``--source``).
 
@@ -31,7 +31,7 @@ When running this command, specify either an ``--inventory-id`` or ``--inventory
 
     awx-manage inventory_import --source=/ansible/inventory/ --inventory-id=1 
 
-By default, inventory data already stored in Ascender blends with data from the external source. To use only the external data, specify ``--overwrite``. To specify that any existing hosts get variable data exclusively from the ``--source``, specify ``--overwrite_vars``. The default behavior adds any new variables from the external source, overwriting keys that already exist, but preserves any variables that were not sourced from the external data source.
+By default, inventory data already stored in climber blends with data from the external source. To use only the external data, specify ``--overwrite``. To specify that any existing hosts get variable data exclusively from the ``--source``, specify ``--overwrite_vars``. The default behavior adds any new variables from the external source, overwriting keys that already exist, but preserves any variables that were not sourced from the external data source.
 
 ::
 
@@ -47,7 +47,7 @@ Cleanup of old data
 .. index:: 
    single: awx-manage, data cleanup
 
-``awx-manage`` has a variety of commands used to clean old data from Ascender. The Ascender administrators can use the Management Jobs interface for access or use the command line. 
+``awx-manage`` has a variety of commands used to clean old data from climber. The climber administrators can use the Management Jobs interface for access or use the command line. 
 
 -  ``awx-manage cleanup_jobs [--help]``
 
@@ -81,7 +81,7 @@ Token and session management
    single: awx-manage; token management
    single: awx-manage; session management
 
-Ascender supports the following commands for OAuth2 token management:
+climber supports the following commands for OAuth2 token management:
 
 .. contents::
     :local:
@@ -170,7 +170,7 @@ Use this command to delete all sessions that have expired. Refer to `Django's do
 
 
 
-For more information on OAuth2 token management in the Ascender user interface, see the :ref:`ug_applications_auth` section of the |atu|.
+For more information on OAuth2 token management in the climber user interface, see the :ref:`ug_applications_auth` section of the |atu|.
 
 
 Analytics gathering

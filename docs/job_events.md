@@ -9,7 +9,7 @@ The Job Event relationship is strictly hierarchical. In the example details belo
 
 * There is always one and only one `v2_playbook_on_start` event and it is the first event.
 * `v2_playbook_on_play_start` is generated once per-play in the playbook; two such events would be generated from the playbook example below.
-* The `v2_playbook_on_task_start` function is called once for each task under the default execution strategy. Other execution strategies (*i.e.*, free or serial) can result in the `v2_playbook_on_task_start` function being called multiple times, one for each host. Ascender only creates a Job Event for the **first** `v2_playbook_on_task_start` call. Subsequent calls for the same task do **not** result in Job Events being created.
+* The `v2_playbook_on_task_start` function is called once for each task under the default execution strategy. Other execution strategies (*i.e.*, free or serial) can result in the `v2_playbook_on_task_start` function being called multiple times, one for each host. climber only creates a Job Event for the **first** `v2_playbook_on_task_start` call. Subsequent calls for the same task do **not** result in Job Events being created.
 * `v2_runner_on_[ok, failed, skipped, unreachable, retry, item_on_ok, item_on_failed, item_on_skipped]`; one `v2_runner_on_...` Job Event will be created for each `v2_playbook_on_task_start` event.
 
 
@@ -114,5 +114,5 @@ A management command for event replay exists for replaying jobs at varying speed
 
 ## Code References
 
-* For a more comprehensive list of Job Events and the hierarchy they form, go here: github.com/ctrliq/ascender/blob/main/awx/main/models/jobs.py#L870
-* Exhaustive list of Job Events in Ascender: github.com/ctrliq/ascender/blob/main/awx/main/models/jobs.py#L900
+* For a more comprehensive list of Job Events and the hierarchy they form, go here: github.com/ctrliq/climber/blob/main/awx/main/models/jobs.py#L870
+* Exhaustive list of Job Events in climber: github.com/ctrliq/climber/blob/main/awx/main/models/jobs.py#L900

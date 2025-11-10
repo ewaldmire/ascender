@@ -1,7 +1,7 @@
 .. _ag_custom_rebranding:
 
 ***************************
-Using Custom Logos in Ascender
+Using Custom Logos in climber
 ***************************
 
 .. index::

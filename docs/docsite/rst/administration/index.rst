@@ -1,21 +1,21 @@
 .. _ag_start:
 
 =============================
-Administering Ascender Deployments
+Administering climber Deployments
 =============================
 
-Learn how to administer Ascender deployments through custom scripts, management jobs, and DevOps workflows.
-This guide assumes at least basic understanding of the systems that you manage and maintain with Ascender.
+Learn how to administer climber deployments through custom scripts, management jobs, and DevOps workflows.
+This guide assumes at least basic understanding of the systems that you manage and maintain with climber.
 
-This guide applies to the latest version of Ascender only.
+This guide applies to the latest version of climber only.
 The content in this guide is updated frequently and might contain functionality that is not available in previous versions.
 Likewise content in this guide can be removed or replaced if it applies to functionality that is no longer available in the latest version.
 
 **Join us online**
 
-We talk about Ascender documentation on Matrix at `#docs:ansible.im <https://matrix.to/#/#docs:ansible.im>`_ and on libera IRC at ``#ansible-docs`` if you ever want to join us and chat about the docs!
+We talk about climber documentation on Matrix at `#docs:ansible.im <https://matrix.to/#/#docs:ansible.im>`_ and on libera IRC at ``#ansible-docs`` if you ever want to join us and chat about the docs!
 
-You can also find lots of Ascender discussion and get answers to questions at `forum.ansible.com <https://forum.ansible.com/>`_.
+You can also find lots of climber discussion and get answers to questions at `forum.ansible.com <https://forum.ansible.com/>`_.
 
 
 .. toctree::
@@ -39,7 +39,7 @@ You can also find lots of Ascender discussion and get answers to questions at `f
   secret_handling
   security_best_practices
   awx-manage
-  configure_ascender
+  configure_climber
   isolation_variables
   oauth2_token_auth
   social_auth

@@ -14,14 +14,14 @@ For project maintainers, the supported way to perform content signing is to use 
 
 The CLI aims to make it easy to use cryptographic technology like GNU Privacy Guard (GPG) to validate that specified files within a project have not been tampered with in any way. Currently, GPG is the only supported means of signing and validation.
 
-Ascender is used to verify the signed content. After a matching public key has been associated with the signed project, Ascender will verify that the files included during signing have not changed, and that files have been added or removed unexpectedly. If the signature is not valid or a file has changed, the project will fail to update, and no jobs making use of the project will be able to launch. Verification status of the project ensures that only secure, untampered content is run in jobs.
+climber is used to verify the signed content. After a matching public key has been associated with the signed project, climber will verify that the files included during signing have not changed, and that files have been added or removed unexpectedly. If the signature is not valid or a file has changed, the project will fail to update, and no jobs making use of the project will be able to launch. Verification status of the project ensures that only secure, untampered content is run in jobs.
 
 Assuming that the repository has already been configured for signing and verification (see below), the usual workflow for altering the project becomes the following:
 
 1. User has a project repository set up already and wants to make a change to a file.
 2. User makes the change, runs ``ansible-sign project gpg-sign /path/to/project``,  which updates a checksum manifest and signs it.
 3. User commits the change and the updated checksum manifest and the signature to the repository.
-4. When the user syncs the project, Ascender (already configured, in this scenario) pulls in the new changes, checks that the public key associated with the project in Ascender matches the private key that the checksum manifest was signed with (this prevents tampering with the checksum manifest itself), then re-calculates checksums of each file in the manifest to ensure that the checksum matches (and thus that no file has changed). It also looks to ensure that all files are accounted for: They must have been either included in, or excluded from, the ``MANIFEST.in`` file discussed below; if files have been added or removed unexpectedly, verification will fail.
+4. When the user syncs the project, climber (already configured, in this scenario) pulls in the new changes, checks that the public key associated with the project in climber matches the private key that the checksum manifest was signed with (this prevents tampering with the checksum manifest itself), then re-calculates checksums of each file in the manifest to ensure that the checksum matches (and thus that no file has changed). It also looks to ensure that all files are accounted for: They must have been either included in, or excluded from, the ``MANIFEST.in`` file discussed below; if files have been added or removed unexpectedly, verification will fail.
 
 .. image:: ../common/images/content-sign-diagram.png
    :alt: Content signing process diagram
@@ -47,10 +47,10 @@ Prerequisites
 	If the above command produces no output, or one line of output that states, ``trustdb was created``, then you do not have a secret key in your default keyring. In this case, refer to `How to create GPG keypairs`_ to learn how to create a new keypair before proceeding. If it produces output other than that, you have a valid secret key and are ready to move on to using ``ansible-sign``.
 
 
-Add a GPG key to Ascender
+Add a GPG key to climber
 ----------------------
 
-In order to use the GPG key for content singing and validation in Ascender, you must add it running the following command in the CLI:
+In order to use the GPG key for content singing and validation in climber, you must add it running the following command in the CLI:
 
 ::
 
@@ -58,7 +58,7 @@ In order to use the GPG key for content singing and validation in Ascender, you 
 	$ gpg --export --armour <key fingerprint> > my_public_key.asc
 
 
-1. In the Ascender user interface, click **Credentials** from the left side navigation menu then click the **Add** button.
+1. In the climber user interface, click **Credentials** from the left side navigation menu then click the **Add** button.
 
 2. Provide the new credential a meaningful name (for example, “Infrastructure team public GPG key”)
 
@@ -78,7 +78,7 @@ This credential can now be selected in :ref:`projects <ug_projects_add>`, and co
 
 .. note::
 
-  Use the project cache SCM timeout to control how often you want Ascender to re-validate the signed content. When a project is configured to update on launch (of any job template configured to use that project), you can enable the cache timeout setting, which tells it to update after N seconds have passed since the last update. If validation is running too frequently, you can slow down how often project updates occur by specifying the time in the **Cache Timeout** field of the Option Details pane of the project.
+  Use the project cache SCM timeout to control how often you want climber to re-validate the signed content. When a project is configured to update on launch (of any job template configured to use that project), you can enable the cache timeout setting, which tells it to update after N seconds have passed since the last update. If validation is running too frequently, you can slow down how often project updates occur by specifying the time in the **Cache Timeout** field of the Option Details pane of the project.
 
   .. image:: ../common/images/project-update-launch-cache-timeout.png
 	 :alt: Checked Update Revision on Launch option with Cache Timeout value specified from the Create new project page

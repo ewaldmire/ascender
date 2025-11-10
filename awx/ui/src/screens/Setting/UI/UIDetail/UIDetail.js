@@ -39,7 +39,7 @@ function UIDetail() {
         data,
         'PENDO_TRACKING_STATE',
         'CUSTOM_LOGIN_INFO',
-        'ASCENDER_DISABLE_GRADIENT',
+        'climber_DISABLE_GRADIENT',
         'CUSTOM_LOGO',
         'CUSTOM_LOGO_MENU'
       );

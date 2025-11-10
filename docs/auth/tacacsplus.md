@@ -1,5 +1,5 @@
 # TACACS+
-[Terminal Access Controller Access-Control System Plus (TACACS+)](https://en.wikipedia.org/wiki/TACACS) is a protocol developed by Cisco to handle remote authentication and related services for networked access control through a centralized server. In specific, TACACS+ provides authentication, authorization and accounting (AAA) services. Ascender currently utilizes its authentication service.
+[Terminal Access Controller Access-Control System Plus (TACACS+)](https://en.wikipedia.org/wiki/TACACS) is a protocol developed by Cisco to handle remote authentication and related services for networked access control through a centralized server. In specific, TACACS+ provides authentication, authorization and accounting (AAA) services. climber currently utilizes its authentication service.
 
 TACACS+ is configured by settings configuration and is available under `/api/v2/settings/tacacsplus/`. Here is a typical configuration with every configurable field included:
 ```
@@ -23,7 +23,7 @@ Each field is explained below:
 | `TACACSPLUS_AUTH_PROTOCOL`   | String with choices | 'ascii'             | The authentication protocol used by TACACS+ client (choices are `ascii` and `pap`).                |
 | `TACACSPLUS_REM_ADDR`        | Boolean             | false               | Enable the client address sending by TACACS+ client.               |
 
-Under the hood, Ascender uses [open-source TACACS+ python client](https://github.com/ansible/tacacs_plus) to communicate with the remote TACACS+ server. During authentication, Ascender passes username and password to TACACS+ client, which packs up auth information and sends it to the TACACS+ server. Based on what the server returns, Ascender will invalidate login attempt if authentication fails. If authentication passes, Ascender will create a user if she does not exist in database, and log the user in.
+Under the hood, climber uses [open-source TACACS+ python client](https://github.com/ansible/tacacs_plus) to communicate with the remote TACACS+ server. During authentication, climber passes username and password to TACACS+ client, which packs up auth information and sends it to the TACACS+ server. Based on what the server returns, climber will invalidate login attempt if authentication fails. If authentication passes, climber will create a user if she does not exist in database, and log the user in.
 
 ## Test Environment Setup
 
@@ -44,8 +44,8 @@ The playbook creates a user named 'tower' with ascii password default to 'login'
 ## Acceptance Criteria
 
 * All specified in configuration fields should be shown and configurable as documented.
-* A user defined by the TACACS+ server should be able to log into Ascender.
-* User not defined by TACACS+ server should not be able to log into Ascender via TACACS+.
-* A user existing in TACACS+ server but not in Ascender should be created after the first successful log in.
+* A user defined by the TACACS+ server should be able to log into climber.
+* User not defined by TACACS+ server should not be able to log into climber via TACACS+.
+* A user existing in TACACS+ server but not in climber should be created after the first successful log in.
 * TACACS+ backend should stop an authentication attempt after configured timeout and should not block the authentication pipeline in any case.
-* If exceptions occur on TACACS+ server side, the exception details should be logged in Ascender, and Ascender should not authenticate that user via TACACS+.
+* If exceptions occur on TACACS+ server side, the exception details should be logged in climber, and climber should not authenticate that user via TACACS+.

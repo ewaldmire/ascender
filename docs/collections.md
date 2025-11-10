@@ -1,11 +1,11 @@
 ## Collections
 
-Ascender supports the use of Ansible Collections. This section will give ways to use Collections in job runs.
+climber supports the use of Ansible Collections. This section will give ways to use Collections in job runs.
 
 ### Project Collections Requirements
 
 If you specify a collections requirements file in SCM at `collections/requirements.yml` of a project,
- then Ascender will install collections from that file to a special cache folder in project updates.
+ then climber will install collections from that file to a special cache folder in project updates.
 Before a job runs, the roles and/or collections will be copied from the special
 cache folder to the job temporary folder.
 
@@ -86,7 +86,7 @@ https://docs.ansible.com/ansible/devel/user_guide/collections_using.html
 (if "devel" link goes stale in the future, it is for Ansible 2.9)
 
 You can specify a list of zero or more servers to download roles and
-collections from for Ascender Project Updates.  This is done by associating Galaxy
+collections from for climber Project Updates.  This is done by associating Galaxy
 credentials (in sequential order) via the API at
 `/api/v2/organizations/N/galaxy_credentials/`.  Authentication
 via an API token is optional (i.e., https://galaxy.ansible.com/), but other

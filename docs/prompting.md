@@ -1,6 +1,6 @@
 ## Launch-time Configurations / Prompting
 
-Admins of templates in Ascender have the option to allow fields to be overwritten
+Admins of templates in climber have the option to allow fields to be overwritten
 by user-provided values at the time of launch. The job that runs will
 then use the launch-time values in lieu of the template values.
 
@@ -71,7 +71,7 @@ When launching manually, certain restrictions apply to the use of credentials:
 
 For the POST action to launch, data for "prompts" are provided as top-level
 keys in the request data. There is a special-case to allow a list to be
-provided for `credentials`, which is otherwise not possible in Ascender API design.
+provided for `credentials`, which is otherwise not possible in climber API design.
 The list of credentials provided in the POST data will become the list
 for the spawned job.
 

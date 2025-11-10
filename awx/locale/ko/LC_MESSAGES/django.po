@@ -3961,19 +3961,19 @@ msgstr "이 토큰은 GitHub의 프로필 설정에서 가져와야 합니다."
 #: awx/main/models/credential/__init__.py:962
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform"
-msgid "CIQ Ascender Automation Platform"
+msgid "CIQ climber Automation Platform"
 msgstr "Red Hat Ansible Automation Platform"
 
 #: awx/main/models/credential/__init__.py:964
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform base URL to authenticate with."
-msgid "CIQ Ascender Automation Platform base URL to authenticate with."
+msgid "CIQ climber Automation Platform base URL to authenticate with."
 msgstr "인증할 Red Hat Ansible Automation Platform 기본 URL입니다."
 
 #: awx/main/models/credential/__init__.py:971
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
-msgid "CIQ Ascender Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
+msgid "CIQ climber Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
 msgstr "인증할 Red Hat Ansible Automation Platform 사용자 이름 ID입니다. OAuth 토큰을 사용하는 경우 설정하지 마십시오."
 
 #: awx/main/models/credential/__init__.py:982
@@ -6792,7 +6792,7 @@ msgstr "AWX"
 #: awx/templates/rest_framework/api.html:4
 #, fuzzy
 #| msgid "AWX REST API"
-msgid "ASCENDER REST API"
+msgid "climber REST API"
 msgstr "AWX REST API"
 
 #: awx/templates/rest_framework/api.html:42

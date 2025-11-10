@@ -10,7 +10,7 @@ https://www.ansible.com/security
 
 <!--
 
-PLEASE DO NOT USE A BLANK TEMPLATE IN THE ASCENDER REPO.
+PLEASE DO NOT USE A BLANK TEMPLATE IN THE climber REPO.
 This is a legacy template used for internal testing ONLY.
 
 Any issues opened will this template will be automatically closed.
@@ -29,7 +29,7 @@ Instead use the bug or feature request.
 
 
 ##### COMPONENT NAME
-<!-- Pick the area of Ascender for this issue, you can have multiple, delete the rest: -->
+<!-- Pick the area of climber for this issue, you can have multiple, delete the rest: -->
  - API
  - UI
  - Collection
@@ -42,9 +42,9 @@ Instead use the bug or feature request.
 <!-- Briefly describe the problem. -->
 
 ##### ENVIRONMENT
-* ASCENDER version: X.Y.Z
-* ASCENDER install method: operator, developer environment, Ascender Installer
-* ASCENDER deployment target: openshift, kubernetes, minikube
+* climber version: X.Y.Z
+* climber install method: operator, developer environment, climber Installer
+* climber deployment target: openshift, kubernetes, minikube
 * Operating System:
 * Web Browser:
 
@@ -52,7 +52,7 @@ Instead use the bug or feature request.
 
 <!-- For new features, show how the feature would be used. For bugs, please show
 exactly how to reproduce the problem. Ideally, provide all steps and data needed
-to recreate the bug from a new ascender install. -->
+to recreate the bug from a new climber install. -->
 
 ##### EXPECTED RESULTS
 

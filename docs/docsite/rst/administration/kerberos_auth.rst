@@ -5,9 +5,9 @@ User Authentication with Kerberos
     pair: user authentication; Kerberos
     pair: Kerberos; Active Directory (AD)
 
-User authentication via Active Directory (AD), also referred to as authentication through Kerberos, is supported through Ascender.
+User authentication via Active Directory (AD), also referred to as authentication through Kerberos, is supported through climber.
 
-To get started, first set up the Kerberos packages in Ascender so that you can successfully generate a Kerberos ticket. To install the packages, use the following steps:
+To get started, first set up the Kerberos packages in climber so that you can successfully generate a Kerberos ticket. To install the packages, use the following steps:
 
 ::
 
@@ -78,7 +78,7 @@ You should also:
 
 - Ensure that the hostname is the proper client hostname matching the entry in AD and is not the IP address. 
 
-- In the username declaration, ensure that the domain name (the text after ``@``) is properly entered with regard to upper- and lower-case letters, as Kerberos is case sensitive. For Ascender, you should also ensure that the inventory looks the same.
+- In the username declaration, ensure that the domain name (the text after ``@``) is properly entered with regard to upper- and lower-case letters, as Kerberos is case sensitive. For climber, you should also ensure that the inventory looks the same.
 
 
 .. note:: 
@@ -88,7 +88,7 @@ You should also:
 
 Now, running a playbook should run as expected. You can test this by running the playbook as the ``awx`` user.
 
-Once you have verified that playbooks work properly, integration with Ascender is easy. Generate the Kerberos ticket as the ``awx`` user and Ascender should automatically pick up the generated ticket for authentication.
+Once you have verified that playbooks work properly, integration with climber is easy. Generate the Kerberos ticket as the ``awx`` user and climber should automatically pick up the generated ticket for authentication.
 
 .. note::
 

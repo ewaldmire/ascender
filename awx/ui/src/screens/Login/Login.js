@@ -36,7 +36,7 @@ import { useSession } from 'contexts/Session';
 import LoadingSpinner from 'components/LoadingSpinner';
 import { SESSION_REDIRECT_URL, SESSION_USER_ID } from '../../constants';
 
-const loginLogoSrc = 'static/media/AscenderAuto_logo_h_rev_M.png';
+const loginLogoSrc = 'static/media/climberAuto_logo_h_rev_M.png';
 
 const Login = styled(PFLogin)`
   & .pf-c-brand {
