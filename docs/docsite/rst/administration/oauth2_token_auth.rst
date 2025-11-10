@@ -121,7 +121,7 @@ Individual tokens are accessible via their primary keys: ``/api/<version>/tokens
 For an OAuth 2 token, the only fully editable fields are ``scope`` and ``description``. The ``application`` field is non-editable on update, and all other fields are entirely non-editable, and are auto-populated during creation, as follows:
 
 - ``user`` field corresponds to the user the token is created for, and in this case, is also the user creating the token
-- ``expires`` is generated according to climber configuration setting ``OAUTH2_PROVIDER``
+- ``expires`` is generated according to ascender configuration setting ``OAUTH2_PROVIDER``
 - ``token`` and ``refresh_token`` are auto-generated to be non-clashing random strings
 
 Both application tokens and personal access tokens are shown at the ``/api/v2/tokens/`` endpoint. The ``application`` field in the personal access tokens is always **null**. This is a good way to differentiate the two types of tokens.
@@ -150,7 +150,7 @@ The easiest and most common way to obtain an OAuth 2 token is to create a person
 
 ::
 
-    curl -H "Content-type: application/json" -d '{"description":"Personal climber CLI token", "application":null, "scope":"write"}' https://<USERNAME>:<PASSWORD>@<climber_SERVER>/api/v2/users/<USER_ID>/personal_tokens/ | python -m json.tool
+    curl -H "Content-type: application/json" -d '{"description":"Personal ascender CLI token", "application":null, "scope":"write"}' https://<USERNAME>:<PASSWORD>@<ascender_SERVER>/api/v2/users/<USER_ID>/personal_tokens/ | python -m json.tool
 
 You could also pipe the JSON output through ``jq``, if installed.
 
@@ -162,7 +162,7 @@ Following is an example of using the personal token to access an API endpoint us
 	curl -H "Authorization: Bearer <token>" -H "Content-Type: application/json" -d '{}' https://awx/api/v2/job_templates/5/launch/
 
 
-In climber, the OAuth 2 system is built on top of the `Django Oauth Toolkit`_, which provides dedicated endpoints for authorizing, revoking, and refreshing tokens. These endpoints can be found under the ``/api/v2/users/<USER_ID>/personal_tokens/`` endpoint, which also provides detailed examples on some typical usage of those endpoints. These special OAuth 2 endpoints only support using the ``x-www-form-urlencoded`` **Content-type**, so none of the ``api/o/*`` endpoints accept ``application/json``. 
+In ascender, the OAuth 2 system is built on top of the `Django Oauth Toolkit`_, which provides dedicated endpoints for authorizing, revoking, and refreshing tokens. These endpoints can be found under the ``/api/v2/users/<USER_ID>/personal_tokens/`` endpoint, which also provides detailed examples on some typical usage of those endpoints. These special OAuth 2 endpoints only support using the ``x-www-form-urlencoded`` **Content-type**, so none of the ``api/o/*`` endpoints accept ``application/json``. 
 
 
 .. _`Django Oauth Toolkit`: https://django-oauth-toolkit.readthedocs.io/en/latest/
@@ -171,7 +171,7 @@ In climber, the OAuth 2 system is built on top of the `Django Oauth Toolkit`_, w
     You can also request tokens using the ``/api/o/token`` endpoint by specifying ``null`` for the application type.
 
 
-Alternatively, you can :ref:`add tokens <ug_tokens_auth_create>` for users through the climber user interface, as well as configure the expiration of an access token and its associated refresh token (if applicable).  
+Alternatively, you can :ref:`add tokens <ug_tokens_auth_create>` for users through the ascender user interface, as well as configure the expiration of an access token and its associated refresh token (if applicable).  
 
 .. image:: ../common/images/configure-awx-system-misc-sys-token-expire.png
 
@@ -179,7 +179,7 @@ Alternatively, you can :ref:`add tokens <ug_tokens_auth_create>` for users throu
 Token scope mask over RBAC system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The scope of an OAuth 2 token is a space-separated string composed of valid scope keywords, 'read' and 'write'. These keywords are configurable and used to specify permission level of the authenticated API client. Read and write scopes provide a mask layer over the Role-Based Access Control (RBAC) permission system of climber. Specifically, a 'write' scope gives the authenticated user the full permissions the RBAC system provides, while a 'read' scope gives the authenticated user only read permissions the RBAC system provides. Note that 'write' implies 'read' as well.
+The scope of an OAuth 2 token is a space-separated string composed of valid scope keywords, 'read' and 'write'. These keywords are configurable and used to specify permission level of the authenticated API client. Read and write scopes provide a mask layer over the Role-Based Access Control (RBAC) permission system of ascender. Specifically, a 'write' scope gives the authenticated user the full permissions the RBAC system provides, while a 'read' scope gives the authenticated user only read permissions the RBAC system provides. Note that 'write' implies 'read' as well.
 
 For example, if you have administrative permissions to a job template, you can view, modify, launch, and delete the job template if authenticated via session or basic authentication. In contrast, if you are authenticated using OAuth 2 token, and the related token scope is 'read', you can only view, but not manipulate or launch the job template, despite being an administrator. If the token scope is 'write' or 'read write', you can take full advantage of the job template as its administrator. 
 
@@ -242,14 +242,14 @@ Similarly, using a token:
 Application Functions
 -----------------------
 
-This page lists OAuth 2 utility endpoints used for authorization, token refresh, and revoke. The ``/api/o/`` endpoints are not meant to be used in browsers and do not support HTTP GET. The endpoints prescribed here strictly follow RFC specifications for OAuth 2, so use that for detailed reference. The following is an example of the typical usage of these endpoints in climber, in particular, when creating an application using various grant types:
+This page lists OAuth 2 utility endpoints used for authorization, token refresh, and revoke. The ``/api/o/`` endpoints are not meant to be used in browsers and do not support HTTP GET. The endpoints prescribed here strictly follow RFC specifications for OAuth 2, so use that for detailed reference. The following is an example of the typical usage of these endpoints in ascender, in particular, when creating an application using various grant types:
 
    - Authorization Code
    - Password
 
 .. note::
 
-    You can perform any of the application functions described here using climber user interface. Refer to the :ref:`ug_applications_auth` section of the |atu| for more detail.
+    You can perform any of the application functions described here using ascender user interface. Refer to the :ref:`ug_applications_auth` section of the |atu| for more detail.
 
  
 
@@ -260,9 +260,9 @@ The application ``authorization code`` grant type should be used when access tok
 
 .. note::
 
-    You can only use the ``authorization code`` type to acquire an access token when using an application. When integrating an external webapp with climber, that webapp may need to create OAuth2 Tokens on behalf of users in that other webapp. Creating an application in climber with the ``authorization code`` grant type is the preferred way to do this because:
+    You can only use the ``authorization code`` type to acquire an access token when using an application. When integrating an external webapp with ascender, that webapp may need to create OAuth2 Tokens on behalf of users in that other webapp. Creating an application in ascender with the ``authorization code`` grant type is the preferred way to do this because:
 
-    - this allows an external application to obtain a token from climber for a user, using their credentials.
+    - this allows an external application to obtain a token from ascender for a user, using their credentials.
     - compartmentalized tokens issued for a particular application allows those tokens to be easily managed (revoke all tokens associated with that application without having to revoke *all* tokens in the system, for example)
 
  To create an application named *AuthCodeApp* with the ``authorization-code`` grant type, perform a POST to the ``/api/v2/applications/`` endpoint:
@@ -283,9 +283,9 @@ The application ``authorization code`` grant type should be used when access tok
 
 The workflow that occurs when you issue a **GET** to the ``authorize`` endpoint from the client application with the ``response_type``, ``client_id``, ``redirect_uris``, and ``scope``:
 
-1. climber responds with the authorization code and status to the ``redirect_uri`` specified in the application. 
-2. The client application then makes a **POST** to the ``api/o/token/`` endpoint on climber with the ``code``, ``client_id``, ``client_secret``, ``grant_type``, and ``redirect_uri``. 
-3. climber responds with the ``access_token``, ``token_type``, ``refresh_token``, and ``expires_in``. 
+1. ascender responds with the authorization code and status to the ``redirect_uri`` specified in the application. 
+2. The client application then makes a **POST** to the ``api/o/token/`` endpoint on ascender with the ``code``, ``client_id``, ``client_secret``, ``grant_type``, and ``redirect_uri``. 
+3. ascender responds with the ``access_token``, ``token_type``, ``refresh_token``, and ``expires_in``. 
 
 
 Refer to `Django's Test Your Authorization Server`_ toolkit to test this flow.
@@ -299,7 +299,7 @@ You may specify the number of seconds an authorization code remains valid in the
 
 Requesting an access token after this duration will fail. The duration defaults to 600 seconds (10 minutes), based on the `RFC6749 <https://tools.ietf.org/html/rfc6749>`_ recommendation. 
 
-The best way to set up app integrations with climber using the Authorization Code grant type is to whitelist the origins for those cross-site requests. More generally, you need to whitelist the service or application you are integrating with climber, for which you want to provide access tokens. To do this, have your Administrator add this whitelist to their local climber settings:
+The best way to set up app integrations with ascender using the Authorization Code grant type is to whitelist the origins for those cross-site requests. More generally, you need to whitelist the service or application you are integrating with ascender, for which you want to provide access tokens. To do this, have your Administrator add this whitelist to their local ascender settings:
 
 ::
 
@@ -308,7 +308,7 @@ The best way to set up app integrations with climber using the Authorization Cod
         r"http://www.example.com*"
     ]
 
-Where ``http://django-oauth-toolkit.herokuapp.com`` and ``http://www.example.com`` are applications needing tokens with which to access climber.
+Where ``http://django-oauth-toolkit.herokuapp.com`` and ``http://www.example.com`` are applications needing tokens with which to access ascender.
 
 Application using ``password`` grant type
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -457,7 +457,7 @@ Revoking an access token by this method is the same as deleting the token resour
 Alternatively, you can use the ``manage`` utility, :ref:`ag_manage_utility_revoke_tokens`, to revoke tokens as described in the :ref:`ag_token_utility` section.
 
 
-This setting can be configured at the system-level in the climber User Interface: 
+This setting can be configured at the system-level in the ascender User Interface: 
 
 .. image:: ../common/images/configure-awx-system-oauth2-tokens-toggle.png
 

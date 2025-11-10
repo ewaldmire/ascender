@@ -28,13 +28,13 @@ jobs:
           #- image-name: awx
           #  make-target: awx-kube-buildx
     steps:
-      - name: Skipping build of climber image for non-climber repository
+      - name: Skipping build of ascender image for non-ascender repository
         run: |
-          echo "Skipping build of climber image for non-climber repository"
+          echo "Skipping build of ascender image for non-ascender repository"
           exit 0
         if: matrix.build-targets.image-name == 'awx' && !endsWith(github.repository, '/ascender')
 
-      - name: Checkout climber
+      - name: Checkout ascender
         uses: actions/checkout@v3
         with:
           path: ascender
@@ -62,7 +62,7 @@ jobs:
         with:
           length: 6
 
-      - name: Build climber Devel Image
+      - name: Build ascender Devel Image
         working-directory: ascender
         run: |
           ansible-playbook -v tools/ansible/build.yml \

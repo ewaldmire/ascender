@@ -7,7 +7,7 @@ Container and Instance Groups
    pair: container; groups
    pair: instance; groups
 
-climber allows you to execute jobs via ansible playbook runs directly on a member of the cluster or in a namespace of an Openshift cluster with the necessary service account provisioned called a Container Group. You can execute jobs in a container group only as-needed per playbook. For more information, see :ref:`ag_container_groups` towards the end of this section.
+ascender allows you to execute jobs via ansible playbook runs directly on a member of the cluster or in a namespace of an Openshift cluster with the necessary service account provisioned called a Container Group. You can execute jobs in a container group only as-needed per playbook. For more information, see :ref:`ag_container_groups` towards the end of this section.
 
 For |ees|, see :ref:`ug_execution_environments` in the |atu|.
 
@@ -127,11 +127,11 @@ Instance group policies
    pair: policies; instance groups
    pair: clustering; instance group policies
 
-You can configure climber instances to automatically join Instance Groups when they come online by defining a :term:`policy`. These policies are evaluated for every new instance that comes online.
+You can configure ascender instances to automatically join Instance Groups when they come online by defining a :term:`policy`. These policies are evaluated for every new instance that comes online.
 
 Instance Group Policies are controlled by three optional fields on an ``Instance Group``:
 
-- ``policy_instance_percentage``: This is a number between 0 - 100. It guarantees that this percentage of active climber instances will be added to this Instance Group. As new instances come online, if the number of Instances in this group relative to the total number of instances is less than the given percentage, then new ones will be added until the percentage condition is satisfied.
+- ``policy_instance_percentage``: This is a number between 0 - 100. It guarantees that this percentage of active ascender instances will be added to this Instance Group. As new instances come online, if the number of Instances in this group relative to the total number of instances is less than the given percentage, then new ones will be added until the percentage condition is satisfied.
 - ``policy_instance_minimum``: This policy attempts to keep at least this many instances in the Instance Group. If the number of available instances is lower than this minimum, then all instances will be placed in this Instance Group.
 - ``policy_instance_list``: This is a fixed list of instance names to always include in this Instance Group.
 
@@ -190,7 +190,7 @@ Job Runtime Behavior
 When you run a job associated with a instance group, some behaviors worth noting are:
 
 - If a cluster is divided into separate instance groups, then the behavior is similar to the cluster as a whole. If two instances are assigned to a group then either one is just as likely to receive a job as any other in the same group.
-- As climber instances are brought online, it effectively expands the work capacity of the system. If those instances are also placed into instance groups, then they also expand that group's capacity. If an instance is performing work and it is a member of multiple groups, then capacity will be reduced from all groups for which it is a member. De-provisioning an instance will remove capacity from the cluster wherever that instance was assigned.
+- As ascender instances are brought online, it effectively expands the work capacity of the system. If those instances are also placed into instance groups, then they also expand that group's capacity. If an instance is performing work and it is a member of multiple groups, then capacity will be reduced from all groups for which it is a member. De-provisioning an instance will remove capacity from the cluster wherever that instance was assigned.
 
 .. note::
 	Not all instances are required to be provisioned with an equal capacity.
@@ -234,7 +234,7 @@ Likewise, an administrator could assign multiple groups to each organization as 
 .. |Instance Group example| image:: ../common/images/instance-groups-scenarios.png
 		:alt: Illustration showing grouping scenarios.
 
-Arranging resources in this way offers a lot of flexibility. Also, you can create instance groups with only one instance, thus allowing you to direct work towards a very specific Host in the climber cluster.
+Arranging resources in this way offers a lot of flexibility. Also, you can create instance groups with only one instance, thus allowing you to direct work towards a very specific Host in the ascender cluster.
 
 .. _ag_instancegrp_cpacity:
 
@@ -251,7 +251,7 @@ Sometimes there is external business logic which may drive the desire to limit t
 
 For traditional instances and instance groups, there could be a desire to allow two organizations to run jobs on the same underlying instances, but limit each organization's total number of concurrent jobs. This can be achieved by creating an instance group for each organization and assigning the value for ``max_concurrent_jobs``.
 
-For container groups, climber is generally not aware of the resource limits of the OpenShift cluster. There may be limits set on the number of pods on a namespace, or only resources available to schedule a certain number of pods at a time if no auto-scaling is in place. Again, in this case, we can adjust the value for ``max_concurrent_jobs``.
+For container groups, ascender is generally not aware of the resource limits of the OpenShift cluster. There may be limits set on the number of pods on a namespace, or only resources available to schedule a certain number of pods at a time if no auto-scaling is in place. Again, in this case, we can adjust the value for ``max_concurrent_jobs``.
 
 Another parameter available is ``max_forks``. This provides additional flexibility for capping the capacity consumed on an instance group or container group. This may be used if jobs with a wide variety of inventory sizes and "forks" values are being run. This way, you can limit an organization to run up to 10 jobs concurrently, but consume no more than 50 forks at a time.
 
@@ -276,16 +276,16 @@ Deprovision Instance Groups
 .. index::
    pair: groups; deprovisioning
 
-Re-running the setup playbook does not automatically deprovision instances since clusters do not currently distinguish between an instance that was taken offline intentionally or due to failure. Instead, shut down all services on the climber instance and then run the deprovisioning tool from any other instance:
+Re-running the setup playbook does not automatically deprovision instances since clusters do not currently distinguish between an instance that was taken offline intentionally or due to failure. Instead, shut down all services on the ascender instance and then run the deprovisioning tool from any other instance:
 
 #. Shut down the instance or stop the service with the command, ``automation-awx-service stop``.
 
-#. Run the deprovision command ``$ awx-manage deprovision_instance --hostname=<name used in inventory file>`` from another instance to remove it from the climber cluster registry.
+#. Run the deprovision command ``$ awx-manage deprovision_instance --hostname=<name used in inventory file>`` from another instance to remove it from the ascender cluster registry.
 
 	Example: ``awx-manage deprovision_instance --hostname=hostB``
 
 
-Similarly, deprovisioning instance groups in climber does not automatically deprovision or remove instance groups, even though re-provisioning will often cause these to be unused. They may still show up in API endpoints and stats monitoring. These groups can be removed with the following command:
+Similarly, deprovisioning instance groups in ascender does not automatically deprovision or remove instance groups, even though re-provisioning will often cause these to be unused. They may still show up in API endpoints and stats monitoring. These groups can be removed with the following command:
 
 	Example: ``awx-manage unregister_queue --queuename=<name>``
 
@@ -300,7 +300,7 @@ Container Groups
    single: container groups
    pair: containers; instance groups
 
-climber supports :term:`Container Groups`, which allow you to execute jobs in pods on Kubernetes (k8s) or OpenShift clusters. Container groups act as a pool of resources within a virtual environment. These pods are created on-demand and only exist for the duration of the playbook run. This is known as the ephemeral execution model and ensures a clean environment for every job run.
+ascender supports :term:`Container Groups`, which allow you to execute jobs in pods on Kubernetes (k8s) or OpenShift clusters. Container groups act as a pool of resources within a virtual environment. These pods are created on-demand and only exist for the duration of the playbook run. This is known as the ephemeral execution model and ensures a clean environment for every job run.
 
 In some cases, it is desirable to have container groups be "always-on", which is configured through the creation of an instance.
 
@@ -317,7 +317,7 @@ Create a container group
 
 To create a container group:
 
-1. Use the climber user interface to create an :ref:`ug_credentials_ocp_k8s` credential that will be used with your container group, see :ref:`ug_credentials_add` in the |atu| for detail.
+1. Use the ascender user interface to create an :ref:`ug_credentials_ocp_k8s` credential that will be used with your container group, see :ref:`ug_credentials_add` in the |atu| for detail.
 
 2. Create a new container group by navigating to the Instance Groups configuration window by clicking **Instance Groups** from the left navigation bar.
 
@@ -335,7 +335,7 @@ To create a container group:
 Customize the pod spec
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-climber provides a simple default pod specification, however, you can provide a custom YAML (or JSON) document that overrides the default pod spec. This field uses any custom fields (for example, ``ImagePullSecrets``) that can be "serialized" as valid pod JSON or YAML. A full list of options can be found in the `OpenShift documentation <https://docs.openshift.com/online/pro/architecture/core_concepts/pods_and_services.html>`_.
+ascender provides a simple default pod specification, however, you can provide a custom YAML (or JSON) document that overrides the default pod spec. This field uses any custom fields (for example, ``ImagePullSecrets``) that can be "serialized" as valid pod JSON or YAML. A full list of options can be found in the `OpenShift documentation <https://docs.openshift.com/online/pro/architecture/core_concepts/pods_and_services.html>`_.
 
 To customize the pod spec, check the **Customize pod specification** option to enable and expand the **Custom pod spec** field where you specify the namespace and provide additional customizations as needed.
 
@@ -351,7 +351,7 @@ Click **Expand** to view the entire customization window.
 
 .. note::
 
-	The image used at job launch time is determined by which |ee| is associated with the job. If a Container Registry credential is associated with the |ee|, then climber will attempt to make a ``ImagePullSecret`` to pull the image. If you prefer not to give the service account permission to manage secrets, you must pre-create the ``ImagePullSecret`` and specify it on the pod spec, and omit any credential from the |ee| used.
+	The image used at job launch time is determined by which |ee| is associated with the job. If a Container Registry credential is associated with the |ee|, then ascender will attempt to make a ``ImagePullSecret`` to pull the image. If you prefer not to give the service account permission to manage secrets, you must pre-create the ``ImagePullSecret`` and specify it on the pod spec, and omit any credential from the |ee| used.
 
 .. tip::
 
@@ -440,7 +440,7 @@ When you run a job associated with a container group, you can see the details of
 Kubernetes API failure conditions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When running a container group and the Kubernetes API responds that the resource quota has been exceeded, climber keeps the job in pending state. Other failures result in the traceback of the **Error Details** field showing the failure reason, similar to the example here: 
+When running a container group and the Kubernetes API responds that the resource quota has been exceeded, ascender keeps the job in pending state. Other failures result in the traceback of the **Error Details** field showing the failure reason, similar to the example here: 
 
 ::
 
@@ -458,8 +458,8 @@ Capacity limits and quotas for containers are defined via objects in the Kuberne
 
 - To set limits on all pods within a given namespace, use the ``LimitRange`` object. Refer to the OpenShift documentation for `Quotas and Limit Ranges <https://docs.openshift.com/online/pro/dev_guide/compute_resources.html#overview>`_.
 
-- To set limits directly on the pod definition launched by climber, see :ref:`ag_customize_pod_spec` and refer to the OpenShift documentation to set the options to `compute resources <https://docs.openshift.com/online/pro/dev_guide/compute_resources.html#dev-compute-resources>`_.
+- To set limits directly on the pod definition launched by ascender, see :ref:`ag_customize_pod_spec` and refer to the OpenShift documentation to set the options to `compute resources <https://docs.openshift.com/online/pro/dev_guide/compute_resources.html#dev-compute-resources>`_.
 
 .. Note::
 
-	Container groups do not use the capacity algorithm that normal nodes use. You would need to explicitly set the number of forks at the job template level, for instance. If forks are configured in climber, that setting will be passed along to the container.
+	Container groups do not use the capacity algorithm that normal nodes use. You would need to explicitly set the number of forks at the job template level, for instance. If forks are configured in ascender, that setting will be passed along to the container.

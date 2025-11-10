@@ -8,7 +8,7 @@ Browsable API
    single: browsable API
    single: API; browsable
 
-REST APIs provide access to resources (data entities) via URI paths.  You can visit the climber REST API in a web browser at: ``http://<server name>/api/`` 
+REST APIs provide access to resources (data entities) via URI paths.  You can visit the ascender REST API in a web browser at: ``http://<server name>/api/`` 
 
 |REST API|
 

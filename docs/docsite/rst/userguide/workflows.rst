@@ -42,7 +42,7 @@ Consider the following scenarios for building workflows:
 .. image:: ../common/images/wf-node-convergence.png
    :alt: Node Convergence
 
-In the example provided, climber runs the first two job templates in parallel. When they both finish and succeed as specified, the 3rd downstream (:ref:`convergence node <convergence_node>`), will trigger.
+In the example provided, ascender runs the first two job templates in parallel. When they both finish and succeed as specified, the 3rd downstream (:ref:`convergence node <convergence_node>`), will trigger.
 
 - Prompts for inventory and surveys will apply to workflow nodes in workflow job templates.
 
@@ -57,7 +57,7 @@ In the example provided, climber runs the first two job templates in parallel. W
 
   .. include:: ../common/job-slicing-rule.rst
 
-- You can build a recursive workflow, but if climber detects an error, it will stop at the time the nested workflow attempts to run.
+- You can build a recursive workflow, but if ascender detects an error, it will stop at the time the nested workflow attempts to run.
 
 - Artifacts gathered in jobs in the sub-workflow will be passed to downstream nodes.
 

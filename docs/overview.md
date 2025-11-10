@@ -1,32 +1,32 @@
-# climber
+# ascender
 
-climber provides a web interface and distributed task engine for scheduling and
+ascender provides a web interface and distributed task engine for scheduling and
 running Ansible playbooks.  As such, it relies heavily on the interfaces
 provided by Ansible.  This document provides a birds-eye view of the notable
-touchpoints between climber and Ansible.
+touchpoints between ascender and Ansible.
 
 
 ## Terminology
 
-climber has a variety of concepts which map to components of Ansible, or
+ascender has a variety of concepts which map to components of Ansible, or
 which further abstract them to provide functionality on top of Ansible.  A few
 of the most notable ones are:
 
 
 ### Projects
 
-Projects represent a collection of Ansible playbooks.  Most climber users create
+Projects represent a collection of Ansible playbooks.  Most ascender users create
 Projects that import periodically from source control systems (such as git
 or subversion repositories).  This import is accomplished via an
-Ansible playbook included with climber (which makes use of the various source
+Ansible playbook included with ascender (which makes use of the various source
 control management modules in Ansible).
 
 
 ### Inventories
 
-climber manages Inventories, Groups, and Hosts, and provides a RESTful interface
+ascender manages Inventories, Groups, and Hosts, and provides a RESTful interface
 that maps to static and dynamic Ansible inventories.  Inventory data can
-be entered into climber manually, but many users perform Inventory Syncs to import
+be entered into ascender manually, but many users perform Inventory Syncs to import
 inventory data from a variety of external sources.
 
 
@@ -44,7 +44,7 @@ A Job Template is a definition and set of parameters for running
 
 ### Credentials
 
-climber stores sensitive credential data which can be attached to `ansible-playbook`
+ascender stores sensitive credential data which can be attached to `ansible-playbook`
 processes that it runs.  This data can be oriented towards SSH connection
 authentication (usernames, passwords, SSH keys and passphrases),
 Ansible-specific prompts (such as Vault passwords), or environmental
@@ -55,7 +55,7 @@ authentication values which various Ansible modules depend on (such as setting
 
 ## Canonical Example
 
-Bringing all of this terminology together, a "Getting Started Using climber" might
+Bringing all of this terminology together, a "Getting Started Using ascender" might
 involve:
 
 * Creating a new Project that imports playbooks from, for example, a remote git repository
@@ -68,10 +68,10 @@ involve:
 * Launching the Job Template and viewing the results
 
 
-## climber's Interaction with Ansible
+## ascender's Interaction with Ansible
 
-The touchpoints between climber and Ansible are mostly encompassed by
-everything that happens *after* a job is started in climber.  Specifically, this
+The touchpoints between ascender and Ansible are mostly encompassed by
+everything that happens *after* a job is started in ascender.  Specifically, this
 includes:
 
 * Any time a Job Template is launched
@@ -82,34 +82,34 @@ includes:
 
 ### Spawning Ansible Processes
 
-climber relies on a handful of stable interfaces in its interaction with Ansible.
+ascender relies on a handful of stable interfaces in its interaction with Ansible.
 The first of these are the actual CLI for `ansible-playbook` and
 `ansible-inventory`.
 
-When a Job Template or Project Update is run in climber, an actual
+When a Job Template or Project Update is run in ascender, an actual
 `ansible-playbook` command is composed and spawned in a pseudoterminal on one
-of the servers/containers that make up the climber installation.  This process runs
+of the servers/containers that make up the ascender installation.  This process runs
 until completion (or until a configurable timeout), and the return code,
-`stdout`, and `stderr` of the process are recorded in the climber database.  Ad hoc
+`stdout`, and `stderr` of the process are recorded in the ascender database.  Ad hoc
 commands work the same way, though they spawn `ansible` processes instead of
 `ansible-playbook`.
 
 Similarly, when an Inventory Sync runs, an actual `ansible-inventory` process
-runs, and its output is parsed and persisted into the climber database as Hosts and
+runs, and its output is parsed and persisted into the ascender database as Hosts and
 Groups.
 
-climber relies on stability in CLI behavior to function properly across Ansible
+ascender relies on stability in CLI behavior to function properly across Ansible
 releases; this includes the actual CLI arguments _and_ the behavior of task
 execution and prompts (such as password, `become`, and Vault prompts).
 
 
 ### Capturing Event Data
 
-climber applies an Ansible callback plugin to all `ansible-playbook` and `ansible`
+ascender applies an Ansible callback plugin to all `ansible-playbook` and `ansible`
 processes it spawns.  This allows Ansible events to be captured and persisted
-into the climber database; this process is what drives the "streaming" web UI
-you'll see if you launch a job from the climber web interface and watch its results
-appears on the screen.  climber relies on stability in this plugin interface, the
+into the ascender database; this process is what drives the "streaming" web UI
+you'll see if you launch a job from the ascender web interface and watch its results
+appears on the screen.  ascender relies on stability in this plugin interface, the
 hierarchy of emitted events based on strategy, and _especially_ the structure
 of event data to work across Ansible releases:
 
@@ -118,18 +118,18 @@ of event data to work across Ansible releases:
 
 ### Fact Caching
 
-climber provides a custom fact caching implementation that allows users to store
-facts for playbook runs across subsequent Job Template runs.  Specifically, climber
+ascender provides a custom fact caching implementation that allows users to store
+facts for playbook runs across subsequent Job Template runs.  Specifically, ascender
 makes use of the `jsonfile` fact cache plugin;  after `ansible-playbook` runs
-have exited, climber consumes the entire `jsonfile` cache and persists it in the
-climber database.  On subsequent Job Template runs, prior `jsonfile` caches are
+have exited, ascender consumes the entire `jsonfile` cache and persists it in the
+ascender database.  On subsequent Job Template runs, prior `jsonfile` caches are
 restored to the local file system so the new `ansible-playbook` process makes
 use of them.
 
 
 ### Environment-Based Configuration
 
-climber injects credentials and module configuration for a number of Ansible
+ascender injects credentials and module configuration for a number of Ansible
 modules via environment variables.  Examples include:
 
 * `ANSIBLE_NET_*` and other well-known environment variables for network device authentication
@@ -137,5 +137,5 @@ modules via environment variables.  Examples include:
   (`AWS_ACCESS_KEY_ID`, `GCE_EMAIL`, etc...)
 * SSH-oriented configuration flags, such as `ANSIBLE_SSH_CONTROL_PATH`
 
-climber relies on stability in these configuration options to reliably support
+ascender relies on stability in these configuration options to reliably support
 credential injection for supported Ansible modules.

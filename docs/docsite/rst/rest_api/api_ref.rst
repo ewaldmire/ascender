@@ -1,9 +1,9 @@
 .. _api_reference:
 
-climber API Reference Guide
+ascender API Reference Guide
 ================================
 
-The API Reference Manual provides in-depth documentation for the climber REST API, including integration examples.
+The API Reference Manual provides in-depth documentation for the ascender REST API, including integration examples.
 
 .. raw:: html
 

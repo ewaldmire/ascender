@@ -9,7 +9,7 @@ Managing Capacity With Instances
    pair: remove;capacity
    pair: add;capacity
 
-Scaling your mesh is only available on Openshift and Kubernetes (K8S) deployments of climber and is possible through adding or removing nodes from your cluster dynamically, through the **Instances** resource of the climber User Interface, without running the installation script.
+Scaling your mesh is only available on Openshift and Kubernetes (K8S) deployments of ascender and is possible through adding or removing nodes from your cluster dynamically, through the **Instances** resource of the ascender User Interface, without running the installation script.
 
 Instances serve as nodes in your mesh topology. Automation mesh allows you to extend the footprint of your automation. Where you launch a job and where the ``ansible-playbook`` runs can be in different locations.
 
@@ -30,7 +30,7 @@ The nodes (control, hop, and execution instances) are interconnected via recepto
 Prerequisites
 --------------
 
-- |rhel| (RHEL) or Debian operating system. Bring a machine online with a compatible Red Hat family OS (e.g. RHEL 8 and 9) or Debian 11. This machine requires a static IP, or a resolvable DNS hostname that the climber cluster can access. If the ``listener_port`` is defined, the machine will also need an available open port on which to establish inbound TCP connections (e.g. 27199).
+- |rhel| (RHEL) or Debian operating system. Bring a machine online with a compatible Red Hat family OS (e.g. RHEL 8 and 9) or Debian 11. This machine requires a static IP, or a resolvable DNS hostname that the ascender cluster can access. If the ``listener_port`` is defined, the machine will also need an available open port on which to establish inbound TCP connections (e.g. 27199).
 
   In general, the more CPU cores and memory the machine has, the more jobs that can be scheduled to run on that machine at once. See :ref:`ug_job_concurrency` for more information on capacity.
 
@@ -48,7 +48,7 @@ Prerequisites
 	- If machine does not have access to the internet, refer to `Downloading a collection for offline use <https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html#downloading-a-collection-for-offline-use>`_.
 
 
-- To manage instances from the climber user interface, you must have System Administrator or System Auditor permissions.
+- To manage instances from the ascender user interface, you must have System Administrator or System Auditor permissions.
 
 
 Common topologies
@@ -72,14 +72,14 @@ Instances make up the network of devices that communicate with one another. They
 Simple topology
 ~~~~~~~~~~~~~~~~
 
-One of the ways to expand job capacity is to create a standalone execution node that can be added to run alongside the Kubernetes deployment of climber. These machines will not be a part of the climber Kubernetes cluster. The control nodes running in the cluster will connect and submit work to these machines via Receptor. The machines are registered in climber as type "execution" instances, meaning they will only be used to run climber jobs, not dispatch work or handle web requests as control nodes do.
+One of the ways to expand job capacity is to create a standalone execution node that can be added to run alongside the Kubernetes deployment of ascender. These machines will not be a part of the ascender Kubernetes cluster. The control nodes running in the cluster will connect and submit work to these machines via Receptor. The machines are registered in ascender as type "execution" instances, meaning they will only be used to run ascender jobs, not dispatch work or handle web requests as control nodes do.
 
-Hop nodes can be added to sit between the control plane of climber and standalone execution nodes. These machines will not be a part of the climber Kubernetes cluster and they will be registered in climber as node type "hop", meaning they will only handle inbound and outbound traffic for otherwise unreachable nodes in a different or more strict network.
+Hop nodes can be added to sit between the control plane of ascender and standalone execution nodes. These machines will not be a part of the ascender Kubernetes cluster and they will be registered in ascender as node type "hop", meaning they will only handle inbound and outbound traffic for otherwise unreachable nodes in a different or more strict network.
 
-Below is an example of an climber task pod with two execution nodes. Traffic to execution node 2 flows through a hop node that is setup between it and the control plane.
+Below is an example of an ascender task pod with two execution nodes. Traffic to execution node 2 flows through a hop node that is setup between it and the control plane.
 
 .. image:: ../common/images/instances_awx_task_pods_hopnode.drawio.png
-	:alt: climber task pod with a hop node between the control plane of climber and standalone execution nodes.
+	:alt: ascender task pod with a hop node between the control plane of ascender and standalone execution nodes.
 
 
 Below are sample values used to configure each node in a simple topology:
@@ -149,7 +149,7 @@ Below are sample values used to configure each node in a mesh ingress topology:
      - [hop node]  
     
 
-In order to create a mesh ingress for climber, see the `Mesh Ingress <https://ansible.readthedocs.io/projects/awx-operator/en/latest/user-guide/advanced-configuration/mesh-ingress.html>`_ chapter of the AWX Operator Documentation for information on setting up this type of topology. The last step is to create a remote execution node and add the execution node to an instance group in order for it to be used in your job execution. Whatever execution environment image used to run a playbook needs to be accessible for your remote execution node. Everything you are using in your playbook also needs to be accessible from this remote execution node.
+In order to create a mesh ingress for ascender, see the `Mesh Ingress <https://ansible.readthedocs.io/projects/awx-operator/en/latest/user-guide/advanced-configuration/mesh-ingress.html>`_ chapter of the AWX Operator Documentation for information on setting up this type of topology. The last step is to create a remote execution node and add the execution node to an instance group in order for it to be used in your job execution. Whatever execution environment image used to run a playbook needs to be accessible for your remote execution node. Everything you are using in your playbook also needs to be accessible from this remote execution node.
 
 .. image:: ../common/images/instances-job-template-using-remote-execution-ig.png
     :alt: Job template using the instance group with the execution node to run jobs.
@@ -161,9 +161,9 @@ In order to create a mesh ingress for climber, see the `Mesh Ingress <https://an
 Add an instance
 ----------------
 
-To create an instance in climber:
+To create an instance in ascender:
 
-1. Click **Instances** from the left side navigation menu of the climber UI.
+1. Click **Instances** from the left side navigation menu of the ascender UI.
 
 2. In the Instances list view, click the **Add** button and the Create new Instance window opens.
 
@@ -198,7 +198,7 @@ Upon successful creation, the Details of the one of the created instances opens.
 
 	The proceeding steps 4-8 are intended to be ran from any computer that has SSH access to the newly created instance. 
 
-4. Click the download button next to the **Install Bundle** field to download the tarball that contain files to allow climber to make proper TCP connections to the remote machine.
+4. Click the download button next to the **Install Bundle** field to download the tarball that contain files to allow ascender to make proper TCP connections to the remote machine.
 
 .. image:: ../common/images/instances_install_bundle.png
     :alt: Instance details showing the Download button in the Install Bundle field of the Details tab.
@@ -235,7 +235,7 @@ The content of the ``inventory.yml`` file serves as a template and contains vari
 
 	ansible-playbook -i inventory.yml install_receptor.yml
 
-Wait a few minutes for the periodic climber task to do a health check against the new instance. You may run a health check by selecting the node and clicking the **Run health check** button from its Details page at any time. Once the instances endpoint or page reports a "Ready" status for the instance, jobs are now ready to run on this machine!
+Wait a few minutes for the periodic ascender task to do a health check against the new instance. You may run a health check by selecting the node and clicking the **Run health check** button from its Details page at any time. Once the instances endpoint or page reports a "Ready" status for the instance, jobs are now ready to run on this machine!
 
 9. To view other instances within the same topology or associate peers, click the **Peers** tab. 
 
@@ -270,7 +270,7 @@ Manage instances
 Click **Instances** from the left side navigation menu to access the Instances list.
 
 .. image:: ../common/images/instances_list_view.png
-    :alt: List view of instances in climber
+    :alt: List view of instances in ascender
     :width: 1400px
 
 The Instances list displays all the current nodes in your topology, along with relevant details:
@@ -297,13 +297,13 @@ The Instances list displays all the current nodes in your topology, along with r
 From this page, you can add, remove or run health checks on your nodes. Use the check boxes next to an instance to select it to remove or run a health check against. When a button is grayed-out, you do not have permission for that particular action. Contact your Administrator to grant you the required level of access. If you are able to remove an instance, you will receive a prompt for confirmation, like the one below:
 
 .. image:: ../common/images/instances_delete_prompt.png
-  :alt: Prompt for deleting instances in climber
+  :alt: Prompt for deleting instances in ascender
   :width: 1400px
 
 
 .. note::
 
-	You can still remove an instance even if it is active and jobs are running on it. climber will attempt to wait for any jobs running on this node to complete before actually removing it.
+	You can still remove an instance even if it is active and jobs are running on it. ascender will attempt to wait for any jobs running on this node to complete before actually removing it.
 
 Click **Remove** to confirm.
 
@@ -312,7 +312,7 @@ Click **Remove** to confirm.
 If running a health check on an instance, at the top of the Details page, a message displays that the health check is in progress. 
 
 .. image:: ../common/images/instances_health_check.png
-  :alt: Health check for instances in climber
+  :alt: Health check for instances in ascender
   :width: 1400px
 
 Click **Reload** to refresh the instance status. 
@@ -351,7 +351,7 @@ If you encounter issues while setting up instances, refer to these troubleshooti
 Fact cache not working
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Make sure the system timezone on the execution node matches ``settings.TIME_ZONE`` (default is 'UTC') on climber. Fact caching relies on comparing modified times of artifact files, and these modified times are not timezone-aware. Therefore, it is critical that the timezones of the execution nodes match climber's timezone setting.
+Make sure the system timezone on the execution node matches ``settings.TIME_ZONE`` (default is 'UTC') on ascender. Fact caching relies on comparing modified times of artifact files, and these modified times are not timezone-aware. Therefore, it is critical that the timezones of the execution nodes match ascender's timezone setting.
 
 To set the system timezone to UTC:
 

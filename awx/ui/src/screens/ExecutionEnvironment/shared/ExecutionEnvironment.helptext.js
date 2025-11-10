@@ -13,7 +13,7 @@ function getHelpText(t) {
         <Trans>Examples:</Trans>
         <ul css="margin: 10px 0 10px 20px">
           <li>
-            <code>quay.io/ctrliq/climber-ee:latest</code>
+            <code>quay.io/ctrliq/ascender-ee:latest</code>
           </li>
           <li>
             <code>repo/project/image-name:tag</code>

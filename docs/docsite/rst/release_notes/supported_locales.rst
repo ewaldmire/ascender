@@ -6,11 +6,11 @@ Supported Locales
    single: locales supported
 
 
-climber supports the following locales for UTC-friendly date and time information.
+ascender supports the following locales for UTC-friendly date and time information.
 
-climber automatically sets the locale preference based on the user's browser settings. For Safari, Internet Explorer, and older versions of Chrome as well as FireFox, this is handled automatically. 
+ascender automatically sets the locale preference based on the user's browser settings. For Safari, Internet Explorer, and older versions of Chrome as well as FireFox, this is handled automatically. 
 
-For newer versions of Chrome (v32 and later) and FireFox (v32 and later), climber uses the language preferences set from your browser's language settings. The browser lists the user's preferred languages and selects the first in the array as the user's top choice, which climber uses as the preferred locale. This means that you can change your browser's language and change your climber locale preferences (although you may need to reload/refresh climber in your browser to see this change.)
+For newer versions of Chrome (v32 and later) and FireFox (v32 and later), ascender uses the language preferences set from your browser's language settings. The browser lists the user's preferred languages and selects the first in the array as the user's top choice, which ascender uses as the preferred locale. This means that you can change your browser's language and change your ascender locale preferences (although you may need to reload/refresh ascender in your browser to see this change.)
 
 
 .. - ``ar`` -- Arabic 

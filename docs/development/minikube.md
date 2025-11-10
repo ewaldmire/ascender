@@ -18,7 +18,7 @@ $ minikube start \
 
 ### Verify
 
-Ensure that your climber source code is properly mounted inside of the minikube node:
+Ensure that your ascender source code is properly mounted inside of the minikube node:
 
 ```
 $ minikube ssh
@@ -50,11 +50,11 @@ $ make docker-build
 $ docker push ${IMAGE_TAG_BASE}:${VERSION}
 ```
 
-## Deploy climber into Minikube using the AWX Operator
+## Deploy ascender into Minikube using the AWX Operator
 
-If have have not made any changes to the climber Dockerfile, run the following
+If have have not made any changes to the ascender Dockerfile, run the following
 command. If you need to test out changes to the Dockerfile, see the
-"Custom climber Development Image for Kubernetes" section below.
+"Custom ascender Development Image for Kubernetes" section below.
 
 In the root of awx-operator:
 
@@ -83,13 +83,13 @@ awx-operator-controller-manager-b775bfc7c-fn995   2/2     Running   0          1
 
 If there are errors in the image pull, check that it is using the right tag. You can update the tag that it will pull by editing the deployment.
 
-### Custom climber Development Image for Kubernetes
+### Custom ascender Development Image for Kubernetes
 
 I have found `minikube cache add` to be unacceptably slow for larger images such
 as this. A faster workflow involves building the image and pushing it to a
 registry:
 
-In the root of the climber repo:
+In the root of the ascender repo:
 
 ```
 $ make awx-kube-dev-build
@@ -109,9 +109,9 @@ $ ansible-playbook ansible/instantiate-awx-deployment.yml \
 ```
 
 To iterate on changes to the Dockerfile, rebuild and push the image, then delete
-the climber Pod. A new Pod will respawn with the latest revision.
+the ascender Pod. A new Pod will respawn with the latest revision.
 
-## Accessing climber
+## Accessing ascender
 
 To access via the web browser, run the following command:
 ```

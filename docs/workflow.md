@@ -1,6 +1,6 @@
-## climber Workflow Overview
+## ascender Workflow Overview
 
-Workflows are structured compositions of climber job resources. The only job of a workflow is to trigger other jobs in specific orders to achieve certain goals, such as tracking the full set of jobs that were part of a release process as a single unit.
+Workflows are structured compositions of ascender job resources. The only job of a workflow is to trigger other jobs in specific orders to achieve certain goals, such as tracking the full set of jobs that were part of a release process as a single unit.
 
 A workflow has an associated tree-graph that is composed of multiple nodes. Each node in the tree has one associated template (job template, inventory update, project update, approval template, or workflow job template) along with related resources that, if defined, will override the associated job template resources (*i.e.*, credential, inventory, etc.) if the job template associated with the node is selected to run.
 
@@ -144,7 +144,7 @@ Workflow jobs cannot be copied directly; instead, a workflow job is implicitly c
 
 ### Artifacts
 
-Support for artifacts starts in Ansible and is carried through in climber. The `set_stats` module is invoked by users, in a playbook, to register facts. Facts are passed in via the `data:` argument. Note that the default `set_stats` parameters are the correct ones to work with climber (*i.e.*, `per_host: no`). Now that facts are registered, we will describe how facts are used. In Ansible, registered facts are "returned" to the callback plugin(s) via the `playbook_on_stats` event. Ansible users can configure whether or not they want the facts displayed through the global `show_custom_stats` configuration. Note that the `show_custom_stats` does not affect the artifact feature of climber. This only controls the displaying of `set_stats` fact data in Ansible output (also the output in Ansible playbooks that get run in climber). climber uses a custom callback plugin that gathers the fact data set via `set_stats` in the `playbook_on_stats` handler and "ships" it back to climber, saves it in the database, and makes it available on the job endpoint via the variable `artifacts`. The semantics and usage of `artifacts` throughout a workflow is described elsewhere in this document.
+Support for artifacts starts in Ansible and is carried through in ascender. The `set_stats` module is invoked by users, in a playbook, to register facts. Facts are passed in via the `data:` argument. Note that the default `set_stats` parameters are the correct ones to work with ascender (*i.e.*, `per_host: no`). Now that facts are registered, we will describe how facts are used. In Ansible, registered facts are "returned" to the callback plugin(s) via the `playbook_on_stats` event. Ansible users can configure whether or not they want the facts displayed through the global `show_custom_stats` configuration. Note that the `show_custom_stats` does not affect the artifact feature of ascender. This only controls the displaying of `set_stats` fact data in Ansible output (also the output in Ansible playbooks that get run in ascender). ascender uses a custom callback plugin that gathers the fact data set via `set_stats` in the `playbook_on_stats` handler and "ships" it back to ascender, saves it in the database, and makes it available on the job endpoint via the variable `artifacts`. The semantics and usage of `artifacts` throughout a workflow is described elsewhere in this document.
 
 
 ### Workflow Run Example

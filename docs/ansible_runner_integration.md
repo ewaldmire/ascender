@@ -1,16 +1,16 @@
 ## Ansible Runner Integration Overview
 
-Much of the code in climber around ansible and `ansible-playbook` invocation has been removed and put into the project `ansible-runner`. climber now calls out to `ansible-runner` to invoke ansible and `ansible-playbook`.
+Much of the code in ascender around ansible and `ansible-playbook` invocation has been removed and put into the project `ansible-runner`. ascender now calls out to `ansible-runner` to invoke ansible and `ansible-playbook`.
 
 ### Lifecycle
 
-In climber, a task of a certain job type is kicked off (_i.e._, RunJob, RunProjectUpdate, RunInventoryUpdate, etc.) in `awx/main/tasks/jobs.py`. A temp directory is built to house `ansible-runner` parameters (_i.e._, `envvars`, `cmdline`, `extravars`, etc.). The `temp` directory is filled with the various concepts in climber (_i.e._, `ssh` keys, `extra vars`, etc.). The code then builds a set of parameters to be passed to the `ansible-runner` Python module interface, `ansible-runner.interface.run()`. This is where climber passes control to `ansible-runner`. Feedback is gathered by climber via callbacks and handlers passed in.
+In ascender, a task of a certain job type is kicked off (_i.e._, RunJob, RunProjectUpdate, RunInventoryUpdate, etc.) in `awx/main/tasks/jobs.py`. A temp directory is built to house `ansible-runner` parameters (_i.e._, `envvars`, `cmdline`, `extravars`, etc.). The `temp` directory is filled with the various concepts in ascender (_i.e._, `ssh` keys, `extra vars`, etc.). The code then builds a set of parameters to be passed to the `ansible-runner` Python module interface, `ansible-runner.interface.run()`. This is where ascender passes control to `ansible-runner`. Feedback is gathered by ascender via callbacks and handlers passed in.
 
 The callbacks and handlers are:
-* `event_handler`: Called each time a new event is created in `ansible-runner`. climber will dispatch the event to `redis` to be processed on the other end by the callback receiver.
-* `cancel_callback`: Called periodically by `ansible-runner`; this is so that climber can inform `ansible-runner` if the job should be canceled or not. Only applies for system jobs now, and other jobs are canceled via receptor.
-* `finished_callback`: Called once by `ansible-runner` to denote that the process that was asked to run is finished. climber will construct the special control event, `EOF`, with the associated total number of events that it observed.
-* `status_handler`: Called by `ansible-runner` as the process transitions state internally. climber uses the `starting` status to know that `ansible-runner` has made all of its decisions around the process that it will launch. climber gathers and associates these decisions with the Job for historical observation.
+* `event_handler`: Called each time a new event is created in `ansible-runner`. ascender will dispatch the event to `redis` to be processed on the other end by the callback receiver.
+* `cancel_callback`: Called periodically by `ansible-runner`; this is so that ascender can inform `ansible-runner` if the job should be canceled or not. Only applies for system jobs now, and other jobs are canceled via receptor.
+* `finished_callback`: Called once by `ansible-runner` to denote that the process that was asked to run is finished. ascender will construct the special control event, `EOF`, with the associated total number of events that it observed.
+* `status_handler`: Called by `ansible-runner` as the process transitions state internally. ascender uses the `starting` status to know that `ansible-runner` has made all of its decisions around the process that it will launch. ascender gathers and associates these decisions with the Job for historical observation.
 
 ### Debugging
 

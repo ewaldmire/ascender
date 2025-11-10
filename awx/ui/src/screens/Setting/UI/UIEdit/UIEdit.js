@@ -108,8 +108,8 @@ function UIEdit() {
             CUSTOM_LOGIN_INFO: uiData?.CUSTOM_LOGIN_INFO?.value ?? '',
             CUSTOM_LOGO: uiData?.CUSTOM_LOGO?.value ?? '',
             CUSTOM_LOGO_MENU: uiData?.CUSTOM_LOGO_MENU?.value ?? '',
-            climber_DISABLE_GRADIENT:
-              uiData?.climber_DISABLE_GRADIENT?.value ?? false,
+            ascender_DISABLE_GRADIENT:
+              uiData?.ascender_DISABLE_GRADIENT?.value ?? false,
           }}
           onSubmit={handleSubmit}
         >
@@ -126,8 +126,8 @@ function UIEdit() {
                   config={uiData.CUSTOM_LOGIN_INFO}
                 />
                 <BooleanField
-                  name="climber_DISABLE_GRADIENT"
-                  config={uiData.climber_DISABLE_GRADIENT}
+                  name="ascender_DISABLE_GRADIENT"
+                  config={uiData.ascender_DISABLE_GRADIENT}
                 />
                 <FileUploadField
                   name="CUSTOM_LOGO"

@@ -1,12 +1,12 @@
 Multi-Credential Assignment
 ===========================
 
-climber has added support for assigning zero or more credentials to Job Templates and Inventory Updates via a singular, unified interface.
+ascender has added support for assigning zero or more credentials to Job Templates and Inventory Updates via a singular, unified interface.
 
 Background
 ----------
 
-Prior to climber (Tower 3.2), Job Templates had a certain set of requirements surrounding their relation to Credentials:
+Prior to ascender (Tower 3.2), Job Templates had a certain set of requirements surrounding their relation to Credentials:
 
 * All Job Templates (and Jobs) were required to have exactly *one* Machine/SSH
   or Vault credential (or one of both).
@@ -164,11 +164,11 @@ This specific use case covers Ansible's support for multiple Vault passwords for
 a playbook run (since Ansible 2.4):
 http://docs.ansible.com/ansible/latest/vault.html#vault-ids-and-multiple-vault-passwords
 
-Vault credentials in climber now have an optional field, `vault_id`, which is
+Vault credentials in ascender now have an optional field, `vault_id`, which is
 analogous to the `--vault-id` argument to `ansible-playbook`.  To run
 a playbook which makes use of multiple Vault passwords:
 
-1.  Make a Vault credential in climber for each Vault password; specify the Vault
+1.  Make a Vault credential in ascender for each Vault password; specify the Vault
     ID as a field on the credential and input the password (which will be
     encrypted and stored).
 2.  Assign multiple Vault credentials to the job template via the new

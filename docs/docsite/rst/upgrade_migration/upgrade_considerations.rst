@@ -1,6 +1,6 @@
 
 
-Upgrading climber 
+Upgrading ascender 
 ==============
 
 .. index::
@@ -17,7 +17,7 @@ Refer to :ref:`ag_restart_awx` for detail.
 Upgrade Planning
 ------------------
 
-This section covers changes that you should keep in mind as you attempt to upgrade your climber instance.
+This section covers changes that you should keep in mind as you attempt to upgrade your ascender instance.
 
 - Clustered upgrades require special attention to instance and instance groups prior to starting the upgrade. See `:ref:`ag_clustering` for details.
 

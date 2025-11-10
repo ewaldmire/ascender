@@ -129,7 +129,7 @@ To create a new job template:
 
        .. warning::
 
-         Verbosity 5 causes climber to block heavily when jobs are running, which could delay reporting that the job has finished (even though it has) and can cause the browser tab to lock up.
+         Verbosity 5 causes ascender to block heavily when jobs are running, which could delay reporting that the job has finished (even though it has) and can cause the browser tab to lock up.
      - Yes
    * - **Job Slicing**
      - Specify the number of slices you want this job template to run. Each slice will run the same tasks against a portion of the inventory. For more information about job slices, see :ref:`ug_job_slice`.
@@ -169,7 +169,7 @@ To create a new job template:
 3. **Options**: Specify options for launching this template, if necessary.
   
   - **Privilege Escalation**: If checked, you enable this playbook to run as an administrator. This is the equivalent of passing the ``--become`` option to the ``ansible-playbook`` command.
-  - **Provisioning Callbacks**: If checked, you enable a host to call back to climber via the REST API and invoke the launch of a job from this job template. Refer to :ref:`ug_provisioning_callbacks` for additional information.
+  - **Provisioning Callbacks**: If checked, you enable a host to call back to ascender via the REST API and invoke the launch of a job from this job template. Refer to :ref:`ug_provisioning_callbacks` for additional information.
   - **Enable Webhook**: Turns on the ability to interface with a predefined SCM system web service that is used to launch a job template. Currently supported SCM systems are GitHub and GitLab.
 
 .. _ug_jt_enable_webhooks:
@@ -181,14 +181,14 @@ To create a new job template:
 
     - **Webhook Service**: Select which service to listen for webhooks from
     - **Webhook URL**: Automatically populated with the URL for the webhook service to POST requests to.
-    - **Webhook Key**: Generated shared secret to be used by the webhook service to sign payloads sent to climber. This must be configured in the settings on the webhook service in order for climber to accept webhooks from this service.  
+    - **Webhook Key**: Generated shared secret to be used by the webhook service to sign payloads sent to ascender. This must be configured in the settings on the webhook service in order for ascender to accept webhooks from this service.  
     - **Webhook Credential**: Optionally, provide a GitHub or GitLab personal access token (PAT) as a credential to use to send status updates back to the webhook service. Before you can select it, the credential must exist. See :ref:`ug_credentials_cred_types` to create one.
 
     For additional information on setting up webhooks, see :ref:`ug_webhooks`.
 
 
   - **Concurrent Jobs**: If checked, you are allowing jobs in the queue to run simultaneously if not dependent on one another. Check this box if you want to run job slices simultaneously. Refer to :ref:`ug_job_concurrency` for additional information. 
-  - **Enable Fact Storage**: When checked, climber will store gathered facts for all hosts in an inventory related to the job running.
+  - **Enable Fact Storage**: When checked, ascender will store gathered facts for all hosts in an inventory related to the job running.
   - **Prevent Instance Group Fallback**: Check this option to allow only the instance groups listed in the **Instance Groups** field above to execute the job. If unchecked, all available instances in the execution pool will be used based on the hierarchy described in :ref:`ag_instance_groups_control_where_job_runs`.  Click the |help| icon for more information.
 
 .. |help| image:: ../common/images/tooltips-icon.png
@@ -378,7 +378,7 @@ Launch a Job Template
 .. index::
    pair: job templates; jobs, launching
 
-A major benefit of climber is the push-button deployment of Ansible playbooks. You can easily configure a template to store all parameters you would normally pass to the ansible-playbook on the command line--not just the playbooks, but the inventory, credentials, extra variables, and all options and settings you can specify on the command line.
+A major benefit of ascender is the push-button deployment of Ansible playbooks. You can easily configure a template to store all parameters you would normally pass to the ansible-playbook on the command line--not just the playbooks, but the inventory, credentials, extra variables, and all options and settings you can specify on the command line.
 
 Easier deployments drive consistency, by running your playbooks the same way each time, and allow you to delegate responsibilities--even users who aren’t Ansible experts can run playbooks written by others.
 
@@ -424,7 +424,7 @@ Below is an example job launch that prompts for Job Tags, and runs the example s
   Providing values on one tab, and going back to a previous tab, and then continuing on to the next tab will result in having to re-provide values on the rest of the tabs. Make sure you fill in the tabs in the order the prompts appear to avoid this.
 
 
-Along with any extra variables set in the job template and survey, climber automatically adds the following variables to the job environment. Also note, ``awx_``* variables are defined by the system and cannot be overridden. Variables about the job context, like ``awx_job_template_name`` are not affected if they are set in ``extra_vars``.
+Along with any extra variables set in the job template and survey, ascender automatically adds the following variables to the job environment. Also note, ``awx_``* variables are defined by the system and cannot be overridden. Variables about the job context, like ``awx_job_template_name`` are not affected if they are set in ``extra_vars``.
 
 - ``awx_job_id``: The Job ID for this job run
 - ``awx_job_launch_type``: The description to indicate how the job was started:
@@ -444,11 +444,11 @@ Along with any extra variables set in the job template and survey, climber autom
 - ``awx_project_revision``: The revision identifier for the source tree that this particular job uses (it is also the same as the job's field ``scm_revision``)
 - ``awx_project_scm_branch``: The configured default project SCM branch for the project the job template uses
 - ``awx_job_scm_branch`` If the SCM Branch is overwritten by the job, the value is shown here
-- ``awx_user_email``: The user email of the climber user that started this job. This is not available for callback or scheduled jobs.
-- ``awx_user_first_name``: The user's first name of the climber user that started this job. This is not available for callback or scheduled jobs.
-- ``awx_user_id``: The user ID of the climber user that started this job. This is not available for callback or scheduled jobs.
-- ``awx_user_last_name``: The user's last name of the climber user that started this job. This is not available for callback or scheduled jobs.
-- ``awx_user_name``: The user name of the climber user that started this job. This is not available for callback or scheduled jobs.
+- ``awx_user_email``: The user email of the ascender user that started this job. This is not available for callback or scheduled jobs.
+- ``awx_user_first_name``: The user's first name of the ascender user that started this job. This is not available for callback or scheduled jobs.
+- ``awx_user_id``: The user ID of the ascender user that started this job. This is not available for callback or scheduled jobs.
+- ``awx_user_last_name``: The user's last name of the ascender user that started this job. This is not available for callback or scheduled jobs.
+- ``awx_user_name``: The user name of the ascender user that started this job. This is not available for callback or scheduled jobs.
 - ``awx_schedule_id``: If applicable, the ID of the schedule that launched this job
 - ``awx_schedule_name``: If applicable, the name of the schedule that launched this job
 - ``awx_workflow_job_id``: If applicable, the ID of the workflow job that launched this job
@@ -458,7 +458,7 @@ Along with any extra variables set in the job template and survey, climber autom
 
 For compatibility, all variables are also given an "awx" prefix, for example, ``awx_job_id``.
 
-Upon launch, climber automatically redirects the web browser to the Job Status page for this job under the **Jobs** tab.
+Upon launch, ascender automatically redirects the web browser to the Job Status page for this job under the **Jobs** tab.
 
 .. note::
 
@@ -653,22 +653,22 @@ Fact Caching
    pair: fact caching; playbook
    pair: facts; scan job templates
 
-climber can store and retrieve facts on a per-host basis through an Ansible Fact Cache plugin. This behavior is configurable on a per-job template basis. Fact caching is turned off by default but can be enabled to serve fact requests for all hosts in an inventory related to the job running. This allows you to use job templates with ``--limit`` while still having access to the entire inventory of host facts. A global timeout setting that the plugin enforces per-host, can be specified (in seconds) through the Jobs settings menu:
+ascender can store and retrieve facts on a per-host basis through an Ansible Fact Cache plugin. This behavior is configurable on a per-job template basis. Fact caching is turned off by default but can be enabled to serve fact requests for all hosts in an inventory related to the job running. This allows you to use job templates with ``--limit`` while still having access to the entire inventory of host facts. A global timeout setting that the plugin enforces per-host, can be specified (in seconds) through the Jobs settings menu:
 
 .. image:: ../common/images/configure-awx-jobs-fact-cache-timeout.png
     :alt: Jobs Settings window showing the location of the Per-Host Ansible Fact Cache Timeout parameter from the Edit Details screen.
 
-Upon launching a job that uses fact cache (``use_fact_cache=True``), climber will store all ``ansible_facts`` associated with each host in the inventory associated with the job.  The Ansible Fact Cache plugin that ships with climber will only be enabled on jobs with fact cache enabled (``use_fact_cache=True``).
+Upon launching a job that uses fact cache (``use_fact_cache=True``), ascender will store all ``ansible_facts`` associated with each host in the inventory associated with the job.  The Ansible Fact Cache plugin that ships with ascender will only be enabled on jobs with fact cache enabled (``use_fact_cache=True``).
 
-When a job that has fact cache enabled (``use_fact_cache=True``) finishes running, climber will restore all records for the hosts in the inventory.  Any records with update times *newer* than the currently stored facts per-host will be updated in the database.
+When a job that has fact cache enabled (``use_fact_cache=True``) finishes running, ascender will restore all records for the hosts in the inventory.  Any records with update times *newer* than the currently stored facts per-host will be updated in the database.
 
-New and changed facts will be logged via climber's logging facility. Specifically, to the ``system_tracking`` namespace or logger. The logging payload will include the fields: 
+New and changed facts will be logged via ascender's logging facility. Specifically, to the ``system_tracking`` namespace or logger. The logging payload will include the fields: 
 
   - ``host_name``
   - ``inventory_id``
   - ``ansible_facts`` 
 
-where ``ansible_facts`` is a dictionary of all Ansible facts for ``host_name`` in the climber inventory, ``inventory_id``.
+where ``ansible_facts`` is a dictionary of all Ansible facts for ``host_name`` in the ascender inventory, ``inventory_id``.
 
 .. note::
 
@@ -681,7 +681,7 @@ Benefits of Fact Caching
 Fact caching saves a significant amount of time over running fact gathering. If you have a playbook in a job that runs against a thousand hosts and forks, you could easily spend 10 minutes gathering facts across all of those hosts. But if you run a job on a regular basis, the first run of it caches these facts and the next run will just pull them from the database. This cuts the runtime of jobs against large inventories, including Smart Inventories, by an enormous magnitude.
 
 .. note:: 
-  Do not modify the ``ansible.cfg`` file to apply fact caching. Custom fact caching could conflict with climber's fact caching feature. It is recommended to use the fact caching module that comes with climber. 
+  Do not modify the ``ansible.cfg`` file to apply fact caching. Custom fact caching could conflict with ascender's fact caching feature. It is recommended to use the fact caching module that comes with ascender. 
 
 You can choose to use cached facts in your job by enabling it in the **Options** field of the Job Templates window.
 
@@ -725,7 +725,7 @@ OpenStack
 .. index::
     pair: cloud credentials; OpenStack
 
-The sample playbook below invokes the ``nova_compute`` Ansible OpenStack cloud module and requires credentials to do anything meaningful, and specifically requires the following information: ``auth_url``, ``username``, ``password``, and ``project_name``. These fields are made available to the playbook via the environmental variable ``OS_CLIENT_CONFIG_FILE``, which points to a YAML file written by climber based on the contents of the cloud credential. This sample playbook loads the YAML file into the Ansible variable space.
+The sample playbook below invokes the ``nova_compute`` Ansible OpenStack cloud module and requires credentials to do anything meaningful, and specifically requires the following information: ``auth_url``, ``username``, ``password``, and ``project_name``. These fields are made available to the playbook via the environmental variable ``OS_CLIENT_CONFIG_FILE``, which points to a YAML file written by ascender based on the contents of the cloud credential. This sample playbook loads the YAML file into the Ansible variable space.
 
 ``OS_CLIENT_CONFIG_FILE`` example:
 
@@ -784,7 +784,7 @@ Amazon Web Services cloud credentials are exposed as the following environment v
 - ``AWS_ACCESS_KEY_ID``
 - ``AWS_SECRET_ACCESS_KEY``
 
-All of the AWS modules will implicitly use these credentials when run via climber without having to set the ``aws_access_key_id`` or ``aws_secret_access_key`` module options.
+All of the AWS modules will implicitly use these credentials when run via ascender without having to set the ``aws_access_key_id`` or ``aws_secret_access_key`` module options.
 
 
 Google
@@ -799,7 +799,7 @@ Google cloud credentials are exposed as the following environment variables duri
 - ``GCE_PROJECT``
 - ``GCE_CREDENTIALS_FILE_PATH``
 
-All of the Google modules will implicitly use these credentials when run via climber without having to set the ``service_account_email``, ``project_id``, or ``pem_file`` module options.
+All of the Google modules will implicitly use these credentials when run via ascender without having to set the ``service_account_email``, ``project_id``, or ``pem_file`` module options.
 
 Azure
 ~~~~~~~
@@ -812,7 +812,7 @@ Azure cloud credentials are exposed as the following environment variables durin
 - ``AZURE_SUBSCRIPTION_ID``
 - ``AZURE_CERT_PATH``
 
-All of the Azure modules implicitly use these credentials when run via climber without having to set the ``subscription_id`` or ``management_cert_path`` module options.
+All of the Azure modules implicitly use these credentials when run via ascender without having to set the ``subscription_id`` or ``management_cert_path`` module options.
 
 VMware
 ~~~~~~~~
@@ -852,7 +852,7 @@ Provisioning Callbacks
    pair: job templates; provisioning callbacks
 
 
-Provisioning callbacks are a feature of climber that allow a host to initiate a playbook run against itself, rather than waiting for a user to launch a job to manage the host from the climber UI. Please note that provisioning callbacks are *only* used to run playbooks on the calling host. Provisioning callbacks are meant for cloud bursting (i.e. new instances with a need for client to server communication for configuration (such as transmitting an authorization key)), not to run a job against another host. This provides for automatically configuring a system after it has been provisioned by another system (such as AWS auto-scaling, or a OS provisioning system like kickstart or preseed) or for launching a job programmatically without invoking the climber API directly. The Job Template launched only runs against the host requesting the provisioning.
+Provisioning callbacks are a feature of ascender that allow a host to initiate a playbook run against itself, rather than waiting for a user to launch a job to manage the host from the ascender UI. Please note that provisioning callbacks are *only* used to run playbooks on the calling host. Provisioning callbacks are meant for cloud bursting (i.e. new instances with a need for client to server communication for configuration (such as transmitting an authorization key)), not to run a job against another host. This provides for automatically configuring a system after it has been provisioned by another system (such as AWS auto-scaling, or a OS provisioning system like kickstart or preseed) or for launching a job programmatically without invoking the ascender API directly. The Job Template launched only runs against the host requesting the provisioning.
 
 Frequently this would be accessed via a firstboot type script, or from cron.
 
@@ -860,7 +860,7 @@ To enable callbacks, check the *Provisioning Callbacks* checkbox in the Job Temp
 
 .. note::
 
-    If you intend to use climber's provisioning callback feature with a dynamic inventory, Update on Launch should be set for the inventory group used in the Job Template.
+    If you intend to use ascender's provisioning callback feature with a dynamic inventory, Update on Launch should be set for the inventory group used in the Job Template.
 
 .. image:: ../common/images/provisioning-callbacks-config.png
     :alt: Provisioning callbacks config
@@ -871,37 +871,37 @@ To callback manually via REST, look at the callback URL in the UI, which is of t
 
 ::
 
-    https://<climber_SERVER_NAME>/api/v2/job_templates/7/callback/
+    https://<ascender_SERVER_NAME>/api/v2/job_templates/7/callback/
 
-The '7' in this sample URL is the job template ID in climber.
+The '7' in this sample URL is the job template ID in ascender.
 
 The request from the host must be a POST. Here is an example using curl (all on a single line):
 
 .. code-block:: bash
 
    curl -k -f -i -H 'Content-Type:application/json' -XPOST -d '{"host_config_key": "redhat"}' \ 
-                    https://<climber_SERVER_NAME>/api/v2/job_templates/7/callback/
+                    https://<ascender_SERVER_NAME>/api/v2/job_templates/7/callback/
 
-The requesting host must be defined in your inventory for the callback to succeed. If climber fails to locate the host either by name or IP address in one of your defined inventories, the request is denied. When running a Job Template in this way, the host initiating the playbook run against itself must be in the inventory. If the host is missing from the inventory, the Job Template will fail with a "No Hosts Matched" type error message.
+The requesting host must be defined in your inventory for the callback to succeed. If ascender fails to locate the host either by name or IP address in one of your defined inventories, the request is denied. When running a Job Template in this way, the host initiating the playbook run against itself must be in the inventory. If the host is missing from the inventory, the Job Template will fail with a "No Hosts Matched" type error message.
 
 
 .. note::
-    If your host is not in inventory and ``Update on Launch`` is set for the inventory group, climber attempts to update cloud based inventory source before running the callback.
+    If your host is not in inventory and ``Update on Launch`` is set for the inventory group, ascender attempts to update cloud based inventory source before running the callback.
 
 Successful requests result in an entry on the Jobs tab, where the results and history can be viewed.
 
-While the callback can be accessed via REST, the suggested method of using the callback is to use one of the example scripts that ships with climber - ``/usr/share/awx/request_awx_configuration.sh`` (Linux/UNIX) or ``/usr/share/awx/request_awx_configuration.ps1`` (Windows). Usage is described in the source code of the file by passing the ``-h`` flag, as shown below:
+While the callback can be accessed via REST, the suggested method of using the callback is to use one of the example scripts that ships with ascender - ``/usr/share/awx/request_awx_configuration.sh`` (Linux/UNIX) or ``/usr/share/awx/request_awx_configuration.ps1`` (Windows). Usage is described in the source code of the file by passing the ``-h`` flag, as shown below:
 
 ::
 
   ./request_awx_configuration.sh -h
   Usage: ./request_awx_configuration.sh <options>
 
-  Request server configuration from climber.
+  Request server configuration from ascender.
 
   OPTIONS:
    -h      Show this message
-   -s      climber server (e.g. https://ac.example.com) (required)
+   -s      ascender server (e.g. https://ac.example.com) (required)
    -k      Allow insecure SSL connections and transfers
    -c      Host config key (required)
    -t      Job template ID (required)
@@ -914,9 +914,9 @@ This script has some intelligence, it knows how to retry commands and is therefo
 
   Please note that this is an example script. You should edit this script if you need more dynamic behavior when detecting failure scenarios, as any non-200 error code may not be a transient error requiring retry.
 
-Most likely you will use callbacks with dynamic inventory in climber, such as pulling cloud inventory from one of the supported cloud providers. In these cases, along with setting *Update On Launch*, be sure to configure an inventory cache timeout for the inventory source, to avoid hammering of your Cloud's API endpoints. Since the ``request_awx_configuration.sh`` script polls once per minute for up to ten minutes, a suggested cache invalidation time for inventory (configured on the inventory source itself) would be one or two minutes.
+Most likely you will use callbacks with dynamic inventory in ascender, such as pulling cloud inventory from one of the supported cloud providers. In these cases, along with setting *Update On Launch*, be sure to configure an inventory cache timeout for the inventory source, to avoid hammering of your Cloud's API endpoints. Since the ``request_awx_configuration.sh`` script polls once per minute for up to ten minutes, a suggested cache invalidation time for inventory (configured on the inventory source itself) would be one or two minutes.
 
-While we recommend against running the ``request_awx_configuration.sh`` script from a cron job, a suggested cron interval would be perhaps every 30 minutes. Repeated configuration can be easily handled by scheduling in climber, so the primary use of callbacks by most users is to enable a base image that is bootstrapped into the latest configuration upon coming online. To do so, running at first boot is a better practice. First boot scripts are just simple init scripts that typically self-delete, so you would set up an init script that called a copy of the ``request_awx_configuration.sh`` script and make that into an autoscaling image.
+While we recommend against running the ``request_awx_configuration.sh`` script from a cron job, a suggested cron interval would be perhaps every 30 minutes. Repeated configuration can be easily handled by scheduling in ascender, so the primary use of callbacks by most users is to enable a base image that is bootstrapped into the latest configuration upon coming online. To do so, running at first boot is a better practice. First boot scripts are just simple init scripts that typically self-delete, so you would set up an init script that called a copy of the ``request_awx_configuration.sh`` script and make that into an autoscaling image.
 
 Passing Extra Variables to Provisioning Callbacks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -938,7 +938,7 @@ You can also pass extra variables to the Job Template call using ``curl``, such 
 
    root@localhost:~$ curl -f -H 'Content-Type: application/json' -XPOST \
                      -d '{"host_config_key": "redhat", "extra_vars": "{\"foo\": \"bar\"}"}' \
-                     https://<climber_SERVER_NAME>/api/v2/job_templates/7/callback
+                     https://<ascender_SERVER_NAME>/api/v2/job_templates/7/callback
 
 For more information, refer to :ref:`Launching Jobs with Curl<launch_jobs_curl>`.
 
@@ -959,7 +959,7 @@ Extra Variables
     - They correspond to variables in an enabled survey
     - ``ask_variables_on_launch`` is set to True
 
-When you pass survey variables, they are passed as extra variables (``extra_vars``) within climber. This can be tricky, as passing extra variables to a job template (as you would do with a survey) can override other variables being passed from the inventory and project.
+When you pass survey variables, they are passed as extra variables (``extra_vars``) within ascender. This can be tricky, as passing extra variables to a job template (as you would do with a survey) can override other variables being passed from the inventory and project.
 
 By default, ``extra_vars`` are marked as ``!unsafe`` unless you specify them on the job template’s Extra Variables section. These are trusted, because they can only be added by users with enough privileges to add or edit a Job Template. For example, nested variables do not expand when entered as a prompt, as the Jinja brackets are treated as a string. For more information about unsafe variables, see `unsafe or raw strings <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_advanced_syntax.html#unsafe-or-raw-strings>`_.
 
@@ -967,7 +967,7 @@ For example, say that you have a defined variable for an inventory for ``debug =
 
 To ensure that the variables you need to pass are not overridden, ensure they are included by redefining them in the survey. Keep in mind that extra variables can be defined at the inventory, group, and host levels. 
 
-If specifying the ``ALLOW_JINJA_IN_EXTRA_VARS`` parameter, refer to the :ref:`climber Tips and Tricks <ag_tips_jinja_extravars>` section of the |ata| to configure it in the Jobs Settings screen of the climber UI.
+If specifying the ``ALLOW_JINJA_IN_EXTRA_VARS`` parameter, refer to the :ref:`ascender Tips and Tricks <ag_tips_jinja_extravars>` section of the |ata| to configure it in the Jobs Settings screen of the ascender UI.
 
 .. index::
    pair: job templates; job variables
@@ -1003,12 +1003,12 @@ The configuration in JSON format:
     "satellites": ["sputnik", "explorer", "satcom"]
   }
 
-The following table notes the behavior (hierarchy) of variable precedence in climber as it compares to variable precedence in Ansible.
+The following table notes the behavior (hierarchy) of variable precedence in ascender as it compares to variable precedence in Ansible.
 
-**climber Variable Precedence Hierarchy (last listed wins)**
+**ascender Variable Precedence Hierarchy (last listed wins)**
 
 .. image:: ../common/images/Architecture-AWX_Variable_Precedence_Hierarchy.png
-    :alt: climber Variable Precedence Hierarchy
+    :alt: ascender Variable Precedence Hierarchy
 
 
 Relaunching Job Templates

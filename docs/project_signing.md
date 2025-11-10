@@ -2,7 +2,7 @@
 
 Project signing and verification allows project maintainers to sign their
 project directory files with GPG and verify them at project-update time in
-climber/Controller.
+ascender/Controller.
 
 ## Signing
 
@@ -11,7 +11,7 @@ Signing is provided by a CLI tool and library called
 `python-gnupg` to ultimately shell out to GPG to do signing. Currently the only
 supported end-user use of this tool is as a CLI utility, but it does provide a
 somewhat clean API as well for internal use, and we use this in our verification
-process in climber. More on that below.
+process in ascender. More on that below.
 
 `ansible-sign` expects a `MANIFEST.in` file (written in valid `distlib.manifest`
 format familiar to most Python project maintainers) which lists the files that
@@ -51,8 +51,8 @@ to sign a project:
 
 ## Verifying
 
-On the climber side, we have a `GPG Public Key` credential type that ships with
-climber. This credential type allows the user to paste in a public GPG key, which
+On the ascender side, we have a `GPG Public Key` credential type that ships with
+ascender. This credential type allows the user to paste in a public GPG key, which
 should correspond to the private key used to sign the content. The validity and
 "realness" of this key is not currently checked.
 
@@ -75,7 +75,7 @@ Verifying reverts the general signing process described above:
 * We once again use `python-gnupg` (via our `GPGVerifier` class this time) and
   ask it to validate the detached signature. It will check it against keys in
   our public keyring unless we give it another keyring to use instead. (On the
-  CLI we can do this with `--keyring`; on the climber/Controller side, we get a
+  CLI we can do this with `--keyring`; on the ascender/Controller side, we get a
   fresh keyring every time the EE spawns, so we import the public key from the
   credential and just let it check against the default keyring).
 * Once the key is imported, we can use it to verify if the signature corresponds

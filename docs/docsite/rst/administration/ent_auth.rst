@@ -20,9 +20,9 @@ This section describes setting up authentication for the following enterprise sy
 Azure, RADIUS, SAML, and TACACS+ users are categorized as 'Enterprise' users. The following rules apply to Enterprise users:
 
 - Enterprise users can only be created via the first successful login attempt from remote authentication backend.
-- Enterprise users cannot be created/authenticated if non-enterprise users with the same name has already been created in climber.
-- climber passwords of enterprise users should always be empty and cannot be set by any user if there are enterprise backend-enabled.
-- If enterprise backends are disabled, an enterprise user can be converted to a normal climber user by setting the password field. However, this operation is irreversible, as the converted climber user can no longer be treated as enterprise user.
+- Enterprise users cannot be created/authenticated if non-enterprise users with the same name has already been created in ascender.
+- ascender passwords of enterprise users should always be empty and cannot be set by any user if there are enterprise backend-enabled.
+- If enterprise backends are disabled, an enterprise user can be converted to a normal ascender user by setting the password field. However, this operation is irreversible, as the converted ascender user can no longer be treated as enterprise user.
 
 
 .. _ag_auth_azure:
@@ -52,10 +52,10 @@ To set up enterprise authentication for Microsoft Azure Active Directory (AD), y
 
 7. Click **Save** when done.
 
-8. To verify that the authentication was configured correctly, logout of climber and the login screen will now display the Microsoft Azure logo to allow logging in with those credentials.
+8. To verify that the authentication was configured correctly, logout of ascender and the login screen will now display the Microsoft Azure logo to allow logging in with those credentials.
 
 .. image:: ../common/images/configure-awx-auth-azure-logo.png
-    :alt: climber login screen displaying the Microsoft Azure logo for authentication.
+    :alt: ascender login screen displaying the Microsoft Azure logo for authentication.
 
 
 For application registering basics in Azure AD, refer to the `Azure AD Identity Platform (v2)`_ overview. 
@@ -78,7 +78,7 @@ RADIUS settings
     pair: authentication; RADIUS Authentication Settings
 
 
-climber can be configured to centrally use RADIUS as a source for authentication information.
+ascender can be configured to centrally use RADIUS as a source for authentication information.
 
 1. Click **Settings** from the left navigation bar.
 
@@ -100,12 +100,12 @@ SAML settings
     pair: authentication; SAML Service Provider
 
 
-SAML allows the exchange of authentication and authorization data between an Identity Provider (IdP - a system of servers that provide the Single Sign On service) and a Service Provider (in this case, climber). climber can be configured to talk with SAML in order to authenticate (create/login/logout) climber users. User Team and Organization membership can be embedded in the SAML response to climber. 
+SAML allows the exchange of authentication and authorization data between an Identity Provider (IdP - a system of servers that provide the Single Sign On service) and a Service Provider (in this case, ascender). ascender can be configured to talk with SAML in order to authenticate (create/login/logout) ascender users. User Team and Organization membership can be embedded in the SAML response to ascender. 
 
 .. image:: ../common/images/configure-awx-auth-saml-topology.png
-    :alt: Diagram depicting SAML topology for climber.
+    :alt: Diagram depicting SAML topology for ascender.
 
-The following instructions describe climber as the service provider. 
+The following instructions describe ascender as the service provider. 
 
 To setup SAML authentication:
 
@@ -115,18 +115,18 @@ To setup SAML authentication:
 
 3. The **SAML Assertion Consume Service (ACS) URL** and **SAML Service Provider Metadata URL** fields are pre-populated and are non-editable. Contact the Identity Provider administrator and provide the information contained in these fields. 
 
-4. Click **Edit** and set the **SAML Service Provider Entity ID** to be the same as the **Base URL of the service** field that can be found in the Miscellaneous System settings screen by clicking **Settings** from the left navigation bar. Through the API, it can be viewed in the ``/api/v2/settings/system``, under the ``TOWER_URL_BASE`` variable. The Entity ID can be set to any one of the individual climber cluster nodes, but it is good practice to set it to the URL of the Service Provider. Ensure that the Base URL matches the FQDN of the load balancer (if used).
+4. Click **Edit** and set the **SAML Service Provider Entity ID** to be the same as the **Base URL of the service** field that can be found in the Miscellaneous System settings screen by clicking **Settings** from the left navigation bar. Through the API, it can be viewed in the ``/api/v2/settings/system``, under the ``TOWER_URL_BASE`` variable. The Entity ID can be set to any one of the individual ascender cluster nodes, but it is good practice to set it to the URL of the Service Provider. Ensure that the Base URL matches the FQDN of the load balancer (if used).
 
 .. note:: 
 
-    The Base URL is different for each node in a cluster. Commonly, a load balancer will sit in front of many climber cluster nodes to provide a single entry point, the climber Cluster FQDN. The SAML Service Provider must be able establish an outbound connection and route to the climber Cluster Node or the climber Cluster FQDN set in the SAML Service Provider Entity ID.
+    The Base URL is different for each node in a cluster. Commonly, a load balancer will sit in front of many ascender cluster nodes to provide a single entry point, the ascender Cluster FQDN. The SAML Service Provider must be able establish an outbound connection and route to the ascender Cluster Node or the ascender Cluster FQDN set in the SAML Service Provider Entity ID.
 
-In this example, the Service Provider is the climber cluster, and therefore, the ID is set to the climber Cluster FQDN. 
+In this example, the Service Provider is the ascender cluster, and therefore, the ID is set to the ascender Cluster FQDN. 
 
 .. image:: ../common/images/configure-awx-auth-saml-spentityid.png
-    :alt: Configuring SAML Service Provider Entity ID in climber.
+    :alt: Configuring SAML Service Provider Entity ID in ascender.
 
-5. Create a server certificate for the Ansible cluster. Typically when an Ansible cluster is configured, climber nodes will be configured to handle HTTP traffic only and the load balancer will be an SSL Termination Point. In this case, an SSL certificate is required for the load balancer, and not for the individual climber Cluster Nodes. SSL can either be enabled or disabled per individual climber node, but should be disabled when using an SSL terminated load balancer. It is recommended to use a non-expiring self signed certificate to avoid periodically updating certificates. This way, authentication will not fail in case someone forgets to update the certificate.
+5. Create a server certificate for the Ansible cluster. Typically when an Ansible cluster is configured, ascender nodes will be configured to handle HTTP traffic only and the load balancer will be an SSL Termination Point. In this case, an SSL certificate is required for the load balancer, and not for the individual ascender Cluster Nodes. SSL can either be enabled or disabled per individual ascender node, but should be disabled when using an SSL terminated load balancer. It is recommended to use a non-expiring self signed certificate to avoid periodically updating certificates. This way, authentication will not fail in case someone forgets to update the certificate.
 
 .. note:: 
 
@@ -135,7 +135,7 @@ In this example, the Service Provider is the climber cluster, and therefore, the
 If you are using a CA bundle with your certificate, include the entire bundle in this field.
 
 .. image:: ../common/images/configure-awx-auth-saml-cert.png
-    :alt: Configuring SAML Service Provider Public Certificate in climber.
+    :alt: Configuring SAML Service Provider Public Certificate in ascender.
 
 As an example for public certs:
 
@@ -145,7 +145,7 @@ As an example for public certs:
     ... cert text ...
     -----END CERTIFICATE——
 
-6. Create an optional private key for climber to use as a service provider (SP) and enter it in the **SAML Service Provider Private Key** field.  
+6. Create an optional private key for ascender to use as a service provider (SP) and enter it in the **SAML Service Provider Private Key** field.  
 
 As an example for private keys:
 
@@ -156,7 +156,7 @@ As an example for private keys:
     -----END PRIVATE KEY——
 
 
-7. Provide the IdP with some details about the climber cluster during the SSO process in the **SAML Service Provider Organization Info** field.
+7. Provide the IdP with some details about the ascender cluster during the SSO process in the **SAML Service Provider Organization Info** field.
 
 ::
 
@@ -171,10 +171,10 @@ As an example for private keys:
 For example:
 
 .. image:: ../common/images/configure-awx-auth-saml-org-info.png
-    :alt: Configuring SAML Organization information in climber.
+    :alt: Configuring SAML Organization information in ascender.
 
 .. note:: 
-   These fields are required in order to properly configure SAML within climber.
+   These fields are required in order to properly configure SAML within ascender.
 
 8. Provide the IdP with the technical contact information in the **SAML Service Provider Technical Contact** field. Do not remove the contents of this field.
 
@@ -188,7 +188,7 @@ For example:
 For example:
 
 .. image:: ../common/images/configure-awx-auth-saml-techcontact-info.png
-    :alt: Configuring SAML Technical Contact information in climber.
+    :alt: Configuring SAML Technical Contact information in ascender.
 
 9. Provide the IdP with the support contact information in the **SAML Service Provider Support Contact** field. Do not remove the contents of this field.
 
@@ -202,9 +202,9 @@ For example:
 For example:
 
 .. image:: ../common/images/configure-awx-auth-saml-suppcontact-info.png
-    :alt: Configuring SAML Support Contact information in climber.
+    :alt: Configuring SAML Support Contact information in ascender.
 
-10. In the **SAML Enabled Identity Providers** field, provide information on how to connect to each Identity Provider listed. climber expects the following SAML attributes in the example below:
+10. In the **SAML Enabled Identity Providers** field, provide information on how to connect to each Identity Provider listed. ascender expects the following SAML attributes in the example below:
 
 ::
 
@@ -217,12 +217,12 @@ If these attributes are not known, map existing SAML attributes to lastname, fir
 
 Configure the required keys for each IDp:
 
-    - ``attr_user_permanent_id`` - the unique identifier for the user. It can be configured to match any of the attribute sent from the IdP. Usually, it is set to ``name_id`` if ``SAML:nameid`` attribute is sent to the climber node or it can be the username attribute, or a custom unique identifier.
-    - ``entity_id`` - the Entity ID provided by the Identity Provider administrator. The admin creates a SAML profile for climber and it generates a unique URL.
-    - ``url`` - the Single Sign On (SSO) URL climber redirects the user to, when SSO is activated.
+    - ``attr_user_permanent_id`` - the unique identifier for the user. It can be configured to match any of the attribute sent from the IdP. Usually, it is set to ``name_id`` if ``SAML:nameid`` attribute is sent to the ascender node or it can be the username attribute, or a custom unique identifier.
+    - ``entity_id`` - the Entity ID provided by the Identity Provider administrator. The admin creates a SAML profile for ascender and it generates a unique URL.
+    - ``url`` - the Single Sign On (SSO) URL ascender redirects the user to, when SSO is activated.
     - ``x509_cert`` - the certificate provided by the IdP admin generated from the SAML profile created on the Identity Provider. Remove the ``--BEGIN CERTIFICATE--`` and ``--END CERTIFICATE--`` headers, then enter the cert as one non-breaking string. 
 
- Multiple SAML IdPs are supported. Some IdPs may provide user data using attribute names that differ from the default OIDs (https://github.com/omab/python-social-auth/blob/master/social/backends/saml.py). The SAML ``NameID`` is a special attribute used by some Identity Providers to tell the Service Provider (climber cluster) what the unique user identifier is. If it is used, set the ``attr_user_permanent_id`` to ``name_id`` as shown in the example. Other attribute names may be overridden for each IdP as shown below. 
+ Multiple SAML IdPs are supported. Some IdPs may provide user data using attribute names that differ from the default OIDs (https://github.com/omab/python-social-auth/blob/master/social/backends/saml.py). The SAML ``NameID`` is a special attribute used by some Identity Providers to tell the Service Provider (ascender cluster) what the unique user identifier is. If it is used, set the ``attr_user_permanent_id`` to ``name_id`` as shown in the example. Other attribute names may be overridden for each IdP as shown below. 
 
 ::
 
@@ -245,7 +245,7 @@ Configure the required keys for each IDp:
   }
 
 .. image:: ../common/images/configure-awx-auth-saml-idps.png
-    :alt: Configuring SAML Identity Providers (IdPs) in climber.
+    :alt: Configuring SAML Identity Providers (IdPs) in ascender.
 
 .. warning::
 
@@ -254,14 +254,14 @@ Configure the required keys for each IDp:
 
 .. note::
 
-    The IdP provides the email, last name and firstname using the well known SAML urn. The IdP uses a custom SAML attribute to identify a user, which is an attribute that climber is unable to read. Instead, climber can understand the unique identifier name, which is the URN. Use the URN listed in the SAML “Name” attribute for the user attributes as shown in the example below.
+    The IdP provides the email, last name and firstname using the well known SAML urn. The IdP uses a custom SAML attribute to identify a user, which is an attribute that ascender is unable to read. Instead, ascender can understand the unique identifier name, which is the URN. Use the URN listed in the SAML “Name” attribute for the user attributes as shown in the example below.
 
     .. image:: ../common/images/configure-awx-auth-saml-idps-urn.png
-        :alt: Configuring SAML Identity Providers (IdPs) in climber using URNs.
+        :alt: Configuring SAML Identity Providers (IdPs) in ascender using URNs.
 
 11. Optionally provide the **SAML Organization Map**. For further detail, see :ref:`ag_org_team_maps`.
 
-12. climber can be configured to look for particular attributes that contain Team and Organization membership to associate with users when they log into climber. The attribute names are defined in the **SAML Organization Attribute Mapping** and the **SAML Team Attribute Mapping** fields. 
+12. ascender can be configured to look for particular attributes that contain Team and Organization membership to associate with users when they log into ascender. The attribute names are defined in the **SAML Organization Attribute Mapping** and the **SAML Team Attribute Mapping** fields. 
 
 **Example SAML Organization Attribute Mapping**
 
@@ -284,7 +284,7 @@ Below is an example SAML attribute that embeds user organization membership in t
     </saml2:AttributeStatement> 
 
 
-Below is the corresponding climber configuration.
+Below is the corresponding ascender configuration.
 
 ::
 
@@ -340,7 +340,7 @@ Below is another example of a SAML attribute that contains a Team membership in 
 
 - ``saml_attr``: The SAML attribute name where the team array can be found.
 - ``remove``: Set ``remove`` to **True** to remove user from all Teams before adding the user to the list of Teams. To keep the user in whatever Team(s) they are in while adding the user to the Team(s) in the SAML attribute, set ``remove`` to **False**.
-- ``team_org_map``: An array of dictionaries of the form ``{ "team": "<climber Team Name>", "organization": "<climber Org Name>" }`` that defines mapping from climber Team -> climber Organization. This is needed because the same named Team can exist in multiple Organizations in climber. The organization to which a team listed in a SAML attribute belongs to, would be ambiguous without this mapping.
+- ``team_org_map``: An array of dictionaries of the form ``{ "team": "<ascender Team Name>", "organization": "<ascender Org Name>" }`` that defines mapping from ascender Team -> ascender Organization. This is needed because the same named Team can exist in multiple Organizations in ascender. The organization to which a team listed in a SAML attribute belongs to, would be ambiguous without this mapping.
 
 You could create an alias to override both Teams and Orgs in the **SAML Team Attribute Mapping**. This option becomes very handy in cases when the SAML backend sends out complex group names, like in the example below:  
 
@@ -363,7 +363,7 @@ You could create an alias to override both Teams and Orgs in the **SAML Team Att
      "saml_attr": "member-of"
     }
 
-Once the user authenticates, climber creates organization and team aliases, as expected.
+Once the user authenticates, ascender creates organization and team aliases, as expected.
 
 
 13. Optionally provide team membership mapping in the **SAML Team Map** field. For further detail, see :ref:`ag_org_team_maps`.
@@ -372,7 +372,7 @@ Once the user authenticates, climber creates organization and team aliases, as e
 
 .. _`OneLogin's SAML Python Toolkit`: https://github.com/onelogin/python-saml#settings
 
-climber uses the ``python-social-auth`` library when users log in through SAML. This library relies on the ``python-saml`` library to make available the settings for the next two optional fields, **SAML Service Provider Extra Configuration Data** and **SAML IDP to EXTRA_DATA Attribute Mapping**. 
+ascender uses the ``python-social-auth`` library when users log in through SAML. This library relies on the ``python-saml`` library to make available the settings for the next two optional fields, **SAML Service Provider Extra Configuration Data** and **SAML IDP to EXTRA_DATA Attribute Mapping**. 
 
 15. The **SAML Service Provider Extra Configuration Data** field is equivalent to the ``SOCIAL_AUTH_SAML_SP_EXTRA`` in the API. Refer to the `python-saml library documentation`_ to learn about the valid service provider extra (``SP_EXTRA``) parameters.
 
@@ -468,7 +468,7 @@ If ``role`` and ``attr`` are both specified for either ``superuser`` or ``system
 | Yes                   | Yes       | Unset                       | False       | True          | Yes        |
 +-----------------------+-----------+-----------------------------+-------------+---------------+------------+
 
-Each time a SAML user authenticates to climber, these checks will be performed and the user flags will be altered as needed. If ``System Administrator`` or ``System Auditor`` is set for a SAML user within the UI, the SAML adapter will override the UI setting based on the rules above. If you would prefer that the user flags for SAML users do not get removed when a SAML user logs in, you can set the ``remove_`` flag to ``false``. With the remove flag set to ``false``, a user flag set to ``true`` through either the UI, API or SAML adapter will not be removed. However, if a user does not have the flag, and the above rules determine the flag should be added, it will be added, even if the flag is ``false``.
+Each time a SAML user authenticates to ascender, these checks will be performed and the user flags will be altered as needed. If ``System Administrator`` or ``System Auditor`` is set for a SAML user within the UI, the SAML adapter will override the UI setting based on the rules above. If you would prefer that the user flags for SAML users do not get removed when a SAML user logs in, you can set the ``remove_`` flag to ``false``. With the remove flag set to ``false``, a user flag set to ``true`` through either the UI, API or SAML adapter will not be removed. However, if a user does not have the flag, and the above rules determine the flag should be added, it will be added, even if the flag is ``false``.
 
 Example::
 
@@ -485,10 +485,10 @@ Example::
 
 19. To verify that the authentication was configured correctly, load the auto-generated URL found in the **SAML Service Provider Metadata URL** into a browser. It should output XML output, otherwise, it is not configured correctly. 
 
-    Alternatively,  logout of climber and the login screen will now display the SAML logo to indicate it as a alternate method of logging into climber.
+    Alternatively,  logout of ascender and the login screen will now display the SAML logo to indicate it as a alternate method of logging into ascender.
 
     .. image:: ../common/images/configure-awx-auth-saml-logo.png
-        :alt: climber login screen displaying the SAML logo for authentication.
+        :alt: ascender login screen displaying the SAML logo for authentication.
 
 
 Transparent SAML Logins
@@ -502,16 +502,16 @@ For transparent logins to work, you must first get IdP-initiated logins to work.
 
 1. Set the ``RelayState`` on the IdP to the key of the IdP definition in the ``SAML Enabled Identity Providers`` field as previously described. In the example given above, ``RelayState`` would need to be either ``myidp`` or ``onelogin``.
 
-2. Once this is working, specify the redirect URL for non-logged-in users to somewhere other than the default climber login page by using the **Login redirect override URL** field in the Miscellaneous Authentication settings window of the **Settings** menu, accessible from the left navigation bar. This should be set to ``/sso/login/saml/?idp=<name-of-your-idp>`` for transparent SAML login, as shown in the example.
+2. Once this is working, specify the redirect URL for non-logged-in users to somewhere other than the default ascender login page by using the **Login redirect override URL** field in the Miscellaneous Authentication settings window of the **Settings** menu, accessible from the left navigation bar. This should be set to ``/sso/login/saml/?idp=<name-of-your-idp>`` for transparent SAML login, as shown in the example.
 
 .. image:: ../common/images/configure-awx-system-login-redirect-url.png
-    :alt: Configuring the login redirect URL in climber Miscellaneous Authentication Settings.
+    :alt: Configuring the login redirect URL in ascender Miscellaneous Authentication Settings.
 
 .. note::
 
     The above is a sample of a typical IdP format, but may not be the correct format for your particular case. You may need to reach out to your IdP for the correct transparent redirect URL as that URL is not the same for all IdPs.
 
-3. After transparent SAML login is configured, to log in using local credentials or a different SSO, go directly to ``https://<your-awx-server>/login``.  This provides the standard climber login page, including SSO authentication buttons, and allows you to log in with any configured method.
+3. After transparent SAML login is configured, to log in using local credentials or a different SSO, go directly to ``https://<your-awx-server>/login``.  This provides the standard ascender login page, including SSO authentication buttons, and allows you to log in with any configured method.
 
 
 Enabling Logging for SAML
@@ -529,7 +529,7 @@ TACACS+ settings
     pair: authentication; TACACS+ Authentication Settings
 
 
-Terminal Access Controller Access-Control System Plus (TACACS+) is a protocol that handles remote authentication and related services for networked access control through a centralized server. In particular, TACACS+ provides authentication, authorization and accounting (AAA) services, in which you can configure climber to use as a source for authentication.
+Terminal Access Controller Access-Control System Plus (TACACS+) is a protocol that handles remote authentication and related services for networked access control through a centralized server. In particular, TACACS+ provides authentication, authorization and accounting (AAA) services, in which you can configure ascender to use as a source for authentication.
 
 .. note::
 
@@ -548,7 +548,7 @@ Terminal Access Controller Access-Control System Plus (TACACS+) is a protocol th
 - **TACACS+ Authentication Protocol**: The protocol used by TACACS+ client. Options are **ascii** or **pap**.
 
 .. image:: ../common/images/configure-awx-auth-tacacs.png
-    :alt: TACACS+ configuration details in climber settings.
+    :alt: TACACS+ configuration details in ascender settings.
 
 4. Click **Save** when done.
 
@@ -557,9 +557,9 @@ Terminal Access Controller Access-Control System Plus (TACACS+) is a protocol th
 
 Generic OIDC settings
 ----------------------
-Similar to SAML, OpenID Connect (OIDC) is uses the OAuth 2.0 framework. It allows third-party applications to verify the identity and obtain basic end-user information. The main difference between OIDC and SAML is that SAML has a service provider (SP)-to-IdP trust relationship, whereas OIDC establishes the trust with the channel (HTTPS) that is used to obtain the security token. To obtain the credentials needed to setup OIDC with climber, refer to the documentation from the identity provider (IdP) of your choice that has OIDC support.
+Similar to SAML, OpenID Connect (OIDC) is uses the OAuth 2.0 framework. It allows third-party applications to verify the identity and obtain basic end-user information. The main difference between OIDC and SAML is that SAML has a service provider (SP)-to-IdP trust relationship, whereas OIDC establishes the trust with the channel (HTTPS) that is used to obtain the security token. To obtain the credentials needed to setup OIDC with ascender, refer to the documentation from the identity provider (IdP) of your choice that has OIDC support.
 
-To configure OIDC in climber:
+To configure OIDC in ascender:
 
 1. Click **Settings** from the left navigation bar.
 
@@ -575,7 +575,7 @@ To configure OIDC in climber:
 The example below shows specific values associated to GitHub as the generic IdP:
 
  .. image:: ../common/images/configure-awx-auth-oidc.png
-    :alt: OpenID Connect (OIDC) configuration details in climber settings.
+    :alt: OpenID Connect (OIDC) configuration details in ascender settings.
 
 4. Click **Save** when done.
 
@@ -584,7 +584,7 @@ The example below shows specific values associated to GitHub as the generic IdP:
 
     There is currently no support for team and organization mappings for OIDC at this time. The OIDC adapter does authentication only and not authorization. In other words, it is only capable of authenticating whether this user is who they say they are, not authorizing what this user is allowed to do. Configuring generic OIDC creates the UserID appended with an ID/key to differentiate the same user ID originating from two different sources and therefore, considered different users. So one will get an ID of just the user name and the second will be the ``username-<random number>``.
 
-5. To verify that the authentication was configured correctly, logout of climber and the login screen will now display the OIDC logo to indicate it as a alternate method of logging into climber.
+5. To verify that the authentication was configured correctly, logout of ascender and the login screen will now display the OIDC logo to indicate it as a alternate method of logging into ascender.
 
  .. image:: ../common/images/configure-awx-auth-oidc-logo.png
-    :alt: climber login screen displaying the OpenID Connect (OIDC) logo for authentication.
+    :alt: ascender login screen displaying the OpenID Connect (OIDC) logo for authentication.

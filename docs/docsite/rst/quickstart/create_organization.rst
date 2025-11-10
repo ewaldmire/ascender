@@ -4,12 +4,12 @@ Review the Organization
 .. index::
    single: organizations
 
-An organization is a logical collection of users, teams, projects, and inventories. It is the highest level object in the climber object hierarchy.
+An organization is a logical collection of users, teams, projects, and inventories. It is the highest level object in the ascender object hierarchy.
 
 From the left navigation bar, click **Organizations**. 
 
 .. note::
-    climber creates a default organization automatically. Users of Tower with a Self-support level license only have the 
+    ascender creates a default organization automatically. Users of Tower with a Self-support level license only have the 
 
 |Organizations - default view|
 
@@ -19,7 +19,7 @@ From the left navigation bar, click **Organizations**.
    single: organization; default
 
 
-A default organization has been automatically created and is available to all users of climber. It can be used as is or edited later as needed, but deleting it is not recommended.  
+A default organization has been automatically created and is available to all users of ascender. It can be used as is or edited later as needed, but deleting it is not recommended.  
 
 For the purpose of this Quick Start Guide, leave the default organization as is.
 

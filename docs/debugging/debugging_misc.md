@@ -3,15 +3,15 @@ Debugging
 
 SQL Debugging
 -------------
-climber includes a powerful tool for tracking slow queries across all of its Python processes.
-As the climber user, run:
+ascender includes a powerful tool for tracking slow queries across all of its Python processes.
+As the ascender user, run:
 
 ```
 $ awx-manage profile_sql --threshold 2 --minutes 5
 ```
 
 ...where threshold is the max query time in seconds, and minutes it the number of minutes to record.
-For the next five minutes (in this example), any climber Python process that generates a SQL query
+For the next five minutes (in this example), any ascender Python process that generates a SQL query
 that runs for >2s will be recorded in a `.sqlite` database in `/var/log/tower/profile`.
 
 This is a useful tool for logging all queries at a per-process level, or filtering and searching for
@@ -23,7 +23,7 @@ $ sqlite3 -column -header /var/log/tower/profile/uwsgi.sqlite
 sqlite> .schema queries
 CREATE TABLE queries (
     id INTEGER PRIMARY KEY,
-    version TEXT,             # the climber version
+    version TEXT,             # the ascender version
     pid INTEGER,              # the pid of the process
     stamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     argv REAL,                # argv of the process
@@ -55,7 +55,7 @@ We've made it easier to correlate postgres connections <--> the processes that i
 
 The above entry was found in the log file `/var/lib/pgsql/data/pg_log/postgresql-Wed.log`
 
-Note the `application_name` portion. This allows us to trace the query to the node `awx_1` with processes id `1540765`. The full task command line string gives us context for each long-running query that we need to find the needle in the hay stack without having to go to each individual climber node and query Linux by the pid to understand what work is being done by each pid.
+Note the `application_name` portion. This allows us to trace the query to the node `awx_1` with processes id `1540765`. The full task command line string gives us context for each long-running query that we need to find the needle in the hay stack without having to go to each individual ascender node and query Linux by the pid to understand what work is being done by each pid.
 ```
 awx_1-1540765-/bin/awx-manage gather_analytics --dry-run -v 3
 <tower_instance_hostname>-<pid>-<pid_launch_string>
@@ -119,12 +119,12 @@ WHERE (now() - pg_stat_activity.query_start) > interval '5 minutes' and state='a
 
 Remote Debugging
 ----------------
-Python processes in climber's development environment are kept running in the
+Python processes in ascender's development environment are kept running in the
 background via supervisord.  As such, interacting with them via Python's
 standard `pdb.set_trace()` isn't possible.
 
 Bundled in our container environment is a remote debugging tool, `sdb`.  You
-can use it to set remote breakpoints in climber code and debug interactively over
+can use it to set remote breakpoints in ascender code and debug interactively over
 a telnet session:
 
 ```python
@@ -135,7 +135,7 @@ a telnet session:
         def run(self, pk, **kwargs):
             # This will set a breakpoint and open an interactive Python
             # debugger exposed on a random port between 6899-6999.  The chosen
-            # port will be reported as a warning in the climber logs, e.g.,
+            # port will be reported as a warning in the ascender logs, e.g.,
             #
             # [2017-01-30 22:26:04,366: WARNING/Worker-11] Remote Debugger:6900: Please telnet into 0.0.0.0 6900.
             #
@@ -151,7 +151,7 @@ that encounters a breakpoint will wait until an active client is established
 (it won't handle additional tasks) and concludes the debugging session with
 a `continue` command.
 
-To simplify remote debugging session management, climber's development
+To simplify remote debugging session management, ascender's development
 environment comes with tooling that can automatically discover open
 remote debugging sessions and automatically connect to them.  From your *host*
 machine (*i.e.*, _outside_ of the development container), you can run:

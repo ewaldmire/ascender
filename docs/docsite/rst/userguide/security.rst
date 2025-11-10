@@ -7,9 +7,9 @@ Security
 .. index::
    single: security
 
-The following sections will help you gain an understanding of how climber handles and lets you control file system security.
+The following sections will help you gain an understanding of how ascender handles and lets you control file system security.
 
-All playbooks are executed via the ``awx`` file system user. For running jobs, climber offers job isolation via the use of Linux containers. This projection ensures jobs can only access playbooks, roles, and data from the Project directory for that job template.
+All playbooks are executed via the ``awx`` file system user. For running jobs, ascender offers job isolation via the use of Linux containers. This projection ensures jobs can only access playbooks, roles, and data from the Project directory for that job template.
 
 For credential security, users may choose to upload locked SSH keys and set the unlock password to "ask". You can also choose to have the system prompt them for SSH credentials or sudo passwords rather than having the system store them in the database.
 
@@ -23,7 +23,7 @@ Playbook Access and Information Sharing
    pair: playbooks; process isolation
 
 
-climber's use of automation execution environments and Linux containers prevents playbooks from reading files outside of their project directory. 
+ascender's use of automation execution environments and Linux containers prevents playbooks from reading files outside of their project directory. 
 
 By default, the only data exposed to the ansible-playbook process inside the container is the current project being used.
 

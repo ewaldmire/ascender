@@ -22,7 +22,7 @@ the change does.
  - Docs
  - Other
 
-##### climber VERSION
+##### ascender VERSION
 <!--- Paste verbatim output from `make VERSION` between quotes below -->
 ```
 

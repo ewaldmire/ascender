@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'climber version.'
+        description: 'ascender version.'
         required: true
         default: ''
       confirm:
@@ -19,7 +19,7 @@ on:
 
 jobs:
   stage:
-    if: endsWith(github.repository, '/climber')
+    if: endsWith(github.repository, '/ascender')
     runs-on: ubuntu-latest
     timeout-minutes: 90
     permissions:
@@ -42,10 +42,10 @@ jobs:
 
           exit 0
 
-      - name: Checkout climber
+      - name: Checkout ascender
         uses: actions/checkout@v3
         with:
-          path: climber
+          path: ascender
 
       - name: Get python version from Makefile
         run: echo py_version=`make PYTHON_VERSION` >> $GITHUB_ENV
@@ -60,8 +60,8 @@ jobs:
         run: |
           python3 -m pip install docker==6.1.3 requests==2.31.0 --force-reinstall
 
-      - name: Build and stage climber
-        working-directory: climber
+      - name: Build and stage ascender
+        working-directory: ascender
         run: |
           ansible-playbook -v tools/ansible/build.yml \
             -e registry=ghcr.io \
@@ -77,8 +77,8 @@ jobs:
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Create draft release for climber
-        working-directory: climber
+      - name: Create draft release for ascender
+        working-directory: ascender
         run: |
           ansible-playbook -v tools/ansible/stage.yml \
             -e repo=${{ github.repository }} \

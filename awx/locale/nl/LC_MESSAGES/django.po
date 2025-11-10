@@ -3961,19 +3961,19 @@ msgstr "Deze token moet afkomstig zijn van uw profielinstellingen in GitHub"
 #: awx/main/models/credential/__init__.py:962
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform"
-msgid "CIQ climber Automation Platform"
+msgid "CIQ ascender Automation Platform"
 msgstr "Automatiseringsplatform voor Red Hat Ansible"
 
 #: awx/main/models/credential/__init__.py:964
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform base URL to authenticate with."
-msgid "CIQ climber Automation Platform base URL to authenticate with."
+msgid "CIQ ascender Automation Platform base URL to authenticate with."
 msgstr "De basis-URL van het automatiseringsplatform voor Red Hat Ansible voor authenticatie."
 
 #: awx/main/models/credential/__init__.py:971
 #, fuzzy
 #| msgid "Red Hat Ansible Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
-msgid "CIQ climber Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
+msgid "CIQ ascender Automation Platform username id to authenticate as.This should not be set if an OAuth token is being used."
 msgstr "De gebruikersnaam-id van het automatiseringsplatform voor Red Hat Ansible waarmee moet worden geauthenticeerd. Stel dit niet in als er een OAuth-token wordt gebruikt."
 
 #: awx/main/models/credential/__init__.py:982
@@ -6794,7 +6794,7 @@ msgstr "AWX"
 #: awx/templates/rest_framework/api.html:4
 #, fuzzy
 #| msgid "AWX REST API"
-msgid "climber REST API"
+msgid "ascender REST API"
 msgstr "AWX REST API"
 
 #: awx/templates/rest_framework/api.html:42

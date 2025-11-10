@@ -1,15 +1,15 @@
 Extracting Credential Values
 ============================
 
-climber stores a variety of secrets in the database that are either used for automation or are a result of automation. These secrets include:
+ascender stores a variety of secrets in the database that are either used for automation or are a result of automation. These secrets include:
 
 - all secret fields of all credential types (passwords, secret keys, authentication tokens, secret cloud credentials)
-- secret tokens and passwords for external services defined in climber settings
+- secret tokens and passwords for external services defined in ascender settings
 - "password" type survey fields entries
 
-To encrypt secret fields, climber uses AES in CBC mode with a 256-bit key for encryption, PKCS7 padding, and HMAC using SHA256 for authentication.
+To encrypt secret fields, ascender uses AES in CBC mode with a 256-bit key for encryption, PKCS7 padding, and HMAC using SHA256 for authentication.
 
-If necessary, credentials and encrypted settings can be extracted using the climber shell:
+If necessary, credentials and encrypted settings can be extracted using the ascender shell:
 
 ```python
 $ awx-manage shell_plus

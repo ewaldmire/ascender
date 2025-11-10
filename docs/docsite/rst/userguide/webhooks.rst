@@ -9,7 +9,7 @@ Working with Webhooks
    pair: webhooks; GitLab
    pair: webhooks; payload
 
-A :term:`Webhook` provides the ability to execute specified commands between apps over the web. climber currently provides webhook integration with GitHub and GitLab. This section describes the procedure for setting up a webhook through their respective services. 
+A :term:`Webhook` provides the ability to execute specified commands between apps over the web. ascender currently provides webhook integration with GitHub and GitLab. This section describes the procedure for setting up a webhook through their respective services. 
 
 .. contents::
     :local:
@@ -24,9 +24,9 @@ The webhook post-status-back functionality for GitHub and GitLab is designed for
 GitHub webhook setup
 ---------------------
 
-climber has the ability to run jobs based on a triggered webhook event coming in. Job status information (pending, error, success) can be sent back only for pull request events. If you determine you do not want climber to post job statuses back to the webhook service, skip steps 1-2, and go directly to :ref:`step 3 <ug_webhooks_setup_github>`.
+ascender has the ability to run jobs based on a triggered webhook event coming in. Job status information (pending, error, success) can be sent back only for pull request events. If you determine you do not want ascender to post job statuses back to the webhook service, skip steps 1-2, and go directly to :ref:`step 3 <ug_webhooks_setup_github>`.
 
-1. Optionally generate a personal access token (PAT) for use with climber.
+1. Optionally generate a personal access token (PAT) for use with ascender.
 
 	a. In the profile settings of your GitHub account, click **Settings**.
 	
@@ -112,9 +112,9 @@ For more information, refer to the `GitHub Webhooks developer documentation <htt
 GitLab webhook setup
 ---------------------
 
-climber has the ability to run jobs based on a triggered webhook event coming in. Job status information (pending, error, success) can be sent back only for merge request events. If you determine you do not want climber to post job statuses back to the webhook service, skip steps 1-2, and go directly to :ref:`step 3 <ug_webhooks_setup_gitlab>`.
+ascender has the ability to run jobs based on a triggered webhook event coming in. Job status information (pending, error, success) can be sent back only for merge request events. If you determine you do not want ascender to post job statuses back to the webhook service, skip steps 1-2, and go directly to :ref:`step 3 <ug_webhooks_setup_gitlab>`.
 
-1. Optionally, generate a personal access token (PAT). This token gives climber the ability to post statuses back when we run jobs based on a webhook coming in. 
+1. Optionally, generate a personal access token (PAT). This token gives ascender the ability to post statuses back when we run jobs based on a webhook coming in. 
 
 	a. In the profile settings of your GitLab account, click **Settings**.
 	
@@ -125,7 +125,7 @@ climber has the ability to run jobs based on a triggered webhook event coming in
 
 	c. In the **Name** field, enter a brief description about what this PAT will be used for.
 	d. Skip the **Expires at** field unless you want to set an expiration date for your webhook.
-	e. In the Scopes fields, select the ones applicable to your integration. For climber, API is the only selection necessary.
+	e. In the Scopes fields, select the ones applicable to your integration. For ascender, API is the only selection necessary.
 
 	.. image:: ../common/images/webhooks-create-webhook-gitlab-scope.png
 		:alt: Personal Access Token page

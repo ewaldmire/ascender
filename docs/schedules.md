@@ -1,6 +1,6 @@
 ## Scheduled Jobs
 
-climber allows jobs to run on a schedule (with optional recurrence rules) via
+ascender allows jobs to run on a schedule (with optional recurrence rules) via
 an `HTTP POST` to a variety of API endpoints:
 
     HTTP POST
@@ -18,7 +18,7 @@ an `HTTP POST` to a variety of API endpoints:
     }
 
 ...where `rrule` is a valid
-[RFC5545](https://www.rfc-editor.org/rfc/rfc5545.txt) RRULE string and within climber [RRULE Limitations](#rrule-limitations).
+[RFC5545](https://www.rfc-editor.org/rfc/rfc5545.txt) RRULE string and within ascender [RRULE Limitations](#rrule-limitations).
 The specific example above would run a job every day - for seven consecutive days - starting
 on January 15th, 2030 at noon (UTC).
 
@@ -26,7 +26,7 @@ For more examples see [RRULE Examples](#rrule-examples).
 
 ## Specifying Timezones
 
-`DTSTART` values provided to climber _must_ provide timezone information (they may
+`DTSTART` values provided to ascender _must_ provide timezone information (they may
 not be naive dates).
 
 For UTC dates, `DTSTART` values should be denoted with the `Z` suffix:
@@ -50,7 +50,7 @@ A list of _valid_ zone identifiers (which can vary by system) can be found at:
 
 ## UNTIL and Timezones
 
-`DTSTART` values provided to climber _must_ provide timezone information (they may
+`DTSTART` values provided to ascender _must_ provide timezone information (they may
 not be naive dates).
 
 Additionally, RFC5545 specifies that:
@@ -74,7 +74,7 @@ Not Valid:
 
 ## Previewing Schedules
 
-climber provides an endpoint for previewing the future dates and times for
+ascender provides an endpoint for previewing the future dates and times for
 a specified `RRULE`. A list of the next _ten_ occurrences will be returned in
 local and UTC time:
 
@@ -107,7 +107,7 @@ local and UTC time:
 
 ## RRULE Limitations
 
-climber implements the following constraints on top of the `RFC5545` specification:
+ascender implements the following constraints on top of the `RFC5545` specification:
 
 - The RRULE must start with the `DTSTART` attribute
 - At least one `RRULE` entry must be in the rrule
@@ -131,7 +131,7 @@ the following dates are saved in the database:
 - `main_schedule.dtend` - the _last_ datetime in the list of all occurrences (coerced to UTC)
 - `main_schedule.next_run` - the _next_ datetime in list after `utcnow()` (coerced to UTC)
 
-climber makes use of [Celery Periodic Tasks
+ascender makes use of [Celery Periodic Tasks
 (celerybeat)](http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html)
 to run a periodic task that discovers new jobs that need to run at a regular
 interval (by default, every 30 seconds). When this task starts, it queries the

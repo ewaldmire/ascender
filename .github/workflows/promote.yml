@@ -14,14 +14,14 @@ permissions:
 
 jobs:
   promote:
-    if: endsWith(github.repository, '/climber') 
+    if: endsWith(github.repository, '/ascender') 
     runs-on: ubuntu-latest
     timeout-minutes: 90
     permissions:
       contents: read
       packages: write
     steps:
-      - name: Checkout climber
+      - name: Checkout ascender
         uses: actions/checkout@v2
 
       - name: Get python version from Makefile

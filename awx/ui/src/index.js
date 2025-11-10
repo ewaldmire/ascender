@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import './setupCSP';
 import '@patternfly/react-core/dist/styles/base.css';
 import './border.css';
-import './climber.css';
+import './ascender.css';
 
 import App from './App';
 

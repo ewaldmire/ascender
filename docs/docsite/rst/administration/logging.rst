@@ -15,20 +15,20 @@ Logging and Aggregation
    pair: logging; Elastic stack
    pair: logging; rsyslog
 
-Logging is a feature that provides the capability to send detailed logs to several kinds of 3rd party external log aggregation services. Services connected to this data feed serve as a useful means in gaining insight into climber usage or technical trends. The data can be used to analyze events in the infrastructure, monitor for anomalies, and correlate events from one service with events in another. The types of data that are most useful to climber are job fact data, job events/job runs, activity stream data, and log messages. The data is sent in JSON format over a HTTP connection using minimal service-specific tweaks engineered in a custom handler or via an imported library. 
+Logging is a feature that provides the capability to send detailed logs to several kinds of 3rd party external log aggregation services. Services connected to this data feed serve as a useful means in gaining insight into ascender usage or technical trends. The data can be used to analyze events in the infrastructure, monitor for anomalies, and correlate events from one service with events in another. The types of data that are most useful to ascender are job fact data, job events/job runs, activity stream data, and log messages. The data is sent in JSON format over a HTTP connection using minimal service-specific tweaks engineered in a custom handler or via an imported library. 
 
-Installing climber will install a newer version of rsyslog, which will replace the version that comes with the RHEL base. The version of rsyslog that is installed by climber does not include the following rsyslog modules:  
+Installing ascender will install a newer version of rsyslog, which will replace the version that comes with the RHEL base. The version of rsyslog that is installed by ascender does not include the following rsyslog modules:  
 
 - rsyslog-udpspoof.x86_64
 - rsyslog-libdbi.x86_64
 
-After installing climber, use only climber provided rsyslog package for any logging outside of climber that may have previously been done with the RHEL provided rsyslog package. If you already use rsyslog for logging system logs on climber instances, you can continue to use rsyslog to handle logs from outside of climber by running a separate rsyslog process (using the same version of rsyslog that climber is), and pointing it to a separate /etc/rsyslog.conf.
+After installing ascender, use only ascender provided rsyslog package for any logging outside of ascender that may have previously been done with the RHEL provided rsyslog package. If you already use rsyslog for logging system logs on ascender instances, you can continue to use rsyslog to handle logs from outside of ascender by running a separate rsyslog process (using the same version of rsyslog that ascender is), and pointing it to a separate /etc/rsyslog.conf.
 
 .. note::
 
-  For systems that use rsyslog outside of climber, consider any conflict that may arise with also using new version of rsyslog that comes with climber. 
+  For systems that use rsyslog outside of ascender, consider any conflict that may arise with also using new version of rsyslog that comes with ascender. 
   
-You can configure from the ``/api/v2/settings/logging/`` endpoint how climber rsyslog process handles messages that have not yet been sent in the event that your external logger goes offline:  
+You can configure from the ``/api/v2/settings/logging/`` endpoint how ascender rsyslog process handles messages that have not yet been sent in the event that your external logger goes offline:  
 
 - ``LOG_AGGREGATOR_MAX_DISK_USAGE_GB``: specifies the amount of data to store (in gigabytes) during an outage of the external log aggregator (defaults to 1). Equivalent to the ``rsyslogd queue.maxdiskspace`` setting.
 
@@ -43,23 +43,23 @@ Loggers
 Below are special loggers (except for ``awx``, which constitutes generic server logs) that provide large amount of information in a predictable structured or semi-structured format, following the same structure as one would expect if obtaining the data from the API: 
 
 - ``job_events``: Provides data returned from the Ansible callback module
-- ``activity_stream``: Displays the record of changes to the objects within the climber application
+- ``activity_stream``: Displays the record of changes to the objects within the ascender application
 - ``system_tracking``: Provides fact data gathered by Ansible ``setup`` module (i.e. ``gather_facts: True``) when job templates are ran with **Enable Fact Cache** selected
 - ``awx``: Provides generic server logs, which include logs that would normally be written to a file. It contains the standard metadata that all logs have, except it only has the message from the log statement.
 
 These loggers only use log-level of INFO, except for the ``awx`` logger, which may be any given level.
 
-Additionally, the standard climber logs are be deliverable through this same mechanism. It is apparent how to enable or disable each of these five sources of data without manipulating a complex dictionary in your local settings file, as well as adjust the log-level consumed from the standard climber logs.
+Additionally, the standard ascender logs are be deliverable through this same mechanism. It is apparent how to enable or disable each of these five sources of data without manipulating a complex dictionary in your local settings file, as well as adjust the log-level consumed from the standard ascender logs.
 
-To configure various logging components in climber, click **Settings** from the left navigation bar then select **Logging settings** from the list of System options. 
+To configure various logging components in ascender, click **Settings** from the left navigation bar then select **Logging settings** from the list of System options. 
 
 Log message schema
 ~~~~~~~~~~~~~~~~~~~~
 
 Common schema for all loggers:
 
-- ``cluster_host_id``: Unique identifier of the host within the climber cluster
-- ``level``: Standard python log level, roughly reflecting the significance of the event All of the data loggers as a part of this feature use INFO level, but the other climber logs will use different levels as appropriate
+- ``cluster_host_id``: Unique identifier of the host within the ascender cluster
+- ``level``: Standard python log level, roughly reflecting the significance of the event All of the data loggers as a part of this feature use INFO level, but the other ascender logs will use different levels as appropriate
 - ``logger_name``: Name of the logger we use in the settings, for example, "activity_stream" 
 - ``@timestamp``: Time of log 
 - ``path``: File path in code where the log was generated 
@@ -104,7 +104,7 @@ This is a intended to be a lower-volume source of information about changes in j
 In addition to common fields, these logs include fields present on the job model.
 
 
-climber logs
+ascender logs
 ~~~~~~~~~~~~~~~~
 
 In addition to the common fields, this contains a ``msg`` field with the log message. Errors contain a separate ``traceback`` field. These logs can be enabled or disabled with the ``ENABLE EXTERNAL LOGGING`` option from the Logging settings page.
@@ -169,7 +169,7 @@ These instructions describe how to use the logstash container.
 Splunk
 ^^^^^^^^
 
-climber's Splunk logging integration uses the Splunk HTTP Collector. When configuring a SPLUNK logging aggregator, add the full URL to the HTTP Event Collector host, like in the following example:
+ascender's Splunk logging integration uses the Splunk HTTP Collector. When configuring a SPLUNK logging aggregator, add the full URL to the HTTP Event Collector host, like in the following example:
 
    .. code-block:: text
 
@@ -283,7 +283,7 @@ To set up logging to any of the aggregator types:
 
 7. When done, click **Save** to apply the settings or **Cancel** to abandon the changes.
 
-8. To verify if your configuration is set up correctly, click **Save** first then click **Test**. This sends a test log message to the log aggregator using the current logging configuration in climber. You should check to make sure this test message was received by your external log aggregator.  
+8. To verify if your configuration is set up correctly, click **Save** first then click **Test**. This sends a test log message to the log aggregator using the current logging configuration in ascender. You should check to make sure this test message was received by your external log aggregator.  
 
 .. note::
 
@@ -316,7 +316,7 @@ Items surrounded by ``{}`` will be substituted when the log error is generated. 
 - **status_code**: The HTTP status code the API is returning
 - **user_name**: The name of the user that was authenticated when making the API request
 - **url_path**: The path portion of the URL being called (aka the API endpoint)
-- **remote_addr**: The remote address received by climber
+- **remote_addr**: The remote address received by ascender
 - **error**: The error message returned by the API or, if no error is specified, the HTTP status as text
 
 

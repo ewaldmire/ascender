@@ -1,25 +1,25 @@
-# climber Job Event Performance Debugging
+# ascender Job Event Performance Debugging
 
 ## The Job Event Critical Path
 
 > Observed delay in UI job `stdout`.
 
-Job events start their life in Ansible, specifically in the climber Ansible callback plugin. climber creates JSON payloads out of function calls and the parameters are passed to the registered callback plugin. The moment the JSON payload is created in the callback plugin is the `created` time on a job event record, which is then stored in the climber database. The `modified` time is when the job event record was stored in the database. The difference in `modified - created` is the time it takes for an event to go from Ansible and into the climber database. The pieces in between that path are:
+Job events start their life in Ansible, specifically in the ascender Ansible callback plugin. ascender creates JSON payloads out of function calls and the parameters are passed to the registered callback plugin. The moment the JSON payload is created in the callback plugin is the `created` time on a job event record, which is then stored in the ascender database. The `modified` time is when the job event record was stored in the database. The difference in `modified - created` is the time it takes for an event to go from Ansible and into the ascender database. The pieces in between that path are:
 
   1. Ansible
-  2. The climber callback plugin (inside of `ansible-runner`)
+  2. The ascender callback plugin (inside of `ansible-runner`)
   3. A push to Redis; this ends the processing that happens in the Ansible playbook process space
   4. The work then picks back up in the callback receiver process with a pop from Redis
   5. A bulk insert to `postgres` occurs
   6. Events are emitted over websocket via Redis
-  7. At this point, the handling of the event changes process space to deliver over the websocket(s) via `daphne` to the other climber nodes & to websocket browser clients
+  7. At this point, the handling of the event changes process space to deliver over the websocket(s) via `daphne` to the other ascender nodes & to websocket browser clients
   8. The UI then gets the websocket event and displays it in the job details view
 
 This is what we call the "critical path" for job events.
 
 ### Quick Debugging
 
-* Log in to an climber instance and open Chrome Debug Tools
+* Log in to an ascender instance and open Chrome Debug Tools
 * Paste in the contents of `debug.js` (found below) into the console
 * You will notice a blue square on the screen with a textbox and a button
 * Launch a job and note the job ID
@@ -29,7 +29,7 @@ This is what we call the "critical path" for job events.
 
 ### Debugging the Websockets
 
-climber relies on Django channels and Redis for websockets. `channels_redis`, the connection plugin for channels to use Redis as the message backend, allows for setting per-group queue limits. By default, climber sets this limit to 10,000. It can be tricky to know when this limit is exceeded due to the asynchronous nature of Channels + ASGI + websockets.
+ascender relies on Django channels and Redis for websockets. `channels_redis`, the connection plugin for channels to use Redis as the message backend, allows for setting per-group queue limits. By default, ascender sets this limit to 10,000. It can be tricky to know when this limit is exceeded due to the asynchronous nature of Channels + ASGI + websockets.
 
 One way to be notified of websocket queue reaching capacity is to hook into the `channels_redis.core` logger. Below is an example of how to enable the logging and an example of what capacity overflow messages look like:
 
@@ -44,9 +44,9 @@ tail -f /var/log/tower/tower.log
 2021-04-28 20:53:51,231 INFO     channels_redis.core 1 of 1 channels over capacity in group job_events-49
 ```
 
-The two above log messages were not chosen randomly. They are representative of common groups that can overflow. Each climber node sends all events it processes locally to all other climber nodes. It does this via the `broadcast-group_send` group; all climber nodes are subscribed to this group. Under high load, this queue can overflow.
+The two above log messages were not chosen randomly. They are representative of common groups that can overflow. Each ascender node sends all events it processes locally to all other ascender nodes. It does this via the `broadcast-group_send` group; all ascender nodes are subscribed to this group. Under high load, this queue can overflow.
 
-The other log message above is an overflow in the `job_events-49` group. Overflow in this queue can happen when either climber or the websocket client cannot keep up with the event websocket messages.
+The other log message above is an overflow in the `job_events-49` group. Overflow in this queue can happen when either ascender or the websocket client cannot keep up with the event websocket messages.
 
 ```
 redis-cli -s /var/run/redis/redis.sock
@@ -60,7 +60,7 @@ redis /var/run/redis/redis.sock> keys *
 6) "asgispecific.2061d193ea1c4dd487d8f455dfeabd6a!"
 ```
 
-Above is an example of all of the keys in Redis on an climber node. Let's focus on 3) and 6). 3) is the special group we mentioned above. The Redis `ZSET` object is created by `channels_redis` to track Django Channel clients subscribed to the `broadcast-group_send` group. 6) is the queue that holds websocket messages.
+Above is an example of all of the keys in Redis on an ascender node. Let's focus on 3) and 6). 3) is the special group we mentioned above. The Redis `ZSET` object is created by `channels_redis` to track Django Channel clients subscribed to the `broadcast-group_send` group. 6) is the queue that holds websocket messages.
 
 ```
 redis /var/run/redis/redis.sock> zrange asgi:group:broadcast-group_send 0 -1

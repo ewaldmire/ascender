@@ -50,7 +50,7 @@ DEV_DOCKER_OWNER ?= ctrliq
 # Docker will only accept lowercase, so github names like Paul need to be paul
 DEV_DOCKER_OWNER_LOWER = $(shell echo $(DEV_DOCKER_OWNER) | tr A-Z a-z)
 DEV_DOCKER_TAG_BASE ?= ghcr.io/$(DEV_DOCKER_OWNER_LOWER)
-DEVEL_IMAGE_NAME ?= $(DEV_DOCKER_TAG_BASE)/climber_devel:$(COMPOSE_TAG)
+DEVEL_IMAGE_NAME ?= $(DEV_DOCKER_TAG_BASE)/ascender_devel:$(COMPOSE_TAG)
 
 #RECEPTOR_IMAGE ?= quay.io/ansible/receptor:v1.5.7
 RECEPTOR_IMAGE ?= quay.io/ansible/receptor:devel
@@ -332,7 +332,7 @@ test_migrations:
 
 ## Runs AWX_DOCKER_CMD inside a new docker container.
 docker-runner:
-	docker run -u $(shell id -u) --rm -v $(shell pwd):/climber_devel/:Z --workdir=/climber_devel $(DEVEL_IMAGE_NAME) $(AWX_DOCKER_CMD)
+	docker run -u $(shell id -u) --rm -v $(shell pwd):/ascender_devel/:Z --workdir=/ascender_devel $(DEVEL_IMAGE_NAME) $(AWX_DOCKER_CMD)
 
 test_collection:
 	rm -f $(shell ls -d $(VENV_BASE)/awx/lib/python* | head -n 1)/no-global-site-packages.txt
@@ -511,7 +511,7 @@ docker-compose-sources: .git/hooks/pre-commit
 	fi;
 
 	ansible-playbook -i tools/docker-compose/inventory tools/docker-compose/ansible/sources.yml \
-	    -e awx_image=$(DEV_DOCKER_TAG_BASE)/climber_devel \
+	    -e awx_image=$(DEV_DOCKER_TAG_BASE)/ascender_devel \
 	    -e awx_image_tag=$(COMPOSE_TAG) \
 	    -e receptor_image=$(RECEPTOR_IMAGE) \
 	    -e control_plane_node_count=$(CONTROL_PLANE_NODE_COUNT) \
@@ -569,20 +569,20 @@ docker-compose-container-group-clean:
 	rm -rf tools/docker-compose-minikube/_sources/
 
 .PHONY: Dockerfile.dev
-## Generate Dockerfile.dev for climber_devel image
+## Generate Dockerfile.dev for ascender_devel image
 Dockerfile.dev: tools/ansible/roles/dockerfile/templates/Dockerfile.j2
 	ansible-playbook tools/ansible/dockerfile.yml \
 		-e dockerfile_name=Dockerfile.dev \
 		-e build_dev=True \
 		-e receptor_image=$(RECEPTOR_IMAGE)
 
-## Build climber_devel image for docker compose development environment
+## Build ascender_devel image for docker compose development environment
 docker-compose-build: Dockerfile.dev
 	DOCKER_BUILDKIT=1 docker build \
 		-f Dockerfile.dev \
 		-t $(DEVEL_IMAGE_NAME) \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
-		--cache-from=$(DEV_DOCKER_TAG_BASE)/climber_devel:$(COMPOSE_TAG) .
+		--cache-from=$(DEV_DOCKER_TAG_BASE)/ascender_devel:$(COMPOSE_TAG) .
 
 
 .PHONY: docker-compose-buildx
@@ -593,7 +593,7 @@ docker-compose-buildx: Dockerfile.dev
 	- docker buildx build \
 		--push \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
-		--cache-from=$(DEV_DOCKER_TAG_BASE)/climber_devel:$(COMPOSE_TAG) \
+		--cache-from=$(DEV_DOCKER_TAG_BASE)/ascender_devel:$(COMPOSE_TAG) \
 		--platform=$(PLATFORMS) \
 		--tag $(DEVEL_IMAGE_NAME) \
 		-f Dockerfile.dev .
@@ -601,7 +601,7 @@ docker-compose-buildx: Dockerfile.dev
 
 docker-clean:
 	-$(foreach container_id,$(shell docker ps -f name=tools_awx -aq && docker ps -f name=tools_receptor -aq),docker stop $(container_id); docker rm -f $(container_id);)
-	-$(foreach image_id,$(shell docker images --filter=reference='*/*/*climber_devel*' --filter=reference='*/*climber_devel*' --filter=reference='*climber_devel*' -aq),docker rmi --force $(image_id);)
+	-$(foreach image_id,$(shell docker images --filter=reference='*/*/*ascender_devel*' --filter=reference='*/*ascender_devel*' --filter=reference='*ascender_devel*' -aq),docker rmi --force $(image_id);)
 
 docker-clean-volumes: docker-compose-clean docker-compose-container-group-clean
 	docker volume rm -f tools_var_lib_awx tools_awx_db tools_vault_1 tools_ldap_1 $(docker volume ls --filter name=tools_redis_socket_ -q)
@@ -641,7 +641,7 @@ awx-kube-build: Dockerfile
 		--build-arg VERSION=$(VERSION) \
 		--build-arg SETUPTOOLS_SCM_PRETEND_VERSION=$(VERSION) \
 		--build-arg HEADLESS=$(HEADLESS) \
-		-t $(DEV_DOCKER_TAG_BASE)/climber:$(COMPOSE_TAG) .
+		-t $(DEV_DOCKER_TAG_BASE)/ascender:$(COMPOSE_TAG) .
 
 ## Build multi-arch awx image for deployment on Kubernetes environment.
 awx-kube-buildx: Dockerfile
@@ -653,7 +653,7 @@ awx-kube-buildx: Dockerfile
 		--build-arg SETUPTOOLS_SCM_PRETEND_VERSION=$(VERSION) \
 		--build-arg HEADLESS=$(HEADLESS) \
 		--platform=$(PLATFORMS) \
-		--tag $(DEV_DOCKER_TAG_BASE)/climber:$(COMPOSE_TAG) \
+		--tag $(DEV_DOCKER_TAG_BASE)/ascender:$(COMPOSE_TAG) \
 		-f Dockerfile .
 	- docker buildx rm awx-kube-buildx
 
@@ -671,8 +671,8 @@ Dockerfile.kube-dev: tools/ansible/roles/dockerfile/templates/Dockerfile.j2
 awx-kube-dev-build: Dockerfile.kube-dev
 	DOCKER_BUILDKIT=1 docker build -f Dockerfile.kube-dev \
 	    --build-arg BUILDKIT_INLINE_CACHE=1 \
-	    --cache-from=$(DEV_DOCKER_TAG_BASE)/climber_kube_devel:$(COMPOSE_TAG) \
-	    -t $(DEV_DOCKER_TAG_BASE)/climber_kube_devel:$(COMPOSE_TAG) .
+	    --cache-from=$(DEV_DOCKER_TAG_BASE)/ascender_kube_devel:$(COMPOSE_TAG) \
+	    -t $(DEV_DOCKER_TAG_BASE)/ascender_kube_devel:$(COMPOSE_TAG) .
 
 ## Build and push multi-arch awx_kube_devel image for development on local Kubernetes environment.
 awx-kube-dev-buildx: Dockerfile.kube-dev
@@ -681,14 +681,14 @@ awx-kube-dev-buildx: Dockerfile.kube-dev
 	- docker buildx build \
 		--push \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
-		--cache-from=$(DEV_DOCKER_TAG_BASE)/climber_kube_devel:$(COMPOSE_TAG) \
+		--cache-from=$(DEV_DOCKER_TAG_BASE)/ascender_kube_devel:$(COMPOSE_TAG) \
 		--platform=$(PLATFORMS) \
-		--tag $(DEV_DOCKER_TAG_BASE)/climber_kube_devel:$(COMPOSE_TAG) \
+		--tag $(DEV_DOCKER_TAG_BASE)/ascender_kube_devel:$(COMPOSE_TAG) \
 		-f Dockerfile.kube-dev .
 	- docker buildx rm awx-kube-dev-buildx
 
 kind-dev-load: awx-kube-dev-build
-	$(KIND_BIN) load docker-image $(DEV_DOCKER_TAG_BASE)/climber_kube_devel:$(COMPOSE_TAG)
+	$(KIND_BIN) load docker-image $(DEV_DOCKER_TAG_BASE)/ascender_kube_devel:$(COMPOSE_TAG)
 
 # Translation TASKS
 # --------------------------------------

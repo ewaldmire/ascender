@@ -19,5 +19,5 @@ Release Notes
    pair: release notes; v23.8.1
 
 
-Refer to `climber Release Notes <github.com/ctrliq/climber/releases>`_.
+Refer to `ascender Release Notes <github.com/ctrliq/ascender/releases>`_.
 

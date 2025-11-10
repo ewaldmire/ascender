@@ -8,7 +8,7 @@ Secret Management System
    pair: credential; plugins
    pair: secret management; credential
    
-Users and admins upload machine and cloud credentials so that automation can access machines and external services on their behalf. By default, sensitive credential values (such as SSH passwords, SSH private keys, API tokens for cloud services) are stored in the database after being encrypted. With external credentials backed by credential plugins, you can map credential fields (like a password or an SSH Private key) to values stored in a :term:`secret management system` instead of providing them to climber directly. climber provides a secret management system that include integrations for:
+Users and admins upload machine and cloud credentials so that automation can access machines and external services on their behalf. By default, sensitive credential values (such as SSH passwords, SSH private keys, API tokens for cloud services) are stored in the database after being encrypted. With external credentials backed by credential plugins, you can map credential fields (like a password or an SSH Private key) to values stored in a :term:`secret management system` instead of providing them to ascender directly. ascender provides a secret management system that include integrations for:
 
 - :ref:`ug_credentials_aws_lookup`
 - :ref:`ug_credentials_centrify`
@@ -25,14 +25,14 @@ These external secret values will be fetched prior to running a playbook that ne
 Configure and link secret lookups
 -----------------------------------
 
-When configuring climber to pull a secret from a 3rd-party system, it is in essence linking credential fields to external systems. To link a credential field to a value stored in an external system, select the external credential corresponding to that system and provide :term:`metadata` to look up the desired value. The metadata input fields are part of the :term:`external credential type` definition of the :term:`source credential`. 
+When configuring ascender to pull a secret from a 3rd-party system, it is in essence linking credential fields to external systems. To link a credential field to a value stored in an external system, select the external credential corresponding to that system and provide :term:`metadata` to look up the desired value. The metadata input fields are part of the :term:`external credential type` definition of the :term:`source credential`. 
 
-climber provides a :term:`credential plugin` interface for developers, integrators, admins, and power-users with the ability to add new external credential types to extend it to support other secret management systems. For more detail, see the `development docs for credential plugins`_.
+ascender provides a :term:`credential plugin` interface for developers, integrators, admins, and power-users with the ability to add new external credential types to extend it to support other secret management systems. For more detail, see the `development docs for credential plugins`_.
 
-.. _`development docs for credential plugins`: github.com/ctrliq/climber/blob/main/docs/credentials/credential_plugins.md
+.. _`development docs for credential plugins`: github.com/ctrliq/ascender/blob/main/docs/credentials/credential_plugins.md
 
 
-Use the climber User Interface to configure and use each of the supported 3-party secret management systems. 
+Use the ascender User Interface to configure and use each of the supported 3-party secret management systems. 
 
 1. First, create an external credential for authenticating with the secret management system. At minimum, provide a name for the external credential and select one of the following for the **Credential Type**:
 
@@ -141,7 +141,7 @@ This example shows the Metadata prompt for HashiVault Secret Lookup.
 .. image:: ../common/images/credentials-link-metadata-test-error.png
    :alt: Example exception dialog for credentials lookup
    
-6. When done, click **OK**. This closes the prompt window and returns you to the Details screen of your target credential. **Repeat these steps**, starting with :ref:`step 3 above <ag_credential_plugins_link_step>` to complete the remaining input fields for the target credential. By linking the information in this manner, climber retrieves sensitive information, such as username, password, keys, certificates, and tokens from the 3rd-party management systems and populates that data into the remaining fields of the target credential form.
+6. When done, click **OK**. This closes the prompt window and returns you to the Details screen of your target credential. **Repeat these steps**, starting with :ref:`step 3 above <ag_credential_plugins_link_step>` to complete the remaining input fields for the target credential. By linking the information in this manner, ascender retrieves sensitive information, such as username, password, keys, certificates, and tokens from the 3rd-party management systems and populates that data into the remaining fields of the target credential form.
 
 7. If necessary, supply any information manually for those fields that do not use linking as a way of retrieving sensitive information. Refer to the appropriate :ref:`ug_credentials_cred_types` for more detail about each of the fields.
 

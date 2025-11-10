@@ -5,9 +5,9 @@ Setting up a Project
    single: projects
 
 
-A Project is a logical collection of Ansible playbooks, represented in climber.
+A Project is a logical collection of Ansible playbooks, represented in ascender.
 
-You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your climber server, or by placing your playbooks into a source code management (SCM) system supported by climber, including Git, Subversion, and Mercurial.
+You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your ascender server, or by placing your playbooks into a source code management (SCM) system supported by ascender, including Git, Subversion, and Mercurial.
 
 .. note::
 

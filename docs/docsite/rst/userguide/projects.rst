@@ -8,7 +8,7 @@ Projects
 
 A :term:`Project` is a logical collection of Ansible playbooks.
 
-You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your server, or by placing your playbooks into a source code management (SCM) system supported by climber, including Git, Subversion, and Red Hat Insights. To create a Red Hat Insights project, refer to :ref:`insights`.
+You can manage playbooks and playbook directories by either placing them manually under the Project Base Path on your server, or by placing your playbooks into a source code management (SCM) system supported by ascender, including Git, Subversion, and Red Hat Insights. To create a Red Hat Insights project, refer to :ref:`insights`.
 
 .. note::
 
@@ -92,7 +92,7 @@ To create a new project:
 
 3. Click **Save** when done.
 
-The following describes ways projects are sourced in climber:
+The following describes ways projects are sourced in ascender:
 
 .. contents::
     :local:
@@ -108,7 +108,7 @@ Manage playbooks manually
 
 -  Create one or more directories to store playbooks under the Project Base Path (for example, /var/lib/awx/projects/).
 -  Create or copy playbook files into the playbook directory.
--  Ensure that the playbook directory and files are owned by the same UNIX user and group that the climber service runs as.
+-  Ensure that the playbook directory and files are owned by the same UNIX user and group that the ascender service runs as.
 -  Ensure that the permissions are appropriate for the playbook directories and files.
 
 If adding a manual project, each project path inside of the project root folder can only be assigned to one project. If you receive the following message, ensure that you have not already assigned the project path to an existing project:
@@ -174,7 +174,7 @@ To configure playbooks to use source control, in the Project **Details** tab:
   -  **Clean** - Removes any local modifications prior to performing an update.
   -  **Delete** - Deletes the local repository in its entirety prior to performing an update. Depending on the size of the repository this may significantly increase the amount of time required to complete an update.
   -  **Track submodules** - Tracks the latest commit. See more details in the tooltip |tooltip|.
-  -  **Update Revision on Launch** - Updates the revision of the project to the current revision in the remote source control, as well as cache the roles directory from :ref:`Galaxy <ug_galaxy>` or :ref:`Collections <ug_collections>`. climber ensures that the local revision matches and that the roles and collections are up-to-date with the last update. Also, to avoid job overflows if jobs are spawned faster than the project can sync, selecting this allows you to configure a Cache Timeout to cache prior project syncs for a certain number of seconds.
+  -  **Update Revision on Launch** - Updates the revision of the project to the current revision in the remote source control, as well as cache the roles directory from :ref:`Galaxy <ug_galaxy>` or :ref:`Collections <ug_collections>`. ascender ensures that the local revision matches and that the roles and collections are up-to-date with the last update. Also, to avoid job overflows if jobs are spawned faster than the project can sync, selecting this allows you to configure a Cache Timeout to cache prior project syncs for a certain number of seconds.
   -  **Allow Branch Override** - Allows a job template or an inventory source that uses this project to launch with a specified SCM branch or revision other than that of the project's. For more detail, see :ref:`job branch overriding <ug_job_branching>`.
 
     .. image:: ../common/images/projects-create-scm-project-branch-override-checked.png
@@ -206,7 +206,7 @@ To configure playbooks to use Red Hat Insights, in the Project **Details** tab:
 
   -  **Clean** - Removes any local modifications prior to performing an update.
   -  **Delete** - Deletes the local repository in its entirety prior to performing an update. Depending on the size of the repository this may significantly increase the amount of time required to complete an update.
-  -  **Update Revision on Launch** - Updates the revision of the project to the current revision in the remote source control, as well as cache the roles directory from :ref:`Galaxy <ug_galaxy>` or :ref:`Collections <ug_collections>`. climber ensures that the local revision matches and that the roles and collections are up-to-date with the last update. Also, to avoid job overflows if jobs are spawned faster than the project can sync, selecting this allows you to configure a Cache Timeout to cache prior project syncs for a certain number of seconds.
+  -  **Update Revision on Launch** - Updates the revision of the project to the current revision in the remote source control, as well as cache the roles directory from :ref:`Galaxy <ug_galaxy>` or :ref:`Collections <ug_collections>`. ascender ensures that the local revision matches and that the roles and collections are up-to-date with the last update. Also, to avoid job overflows if jobs are spawned faster than the project can sync, selecting this allows you to configure a Cache Timeout to cache prior project syncs for a certain number of seconds.
 
   .. image:: ../common/images/projects-create-scm-insights.png
      :alt: Create New Project form for Red Hat Insights Source Control Credential Type.
@@ -285,7 +285,7 @@ Work with Permissions
 .. index::
    pair: projects; permissions
 
-The set of permissions assigned to this project (role-based access controls) that provide the ability to read, modify, and administer projects, inventories, job templates, and other climber elements are Privileges.
+The set of permissions assigned to this project (role-based access controls) that provide the ability to read, modify, and administer projects, inventories, job templates, and other ascender elements are Privileges.
 
 You can access the project permissions via the **Access** tab next to the **Details** tab. This screen displays a list of users that currently have permissions to this project. The list may be sorted and searched by **Username**, **First Name**, or **Last Name**.
 
@@ -371,7 +371,7 @@ Ansible Galaxy Support
    single: Galaxy support
 
 
-At the end of a Project update, climber searches for a file called ``requirements.yml`` in the ``roles`` directory, located at ``<project-top-level-directory>/roles/requirements.yml``. If this file is found, the following command automatically runs:
+At the end of a Project update, ascender searches for a file called ``requirements.yml`` in the ``roles`` directory, located at ``<project-top-level-directory>/roles/requirements.yml``. If this file is found, the following command automatically runs:
 
 ::
 
@@ -385,15 +385,15 @@ This file allows you to reference Galaxy roles or roles within other repositorie
 
 The cache directory is a subdirectory inside the global projects folder. The content may be copied from the cache location to ``<job private directory>/requirements_roles`` location.
 
-By default, climber has a system-wide setting that allows roles to be dynamically downloaded from the ``roles/requirements.yml`` file for SCM projects. You may turn off this setting in the **Jobs settings** screen of the Settings menu by switching the **Enable Role Download** toggle button to **OFF**.
+By default, ascender has a system-wide setting that allows roles to be dynamically downloaded from the ``roles/requirements.yml`` file for SCM projects. You may turn off this setting in the **Jobs settings** screen of the Settings menu by switching the **Enable Role Download** toggle button to **OFF**.
 
 .. image:: ../common/images/configure-awx-jobs-download-roles.png
    :alt: Job Settings page showing the option to Enable Role Download.
 
 
-Whenever a project sync runs, climber determines if the project source and any roles from Galaxy and/or Collections are out of date with the project. Project updates will download the roles inside the update.
+Whenever a project sync runs, ascender determines if the project source and any roles from Galaxy and/or Collections are out of date with the project. Project updates will download the roles inside the update.
 
-If jobs need to pick up a change made to an upstream role, updating the project will ensure this happens. A change to the role means that a new commit was pushed to the *provision-role* source control. To make this change take effect in a job, you do not need to push a new commit to the *playbooks* repo, but you **do need** to update the project, which downloads roles to a local cache. For instance, say you have two git repositories in source control. The first one is *playbooks* and the project in climber points to this URL. The second one is *provision-role* and it is referenced by the ``roles/requirements.yml`` file inside of the *playbooks* git repo.
+If jobs need to pick up a change made to an upstream role, updating the project will ensure this happens. A change to the role means that a new commit was pushed to the *provision-role* source control. To make this change take effect in a job, you do not need to push a new commit to the *playbooks* repo, but you **do need** to update the project, which downloads roles to a local cache. For instance, say you have two git repositories in source control. The first one is *playbooks* and the project in ascender points to this URL. The second one is *provision-role* and it is referenced by the ``roles/requirements.yml`` file inside of the *playbooks* git repo.
 
 .. this section is used in collections support section below
 
@@ -443,9 +443,9 @@ Collections Support
    single: Ansible collections
    single: collections support
 
-climber supports project-specific `Ansible collections <https://docs.ansible.com/ansible/latest/collections_guide/index.html>`_ in job runs. If you specify a collections requirements file in the SCM at ``collections/requirements.yml``, climber will install collections in that file in the implicit project sync before a job run.
+ascender supports project-specific `Ansible collections <https://docs.ansible.com/ansible/latest/collections_guide/index.html>`_ in job runs. If you specify a collections requirements file in the SCM at ``collections/requirements.yml``, ascender will install collections in that file in the implicit project sync before a job run.
 
-By default, climber has a system-wide setting that allows collections to be dynamically downloaded from the ``collections/requirements.yml`` file for SCM projects. You may turn off this setting in the **Jobs settings** tab of the Settings menu by switching the **Enable Collections Download** toggle button to **OFF**.
+By default, ascender has a system-wide setting that allows collections to be dynamically downloaded from the ``collections/requirements.yml`` file for SCM projects. You may turn off this setting in the **Jobs settings** tab of the Settings menu by switching the **Enable Collections Download** toggle button to **OFF**.
 
   .. image:: ../common/images/configure-awx-jobs-download-collections.png
      :alt: Job Settings page showing where to enable collection(s) download.
@@ -460,7 +460,7 @@ Roles and collections are locally cached for performance reasons, and you will n
 Using Collections via Hub
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before climber can use |ah| as the default source for collections content, you need to create an API token in the |ah| UI so that it could be specified in climber. You may connect to a private |ah| or a public |ah| collection, the only difference is which URL you specify.
+Before ascender can use |ah| as the default source for collections content, you need to create an API token in the |ah| UI so that it could be specified in ascender. You may connect to a private |ah| or a public |ah| collection, the only difference is which URL you specify.
 
 1. Navigate to https://cloud.redhat.com/ansible/automation-hub/token and click **Load token**.
 
@@ -512,7 +512,7 @@ You can create different repos with different namespaces/collections in them. Bu
 .. image:: ../common/images/projects-add-ah-source-repo.png
    :alt: The URL for the Source Control URL in the Type Details section of the Create New Project form.
 
-8. In the Projects list view, click |update| to run an update against this project. climber fetches the Galaxy collections from the ``collections/requirements.yml`` file and report it as changed; and the collections will now be installed for any job template using this project.
+8. In the Projects list view, click |update| to run an update against this project. ascender fetches the Galaxy collections from the ``collections/requirements.yml`` file and report it as changed; and the collections will now be installed for any job template using this project.
 
 .. |update| image:: ../common/images/refresh-gray.png
    :alt: Refresh button.

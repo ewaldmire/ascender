@@ -12,9 +12,9 @@ body:
     attributes:
       label: Please confirm the following
       options:
-        - label: I have checked the [current issues](https://github.com/ctrliq/climber/issues) for duplicates.
+        - label: I have checked the [current issues](https://github.com/ctrliq/ascender/issues) for duplicates.
           required: true
-        - label: I understand that climber is open source software provided for free and that I might not receive a timely response.
+        - label: I understand that ascender is open source software provided for free and that I might not receive a timely response.
           required: true
 
   - type: textarea
@@ -28,8 +28,8 @@ body:
   - type: input
     id: awx-version
     attributes:
-      label: climber version
-      description: What version of climber are you running?
+      label: ascender version
+      description: What version of ascender are you running?
     validations:
       required: true
 
@@ -50,7 +50,7 @@ body:
     id: awx-install-method
     attributes:
       label: Installation method
-      description: How did you install climber?
+      description: How did you install ascender?
       multiple: false
       options:
         - kubernetes
@@ -58,7 +58,7 @@ body:
         - openshift
         - minishift
         - docker development environment
-        - climber Installation Sctipt
+        - ascender Installation Sctipt
         - N/A
     validations:
       required: true

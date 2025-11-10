@@ -5,9 +5,9 @@
    pair: settings menu; configure the controller
 
 
-To enter the Settings window for climber, click **Settings** from the left navigation bar. This page allows you to modify your climber configuration, such as settings associated with authentication, jobs, system, and user interface.
+To enter the Settings window for ascender, click **Settings** from the left navigation bar. This page allows you to modify your ascender configuration, such as settings associated with authentication, jobs, system, and user interface.
 
 .. image:: ../common/images/ug-settings-menu-screen.png
-	:alt: The main settings window for climber.
+	:alt: The main settings window for ascender.
 
-For more information on configuring these settings, refer to :ref:`ag_configure_climber` section of the |ata|.
+For more information on configuring these settings, refer to :ref:`ag_configure_ascender` section of the |ata|.

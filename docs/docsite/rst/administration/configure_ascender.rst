@@ -1,17 +1,17 @@
-.. _ag_configure_climber:
+.. _ag_configure_ascender:
 
-climber Configuration
+ascender Configuration
 ~~~~~~~~~~~~~~~~~~~
 
 .. index::
-   single: configure climber
+   single: configure ascender
 
-.. _configure_climber_overview:
+.. _configure_ascender_overview:
 
-You can configure various climber settings within the Settings screen in the following tabs:
+You can configure various ascender settings within the Settings screen in the following tabs:
 
 .. image:: ../common/images/ug-settings-menu-screen.png
-   :alt: Screenshot of the climber settings menu screen.
+   :alt: Screenshot of the ascender settings menu screen.
 
 Each tab contains fields with a **Reset** button, allowing you to revert any value entered back to the default value. **Reset All** allows you to revert all the values to their factory default values.
 
@@ -26,10 +26,10 @@ Authentication
     single: enterprise authentication
     pair: configuration; authentication
 
-.. include:: ./configure_climber_authentication.rst
+.. include:: ./configure_ascender_authentication.rst
 
 
-.. _configure_climber_jobs:
+.. _configure_ascender_jobs:
 
 Jobs
 =========
@@ -37,7 +37,7 @@ Jobs
    single: jobs
    pair: configuration; jobs
 
-The Jobs tab allows you to configure the types of modules that are allowed to be used by climber's Ad Hoc Commands feature, set limits on the number of jobs that can be scheduled, define their output size, and other details pertaining to working with Jobs in climber.
+The Jobs tab allows you to configure the types of modules that are allowed to be used by ascender's Ad Hoc Commands feature, set limits on the number of jobs that can be scheduled, define their output size, and other details pertaining to working with Jobs in ascender.
 
 1. From the left navigation bar, click **Settings** from the left navigation bar and select **Jobs settings** from the Settings screen.
 
@@ -48,25 +48,25 @@ The Jobs tab allows you to configure the types of modules that are allowed to be
     The values for all the timeouts are in seconds.
 
 .. image:: ../common/images/configure-awx-jobs.png
-   :alt: Screenshot of the climber job configuration settings.
+   :alt: Screenshot of the ascender job configuration settings.
 
 3. Click **Save** to apply the settings or **Cancel** to abandon the changes.
 
 
-.. _configure_climber_system:
+.. _configure_ascender_system:
 
 System
 ======
 .. index::
    pair: configuration; system
 
-The System tab allows you to define the base URL for the climber host, configure alerts, enable activity capturing, control visibility of users, enable certain climber features and functionality through a license file, and configure logging aggregation options.
+The System tab allows you to define the base URL for the ascender host, configure alerts, enable activity capturing, control visibility of users, enable certain ascender features and functionality through a license file, and configure logging aggregation options.
 
 1. From the left navigation bar, click **Settings**.
 
 2. The right side of the Settings window is a set of configurable System settings. Select from the following options:
 
-  - **Miscellaneous System settings**: enable activity streams, specify the default execution environment, define the base URL for the climber host, enable climber administration alerts, set user visibility, define analytics, specify usernames and passwords, and configure proxies.
+  - **Miscellaneous System settings**: enable activity streams, specify the default execution environment, define the base URL for the ascender host, enable ascender administration alerts, set user visibility, define analytics, specify usernames and passwords, and configure proxies.
   - **Miscellaneous Authentication settings**: configure options associated with authentication methods (built-in or SSO), sessions (timeout, number of sessions logged in, tokens), and social authentication mapping.
   - **Logging settings**: configure logging options based on the type you choose:
 
@@ -89,7 +89,7 @@ The System tab allows you to define the base URL for the climber host, configure
 
 4. Click **Save** to apply the settings or **Cancel** to abandon the changes.
 
-.. _configure_climber_ui:
+.. _configure_ascender_ui:
 
 User Interface
 ================

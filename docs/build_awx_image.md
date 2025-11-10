@@ -1,4 +1,4 @@
-# Building the climber Image
+# Building the ascender Image
 
 ## Build & Push Image
 
@@ -10,7 +10,7 @@ make awx-kube-build
 
 > Note: The development image (`make docker-compose-build`) will not work with the awx-operator, the UI is not built in that image, among other things (see Dockerfile.j2 for more info).
 
-This will build an climber image and tag it.  You can then push that image to your container registry:
+This will build an ascender image and tag it.  You can then push that image to your container registry:
 
 
 ```

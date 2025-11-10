@@ -47,7 +47,7 @@ function About({ version, isOpen, onClose }) {
       onClose={onClose}
       productName={brandName}
       trademark=""
-      brandImageSrc="static/media/climberAuto_logo_h_rev_M.png"
+      brandImageSrc="static/media/ascenderAuto_logo_h_rev_M.png"
       brandImageAlt={t`Brand Image`}
       backgroundImageSrc="static/media/CIQ_grayscale_bkgd.jpg"
     >

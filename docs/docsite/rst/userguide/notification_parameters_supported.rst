@@ -41,7 +41,7 @@ This section describes the list of supported job attributes and the proper synta
 - ``timeout`` - (int) amount of time (in seconds) to run before the task is canceled
 - ``type`` - (choice) data type for this job
 - ``url`` - (string) URL for this job
-- ``use_fact_cache`` - (boolean) if enabled for job, climber acts as an Ansible Fact Cache Plugin, persisting facts at the end of a playbook run to the database and caching facts for use by Ansible
+- ``use_fact_cache`` - (boolean) if enabled for job, ascender acts as an Ansible Fact Cache Plugin, persisting facts at the end of a playbook run to the database and caching facts for use by Ansible
 - ``verbosity`` - (choice) 0 through 5 (corresponding to Normal through WinRM Debug)
 - ``host_status_counts`` (count of hosts uniquely assigned to each status)
    - ``skipped`` (integer)

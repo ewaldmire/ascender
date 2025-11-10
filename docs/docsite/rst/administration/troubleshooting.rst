@@ -1,7 +1,7 @@
 .. _admin_troubleshooting:
 
 ***********************
-Troubleshooting climber
+Troubleshooting ascender
 ***********************
 
 .. index:: 
@@ -9,7 +9,7 @@ Troubleshooting climber
    single: help
   
 
-Some troubleshooting tools are built in the climber user interface that may help you address some issues you might encounter. To access these tools, navigate to **Settings** and select **Troubleshooting**.
+Some troubleshooting tools are built in the ascender user interface that may help you address some issues you might encounter. To access these tools, navigate to **Settings** and select **Troubleshooting**.
 
 .. image:: ../common/images/settings_troubleshooting_highlighted.png
 
@@ -31,7 +31,7 @@ Error logging and extra settings
    pair: troubleshooting; general help
    pair: troubleshooting; error logs
 
-climber server errors are streamed and not logged, however you may be able to pass them in on the climber spec file.
+ascender server errors are streamed and not logged, however you may be able to pass them in on the ascender spec file.
 
 With ``extra_settings``, you can pass multiple custom settings via the ``awx-operator``. The parameter ``extra_settings``  will be appended to the ``/etc/tower/settings.py`` file and can be an alternative to the ``extra_volumes`` parameter.
 
@@ -41,7 +41,7 @@ With ``extra_settings``, you can pass multiple custom settings via the ``awx-ope
 | extra_settings | Extra settings | ''      |
 +----------------+----------------+---------+
 
-Parameters configured in ``extra_settings`` are set as read-only settings in climber.  As a result, they cannot be changed in the UI after deployment. If you need to change the setting after the initial deployment, you need to change it on the climber CR spec.  
+Parameters configured in ``extra_settings`` are set as read-only settings in ascender.  As a result, they cannot be changed in the UI after deployment. If you need to change the setting after the initial deployment, you need to change it on the ascender CR spec.  
 
 Example configuration of ``extra_settings`` parameter:
 
@@ -83,10 +83,10 @@ If you are unable to run the ``helloworld.yml`` example playbook from the Quick 
 - Can you ``ssh`` to your host? Ansible depends on SSH access to the servers you are managing.
 - Are your hostnames and IPs correctly added in your inventory file? (Check for typos.)
 
-Unable to login to climber via HTTP
+Unable to login to ascender via HTTP
 ==================================
 
-Access to climber is intentionally restricted through a secure protocol (HTTPS). In cases where your configuration is set up to run an climber node behind a load balancer or proxy as "HTTP only", and you only want to access it without SSL (for troubleshooting, for example), you may change the settings of the ``/etc/tower/conf.d`` of your climber instance. The operator has ``extra_settings`` that allows you to change a file-based setting in OCP. See :ref:`admin_troubleshooting_extra_settings` for detail.
+Access to ascender is intentionally restricted through a secure protocol (HTTPS). In cases where your configuration is set up to run an ascender node behind a load balancer or proxy as "HTTP only", and you only want to access it without SSL (for troubleshooting, for example), you may change the settings of the ``/etc/tower/conf.d`` of your ascender instance. The operator has ``extra_settings`` that allows you to change a file-based setting in OCP. See :ref:`admin_troubleshooting_extra_settings` for detail.
 
 Once in the spec, set the following accordingly:
  
@@ -95,7 +95,7 @@ Once in the spec, set the following accordingly:
   SESSION_COOKIE_SECURE = False
   CSRF_COOKIE_SECURE = False
 
-Changing these settings to ``False`` will allow climber to manage cookies and login sessions when using the HTTP protocol. This must be done on every node of a cluster installation to properly take effect.
+Changing these settings to ``False`` will allow ascender to manage cookies and login sessions when using the HTTP protocol. This must be done on every node of a cluster installation to properly take effect.
 
 To apply the changes, run:
 
@@ -113,7 +113,7 @@ WebSockets port for live events not working
    pair: troubleshooting; websockets
 
 
-climber uses port 80/443 on the climber server to stream live updates of playbook activity and other events to the client browser. These ports are configured for 80/443 by default, but if they are blocked by firewalls, close any firewall rules that opened up or added for the previous websocket ports, this will ensure your firewall allows traffic through this port.
+ascender uses port 80/443 on the ascender server to stream live updates of playbook activity and other events to the client browser. These ports are configured for 80/443 by default, but if they are blocked by firewalls, close any firewall rules that opened up or added for the previous websocket ports, this will ensure your firewall allows traffic through this port.
 
 
 Problems running a playbook
@@ -135,7 +135,7 @@ Problems when running a job
 .. index::
    pair: troubleshooting; job does not run
 
-If you are having trouble running a job from a playbook, you should review the playbook YAML file. When importing a playbook, either manually or via a source control mechanism, keep in mind that the host definition is controlled by climber and should be set to ``hosts: all``. 
+If you are having trouble running a job from a playbook, you should review the playbook YAML file. When importing a playbook, either manually or via a source control mechanism, keep in mind that the host definition is controlled by ascender and should be set to ``hosts: all``. 
 
 
 Playbooks aren't showing up in the "Job Template" drop-down
@@ -164,20 +164,20 @@ If you are attempting to run a playbook Job and it stays in the "Pending" state 
 
 - Ensure all supervisor services are running via ``supervisorctl status``.
 - Check to ensure that the ``/var/`` partition has more than 1 GB of space available. Jobs will not complete with insufficient space on the ``/var/`` partition.
-- Run ``awx-service restart`` on the climber server.
+- Run ``awx-service restart`` on the ascender server.
 
 
-If you continue to have problems, run ``sosreport`` as root on the climber server, then file a `support request`_ with the result.
+If you continue to have problems, run ``sosreport`` as root on the ascender server, then file a `support request`_ with the result.
 
 .. _`support request`: http://support.ansible.com/
 
 
-Cancel an climber job
+Cancel an ascender job
 =========================
 .. index:: 
    pair: troubleshooting; job cancellation
 
-When issuing a ``cancel`` request on a currently running climber job, climber issues a ``SIGINT`` to the ``ansible-playbook`` process. While this causes Ansible to stop dispatching new tasks and exit, in many cases, module tasks that were already dispatched to remote hosts will run to completion. This behavior is similar to pressing ``Ctrl-C`` during a command-line Ansible run.
+When issuing a ``cancel`` request on a currently running ascender job, ascender issues a ``SIGINT`` to the ``ansible-playbook`` process. While this causes Ansible to stop dispatching new tasks and exit, in many cases, module tasks that were already dispatched to remote hosts will run to completion. This behavior is similar to pressing ``Ctrl-C`` during a command-line Ansible run.
  
 With respect to software dependencies, if a running job is canceled, the job is essentially removed but the dependencies will remain.
 
@@ -195,7 +195,7 @@ For example, say that you performed a clustered installation. Next, say that you
 When setting up an external database which has been used in a prior installation, the database used for the clustered node must be manually cleared before any additional installations can succeed.
 
 
-Private EC2 VPC Instances in the climber Inventory
+Private EC2 VPC Instances in the ascender Inventory
 =======================================================
 
 .. index::
@@ -203,9 +203,9 @@ Private EC2 VPC Instances in the climber Inventory
     pair: troubleshooting; EC2 VPC instances
 
 
-By default, climber only shows instances in a VPC that have an Elastic IP (EIP) associated with them. To see all of your VPC instances, perform the following steps:
+By default, ascender only shows instances in a VPC that have an Elastic IP (EIP) associated with them. To see all of your VPC instances, perform the following steps:
 
-1. In the climber interface, select your inventory. 
+1. In the ascender interface, select your inventory. 
 2. Click on the group that has the Source set to AWS, and click on the Source tab. 
 3. In the ``Source Variables`` box, enter:
 
@@ -217,7 +217,7 @@ Next, save and then trigger an update of the group. Once this is done, you shoul
 
 .. note::
 
-  climber must be running inside the VPC with access to those instances if you want to configure them.
+  ascender must be running inside the VPC with access to those instances if you want to configure them.
 
 
 
@@ -228,7 +228,7 @@ Troubleshooting "Error: provided hosts list is empty"
     pair: troubleshooting; hosts list
     single: hosts lists (empty)
 
-If you receive the message "Skipping: No Hosts Matched" when you are trying to run a playbook through climber, here are a few things to check:
+If you receive the message "Skipping: No Hosts Matched" when you are trying to run a playbook through ascender, here are a few things to check:
 
 - Make sure that your hosts declaration line in your playbook matches the name of your group/host in inventory exactly (these are case sensitive).  
 - If it does match and you are using Ansible Core 2.0 or later, check your group names for spaces and modify them to use underscores or no spaces to ensure that the groups can be recognized.

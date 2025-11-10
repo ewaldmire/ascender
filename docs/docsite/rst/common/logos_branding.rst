@@ -1,5 +1,5 @@
 
-climber supports the use of a custom logo and login message. You can add a custom logo by uploading an image; and supply a custom login message from the **User Interface settings** of the Settings menu. 
+ascender supports the use of a custom logo and login message. You can add a custom logo by uploading an image; and supply a custom login message from the **User Interface settings** of the Settings menu. 
 
 
 .. image:: ../common/images/configure-awx-ui.png 
@@ -21,11 +21,11 @@ For example, if you uploaded a specific logo, and added the following text:
 The Tower login dialog would look like this:
 
 .. image:: ../common/images/configure-awx-ui-angry-spud-login.png
-	:alt: climber login screen with custom text and logo.
+	:alt: ascender login screen with custom text and logo.
 
 
 
 Selecting ``Revert`` will result in the appearance of the standard |at| logo.
 
 .. image:: ../common/images/login-form.png
-	:alt: climber login screen with default climber logo.
+	:alt: ascender login screen with default ascender logo.

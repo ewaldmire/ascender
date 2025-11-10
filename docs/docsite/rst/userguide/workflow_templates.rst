@@ -129,7 +129,7 @@ For more information about **Job Tags** and **Skip Tags**, refer to `Tags <https
     Upon **Save**, additional fields populate and the Workflow Visualizer automatically opens.
 
     - **Webhook URL**: Automatically populated with the URL for the webhook service to POST requests to.
-    - **Webhook Key**: Generated shared secret to be used by the webhook service to sign payloads sent to climber. This must be configured in the settings on the webhook service in order for climber to accept webhooks from this service.  
+    - **Webhook Key**: Generated shared secret to be used by the webhook service to sign payloads sent to ascender. This must be configured in the settings on the webhook service in order for ascender to accept webhooks from this service.  
 
     For additional information on setting up webhooks, see :ref:`ug_webhooks`.
 
@@ -389,7 +389,7 @@ Likewise, if a workflow template used in the workflow has **Prompt on Launch** s
 
 .. note::
 
-  For workflow job templates with promptable fields that are required, but do not have a default, you must provide those values when creating a node before the **Select** button becomes enabled. The two cases that disable the **Select** button until a value is provided via the **Prompt** button: 1) when you select the **Prompt on Launch** checkbox in a workflow job template, but do not provide a default, or 2) when you create a survey question that is required but do not provide a default answer. However, this is **NOT** the case with credentials. Credentials that require a password on launch are **not permitted** when creating a workflow node, since everything needed to launch the node must be provided when the node is created. So, if a workflow job template prompts for credentials, climber prevents you from being able to select a credential that requires a password.
+  For workflow job templates with promptable fields that are required, but do not have a default, you must provide those values when creating a node before the **Select** button becomes enabled. The two cases that disable the **Select** button until a value is provided via the **Prompt** button: 1) when you select the **Prompt on Launch** checkbox in a workflow job template, but do not provide a default, or 2) when you create a survey question that is required but do not provide a default answer. However, this is **NOT** the case with credentials. Credentials that require a password on launch are **not permitted** when creating a workflow node, since everything needed to launch the node must be provided when the node is created. So, if a workflow job template prompts for credentials, ascender prevents you from being able to select a credential that requires a password.
 
 Once the node is created, it is labeled with its job type. A template that is associated with each workflow node will run based on the selected run scenario as it proceeds. Click the compass (|compass|) icon to display the legend for each run scenario and their job types.
 
@@ -560,7 +560,7 @@ Launch a workflow template by any of the following ways:
 .. |launch| image:: ../common/images/launch-button.png
    :alt: Workflow template launch button.
 
-Along with any extra variables set in the workflow job template and survey, climber automatically adds the same variables as those added for a workflow job template upon launch. Additionally, climber automatically redirects the web browser to the Jobs Details page for this job, displaying the progress and the results.
+Along with any extra variables set in the workflow job template and survey, ascender automatically adds the same variables as those added for a workflow job template upon launch. Additionally, ascender automatically redirects the web browser to the Jobs Details page for this job, displaying the progress and the results.
 
 Events related to approvals on workflows display at the top in the Activity Stream (|activity-stream|) with detailed information about the approval requests, if any. 
 
@@ -570,7 +570,7 @@ Events related to approvals on workflows display at the top in the Activity Stre
 Copy a Workflow Template
 -------------------------------
 
-climber allows you the ability to copy a workflow template. If you choose to copy a workflow template, it **does not** copy any associated schedule, notifications, or permissions. Schedules and notifications must be recreated by the user or admin creating the copy of the workflow template. The user copying the workflow template will be granted the admin permission, but no permissions are assigned (copied) to the workflow template.
+ascender allows you the ability to copy a workflow template. If you choose to copy a workflow template, it **does not** copy any associated schedule, notifications, or permissions. Schedules and notifications must be recreated by the user or admin creating the copy of the workflow template. The user copying the workflow template will be granted the admin permission, but no permissions are assigned (copied) to the workflow template.
 
 1. Access the workflow template that you want to copy from the **Templates** menu on the left navigation bar or while in the Workflow Job Template Details view, scroll to the bottom to access it from a list of templates.
 
@@ -625,9 +625,9 @@ To ensure that the variables you need to pass are not overridden, ensure they ar
    single: variable precedence
    single: extra_vars
 
-The following table notes the behavior (hierarchy) of variable precedence in climber as it compares to variable precedence in Ansible.
+The following table notes the behavior (hierarchy) of variable precedence in ascender as it compares to variable precedence in Ansible.
 
 **Variable Precedence Hierarchy (last listed wins)**
 
 .. image:: ../common/images/Architecture-AWX_Variable_Precedence_Hierarchy-Workflows.png
-   :alt: climber Variable Precedence Hierarchy for Workflows
+   :alt: ascender Variable Precedence Hierarchy for Workflows

@@ -2,7 +2,7 @@
 Setting up your development environment
 ========================================
 
-The climber docs are developed using the Python toolchain. The content itself is authored in ReStructuredText (rst).
+The ascender docs are developed using the Python toolchain. The content itself is authored in ReStructuredText (rst).
 
 Prerequisites
 ---------------
@@ -11,10 +11,10 @@ Prerequisites
     :local:
 
 
-Fork and clone the climber repo
+Fork and clone the ascender repo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you have not done so already, you'll need to fork the climber repo on GitHub. For more on how to do this, see `Fork a Repo <https://help.github.com/articles/fork-a-repo/>`_.
+If you have not done so already, you'll need to fork the ascender repo on GitHub. For more on how to do this, see `Fork a Repo <https://help.github.com/articles/fork-a-repo/>`_.
 
 
 Install python and setuptools
@@ -63,14 +63,14 @@ If no errors are returned, then the package was installed properly.
 Run local build of the docs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To build the docs on your local machine, use the tox utility. In your forked branch of your climber repo, run: 
+To build the docs on your local machine, use the tox utility. In your forked branch of your ascender repo, run: 
 
 ::
 
 	tox -e docs  
 
 
-Access the climber user interface
+Access the ascender user interface
 ------------------------------
 
-To access an instance of the climber interface, refer to `Build and run the development environment <github.com/ctrliq/climber/blob/main/CONTRIBUTING.md#setting-up-your-development-environment>`_ for detail. Once you have your environment setup, you can access the climber UI by logging into it at `https://localhost:8043 <https://localhost:8043>`_, and access the API directly at `https://localhost:8043/api/ <https://localhost:8043/api/>`_.
+To access an instance of the ascender interface, refer to `Build and run the development environment <github.com/ctrliq/ascender/blob/main/CONTRIBUTING.md#setting-up-your-development-environment>`_ for detail. Once you have your environment setup, you can access the ascender UI by logging into it at `https://localhost:8043 <https://localhost:8043>`_, and access the API directly at `https://localhost:8043/api/ <https://localhost:8043/api/>`_.

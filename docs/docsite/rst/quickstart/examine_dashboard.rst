@@ -1,4 +1,4 @@
-Examine the climber Dashboard
+Examine the ascender Dashboard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. index::
@@ -15,11 +15,11 @@ Examine the climber Dashboard
    pair: settings menu; help about
 
 
-The Dashboard offers a friendly graphical framework for your IT orchestration needs. Along the left side of the Dashboard is the navigation menu, where you can quickly display different views, navigate to your resources, grant access, and administer certain climber features in the UI. 
+The Dashboard offers a friendly graphical framework for your IT orchestration needs. Along the left side of the Dashboard is the navigation menu, where you can quickly display different views, navigate to your resources, grant access, and administer certain ascender features in the UI. 
 
 .. note::
 
-  The new climber User Interface is available for tech preview and is subject to change in a future release. To preview the new UI, click the **Enable Preview of New User Interface** toggle to **On** from the Miscellaneous System option of the Settings menu. 
+  The new ascender User Interface is available for tech preview and is subject to change in a future release. To preview the new UI, click the **Enable Preview of New User Interface** toggle to **On** from the Miscellaneous System option of the Settings menu. 
 
   .. image:: ../common/images/configure-awx-system-misc-preview-newui.png
 
@@ -38,16 +38,16 @@ On the main Dashboard view, a summary appears listing your current **Job Status*
 
 .. |Home dashboard| image:: ../common/images/home-dashboard.png
 
-The very last item in the navigation bar is **Settings**, which provides access to the climber configuration Settings. 
+The very last item in the navigation bar is **Settings**, which provides access to the ascender configuration Settings. 
 
-The Settings page allows administrators to configure authentication, jobs, system-level attributes, customize the user interface, and product license information. Refer to :ref:`ag_configure_climber` section for more detail.
+The Settings page allows administrators to configure authentication, jobs, system-level attributes, customize the user interface, and product license information. Refer to :ref:`ag_configure_ascender` section for more detail.
 
 .. image:: ../common/images/ug-settings-menu-screen.png
 
 
-Regardless of the window or action you're performing, the very top of each page next to the your user icon is the About (|about|) icon, which provides you the versions of climber and Ansible you are currently running.
+Regardless of the window or action you're performing, the very top of each page next to the your user icon is the About (|about|) icon, which provides you the versions of ascender and Ansible you are currently running.
 
 .. |about| image:: ../common/images/help-about-icon.png
 
 .. note::
-	Keep in mind that the goal of this Quick Start is to launch a simple playbook. To do this, a number of configuration options must be setup. Completing the quick start configuration tasks now ensures that tclimber is configured properly and allows for easier executions of more involved playbooks later on. 
+	Keep in mind that the goal of this Quick Start is to launch a simple playbook. To do this, a number of configuration options must be setup. Completing the quick start configuration tasks now ensures that tascender is configured properly and allows for easier executions of more involved playbooks later on. 

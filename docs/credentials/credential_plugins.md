@@ -2,11 +2,11 @@ Credential Plugins
 ==================
 
 By default, sensitive credential values (such as SSH passwords, SSH private
-keys, API tokens for cloud services, etc.) in climber are stored in the climber database
+keys, API tokens for cloud services, etc.) in ascender are stored in the ascender database
 after being encrypted with a symmetric encryption cipher utilizing AES-256 in
 CBC mode alongside a SHA-256 HMAC.
 
-Alternatively, climber supports retrieving secret values from third-party secret
+Alternatively, ascender supports retrieving secret values from third-party secret
 management systems, such as HashiCorp Vault and Microsoft Azure Key Vault.
 These external secret values will be fetched on demand every time they are
 needed (generally speaking, immediately before running a playbook that needs
@@ -15,10 +15,10 @@ them).
 Configuring Secret Lookups
 --------------------------
 
-When configuring climber to pull a secret from a third party system, there are
+When configuring ascender to pull a secret from a third party system, there are
 generally three steps.
 
-Here is an example of creating an (1) climber Machine Credential with
+Here is an example of creating an (1) ascender Machine Credential with
 a static username, `example-user` and (2) an externally-sourced secret from
 HashiCorp Vault Key/Value system which will populate the (3) password field on
 the Machine Credential:
@@ -42,11 +42,11 @@ cannot have lookups applied to their fields.
 Writing Custom Credential Plugins
 ---------------------------------
 
-Credential Plugins in climber are just importable Python functions that are
+Credential Plugins in ascender are just importable Python functions that are
 registered using setuptools entrypoints
 (https://setuptools.readthedocs.io/en/latest/setuptools.html#dynamic-discovery-of-services-and-plugins)
 
-Example plugins officially supported in climber can be found in the source code at
+Example plugins officially supported in ascender can be found in the source code at
 `awx.main.credential_plugins`.
 
 For instructions on writing and installing your own custom credential plugin, see: https://github.com/ansible/awx-custom-credential-plugin-example
@@ -54,7 +54,7 @@ For instructions on writing and installing your own custom credential plugin, se
 Programmatic Secret Fetching
 ----------------------------
 If you want to programmatically fetch secrets from a supported external secret
-management system (for example, if you wanted to compose an climber database connection
+management system (for example, if you wanted to compose an ascender database connection
 string in `/etc/tower/conf.d/postgres.py` using an external system rather than
 storing the password in plaintext on your disk), doing so is fairly easy:
 
@@ -75,7 +75,7 @@ Supported Plugins
 HashiCorp Vault KV
 ------------------
 
-climber supports retrieving secret values from HashiCorp Vault KV
+ascender supports retrieving secret values from HashiCorp Vault KV
 (https://www.vaultproject.io/api/secret/kv/)
 
 The following example illustrates how to configure a Machine Credential to pull
@@ -157,7 +157,7 @@ HTTP/1.1 201 Created
 HashiCorp Vault SSH Secrets Engine
 ----------------------------------
 
-climber supports signing public keys via HashiCorp Vault's SSH Secrets Engine
+ascender supports signing public keys via HashiCorp Vault's SSH Secrets Engine
 (https://www.vaultproject.io/api/secret/ssh/)
 
 The following example illustrates how to configure a Machine Credential to sign
@@ -235,7 +235,7 @@ HTTP/1.1 201 Created
 ```
 
 4. Associate the Machine Credential with a Job Template.  When the Job Template
-   is run, climber will use the provided HashiCorp URL and token to sign the
+   is run, ascender will use the provided HashiCorp URL and token to sign the
    unsigned public key data using the HashiCorp Vault SSH Secrets API.
-   climber will generate an `id_rsa` and `id_rsa-cert.pub` on the fly and
+   ascender will generate an `id_rsa` and `id_rsa-cert.pub` on the fly and
    apply them using `ssh-add`.

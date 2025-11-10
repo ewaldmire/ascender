@@ -203,7 +203,7 @@ RUN ln -s /var/lib/awx/venv/awx/bin/awx-manage /usr/bin/awx-manage
 COPY --from={{ receptor_image }} /usr/bin/receptor /usr/bin/receptor
 
 RUN openssl req -nodes -newkey rsa:2048 -keyout /etc/nginx/nginx.key -out /etc/nginx/nginx.csr \
-        -subj "/C=US/ST=Texas/L=College Station/O=CIQ/OU=climber Development/CN=climber.localhost" && \
+        -subj "/C=US/ST=Texas/L=College Station/O=CIQ/OU=ascender Development/CN=ascender.localhost" && \
     openssl x509 -req -days 365 -in /etc/nginx/nginx.csr -signkey /etc/nginx/nginx.key -out /etc/nginx/nginx.crt && \
     chmod 640 /etc/nginx/nginx.{csr,key,crt}
 {% endif %}

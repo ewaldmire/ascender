@@ -951,24 +951,24 @@ ManagedCredentialType(
 )
 
 ManagedCredentialType(
-    namespace='climber',
+    namespace='ascender',
     kind='cloud',
-    name=gettext_noop('CIQ climber Automation Platform'),
+    name=gettext_noop('CIQ ascender Automation Platform'),
     managed=True,
     inputs={
         'fields': [
             {
                 'id': 'host',
-                'label': gettext_noop('CIQ climber Automation Platform'),
+                'label': gettext_noop('CIQ ascender Automation Platform'),
                 'type': 'string',
-                'help_text': gettext_noop('CIQ climber Automation Platform base URL to authenticate with.'),
+                'help_text': gettext_noop('CIQ ascender Automation Platform base URL to authenticate with.'),
             },
             {
                 'id': 'username',
                 'label': gettext_noop('Username'),
                 'type': 'string',
                 'help_text': gettext_noop(
-                    'CIQ climber Automation Platform username id to authenticate as.' 'This should not be set if an OAuth token is being used.'
+                    'CIQ ascender Automation Platform username id to authenticate as.' 'This should not be set if an OAuth token is being used.'
                 ),
             },
             {

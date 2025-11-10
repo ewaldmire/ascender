@@ -1,6 +1,6 @@
 # Websockets
 
-climber uses websockets to update the UI in realtime as events happen within the
+ascender uses websockets to update the UI in realtime as events happen within the
 task backend. As jobs progress through their lifecycles, events are emitted by
 the task system and send to the UI which renders this information in some useful
 way for end users to see.
@@ -23,7 +23,7 @@ to clients. (There is a concept of "groups" of clients that we will cover
 later.)
 
 Note that django-channels processes messages in Daphne, an ASGI server. This is
-in contrast to WSGI which we currently use for the rest of climber. That is *only*
+in contrast to WSGI which we currently use for the rest of ascender. That is *only*
 websockets endpoints are served with Daphne, and everything else is served with
 uWSGI. **_Everything_ goes through nginx, and from there, based on URL path,
 gets routed to uWSGI or Daphne, as required.**
@@ -52,7 +52,7 @@ The notable modules for this component are:
 
 <img src="img/websockets-old.png">
 
-Consider a Kubernetes deployment of climber. Before the web task split, each pod had
+Consider a Kubernetes deployment of ascender. Before the web task split, each pod had
 a web container, a task container, and a redis container (and possibly others,
 not relevant here). A daemon existed called `wsbroadcast` which lived in the web
 container and ran once within each pod. When a websocket message was emitted
@@ -169,7 +169,7 @@ connection is closed. If both tests pass, the connection is accepted.
 
 ## Protocol
 
-You can connect to the climber channels implementation using any standard websocket
+You can connect to the ascender channels implementation using any standard websocket
 library by pointing it to `/websocket/`. You must provide a valid Auth Token in
 the request URL. This will drop you into the `EventConsumer`.
 

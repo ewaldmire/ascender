@@ -8,7 +8,7 @@ Conventions
    pair: content type; JSON
 
 
-climber uses a standard REST API, rooted at ``/api/`` on the server. The API is versioned for compatibility reasons, and currently ``api/v2/`` is the latest available version. You can see information about what API versions are available by querying ``/api/``.
+ascender uses a standard REST API, rooted at ``/api/`` on the server. The API is versioned for compatibility reasons, and currently ``api/v2/`` is the latest available version. You can see information about what API versions are available by querying ``/api/``.
 
 You may have to specify the content/type on **POST** or **PUT** requests accordingly.
 

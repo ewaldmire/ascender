@@ -1,1 +1,1 @@
-This folder contains documentation related to tooling and methods that are useful for debugging climber.
+This folder contains documentation related to tooling and methods that are useful for debugging ascender.

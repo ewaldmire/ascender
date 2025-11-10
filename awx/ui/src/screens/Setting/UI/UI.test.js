@@ -17,7 +17,7 @@ SettingsAPI.readCategory.mockResolvedValue({
     CUSTOM_LOGO: '',
     CUSTOM_LOGO_MENU: '',
     PENDO_TRACKING_STATE: 'off',
-    climber_DISABLE_GRADIENT: false,
+    ascender_DISABLE_GRADIENT: false,
   },
 });
 

@@ -7,12 +7,12 @@ Clustering
    pair: redundancy; instance groups
    pair: redundancy; clustering
 
-Clustering is sharing load between hosts. Each instance should be able to act as an entry point for UI and API access. This should enable climber administrators to use load balancers in front of as many instances as they wish and maintain good data visibility.
+Clustering is sharing load between hosts. Each instance should be able to act as an entry point for UI and API access. This should enable ascender administrators to use load balancers in front of as many instances as they wish and maintain good data visibility.
 
 .. note::
-  Load balancing is optional and is entirely possible to have ingress on one or all instances as needed. The ``CSRF_TRUSTED_ORIGIN`` setting may be required if you are using climber behind a load balancer. See :ref:`ki_csrf_trusted_origin_setting` for more detail.
+  Load balancing is optional and is entirely possible to have ingress on one or all instances as needed. The ``CSRF_TRUSTED_ORIGIN`` setting may be required if you are using ascender behind a load balancer. See :ref:`ki_csrf_trusted_origin_setting` for more detail.
 
-Each instance should be able to join climber cluster and expand its ability to execute jobs. This is a simple system where jobs can and will run anywhere rather than be directed on where to run. Also, clustered instances can be grouped into different pools/queues, called :ref:`ag_instance_groups`.
+Each instance should be able to join ascender cluster and expand its ability to execute jobs. This is a simple system where jobs can and will run anywhere rather than be directed on where to run. Also, clustered instances can be grouped into different pools/queues, called :ref:`ag_instance_groups`.
 
 
 Setup Considerations
@@ -26,15 +26,15 @@ This section covers initial setup of clusters only. For upgrading an existing cl
 
 Important considerations to note in the new clustering environment:
 
-- PostgreSQL is still a standalone instance and is not clustered. climber does not manage replica configuration or database failover (if the user configures standby replicas). 
+- PostgreSQL is still a standalone instance and is not clustered. ascender does not manage replica configuration or database failover (if the user configures standby replicas). 
 
-- When spinning up a cluster, the database node should be a standalone server, and PostgreSQL should not be installed on one of climber nodes.
+- When spinning up a cluster, the database node should be a standalone server, and PostgreSQL should not be installed on one of ascender nodes.
 
-- PgBouncer is not recommended for connection pooling with climber. Currently, climber relies heavily on ``pg_notify`` for sending messages across various components, and therefore, PgBouncer cannot readily be used in transaction pooling mode.
+- PgBouncer is not recommended for connection pooling with ascender. Currently, ascender relies heavily on ``pg_notify`` for sending messages across various components, and therefore, PgBouncer cannot readily be used in transaction pooling mode.
 
 - The maximum supported instances in a cluster is 20.
 
-- All instances should be reachable from all other instances and they should be able to reach the database. It is also important for the hosts to have a stable address and/or hostname (depending on how the climber host is configured).
+- All instances should be reachable from all other instances and they should be able to reach the database. It is also important for the hosts to have a stable address and/or hostname (depending on how the ascender host is configured).
 
 - All instances must be geographically collocated, with reliable low-latency connections between instances.
 
@@ -57,12 +57,12 @@ These new replicas can be constrained in a similar manner to previous single dep
 
 .. _ag_assign_pods_to_nodes:
 
-Assigning climber pods to specific nodes
+Assigning ascender pods to specific nodes
 -------------------------------------
 
-You can constrain the climber pods created by the operator to run on a certain subset of nodes. ``node_selector`` and ``postgres_selector`` constrains the climber pods to run only on the nodes that match all the specified key/value pairs. ``tolerations`` and ``postgres_tolerations`` allow the climber pods to be scheduled onto nodes with matching taints. The ability to specify ``topologySpreadConstraints`` is also allowed through ``topology_spread_constraints`` If you want to use affinity rules for your climber pod, you can use the ``affinity`` option.
+You can constrain the ascender pods created by the operator to run on a certain subset of nodes. ``node_selector`` and ``postgres_selector`` constrains the ascender pods to run only on the nodes that match all the specified key/value pairs. ``tolerations`` and ``postgres_tolerations`` allow the ascender pods to be scheduled onto nodes with matching taints. The ability to specify ``topologySpreadConstraints`` is also allowed through ``topology_spread_constraints`` If you want to use affinity rules for your ascender pod, you can use the ``affinity`` option.
 
-If you want to constrain the web and task pods individually, you can do so by specifying the deployment type before the specific setting. For example, specifying ``task_tolerations`` will allow the climber task pod to be scheduled onto nodes with matching taints. 
+If you want to constrain the web and task pods individually, you can do so by specifying the deployment type before the specific setting. For example, specifying ``task_tolerations`` will allow the ascender task pod to be scheduled onto nodes with matching taints. 
 
 +----------------------------------+------------------------------------------+----------+
 | Name                             | Description                              | Default  |
@@ -71,31 +71,31 @@ If you want to constrain the web and task pods individually, you can do so by sp
 +----------------------------------+------------------------------------------+----------+
 | postgres_image_version           | Image version to pull                    | 13       |
 +----------------------------------+------------------------------------------+----------+
-| node_selector                    | climber pods' nodeSelector                   | ''       |
+| node_selector                    | ascender pods' nodeSelector                   | ''       |
 +----------------------------------+------------------------------------------+----------+
-| web_node_selector                | climber web pods' nodeSelector               | ''       |
+| web_node_selector                | ascender web pods' nodeSelector               | ''       |
 +----------------------------------+------------------------------------------+----------+
-| task_node_selector               | climber task pods' nodeSelector              | ''       |
+| task_node_selector               | ascender task pods' nodeSelector              | ''       |
 +----------------------------------+------------------------------------------+----------+
-| topology_spread_constraints      | climber pods' topologySpreadConstraints      | ''       |
+| topology_spread_constraints      | ascender pods' topologySpreadConstraints      | ''       |
 +----------------------------------+------------------------------------------+----------+
-| web_topology_spread_constraints  | climber web pods' topologySpreadConstraints  | ''       |
+| web_topology_spread_constraints  | ascender web pods' topologySpreadConstraints  | ''       |
 +----------------------------------+------------------------------------------+----------+
-| task_topology_spread_constraints | climber task pods' topologySpreadConstraints | ''       |
+| task_topology_spread_constraints | ascender task pods' topologySpreadConstraints | ''       |
 +----------------------------------+------------------------------------------+----------+
-| affinity                         | climber pods' affinity rules                 | ''       |
+| affinity                         | ascender pods' affinity rules                 | ''       |
 +----------------------------------+------------------------------------------+----------+
-| web_affinity                     | climber web pods' affinity rules             | ''       |
+| web_affinity                     | ascender web pods' affinity rules             | ''       |
 +----------------------------------+------------------------------------------+----------+
-| task_affinity                    | climber task pods' affinity rules            | ''       |
+| task_affinity                    | ascender task pods' affinity rules            | ''       |
 +----------------------------------+------------------------------------------+----------+
-| tolerations                      | climber pods' tolerations                    | ''       |
+| tolerations                      | ascender pods' tolerations                    | ''       |
 +----------------------------------+------------------------------------------+----------+
-| web_tolerations                  | climber web pods' tolerations                | ''       |
+| web_tolerations                  | ascender web pods' tolerations                | ''       |
 +----------------------------------+------------------------------------------+----------+
-| task_tolerations                 | climber task pods' tolerations               | ''       |
+| task_tolerations                 | ascender task pods' tolerations               | ''       |
 +----------------------------------+------------------------------------------+----------+
-| annotations                      | climber pods' annotations                    | ''       |
+| annotations                      | ascender pods' annotations                    | ''       |
 +----------------------------------+------------------------------------------+----------+
 | postgres_selector                | Postgres pods' nodeSelector              | ''       |
 +----------------------------------+------------------------------------------+----------+
@@ -166,7 +166,7 @@ Example of customization could be:
 Status and Monitoring via Browser API
 --------------------------------------
 
-climber itself reports as much status as it can via the Browsable API at ``/api/v2/ping`` in order to provide validation of the health of the cluster, including:
+ascender itself reports as much status as it can via the Browsable API at ``/api/v2/ping`` in order to provide validation of the health of the cluster, including:
 
 - The instance servicing the HTTP request
 
@@ -180,9 +180,9 @@ View more details about Instances and Instance Groups, including running jobs an
 Instance Services and Failure Behavior
 ----------------------------------------
 
-Each climber instance is made up of several different services working collaboratively:
+Each ascender instance is made up of several different services working collaboratively:
 
-- HTTP Services - This includes the climber application itself as well as external web services.
+- HTTP Services - This includes the ascender application itself as well as external web services.
 
 - Callback Receiver - Receives job events from running Ansible jobs.
 
@@ -192,18 +192,18 @@ Each climber instance is made up of several different services working collabora
 
 - Rsyslog - log processing service used to deliver logs to various external logging services.
 
-climber is configured in such a way that if any of these services or their components fail, then all services are restarted. If these fail sufficiently often in a short span of time, then the entire instance will be placed offline in an automated fashion in order to allow remediation without causing unexpected behavior.
+ascender is configured in such a way that if any of these services or their components fail, then all services are restarted. If these fail sufficiently often in a short span of time, then the entire instance will be placed offline in an automated fashion in order to allow remediation without causing unexpected behavior.
 
 
 Job Runtime Behavior
 ---------------------
 
-The way jobs are run and reported to a 'normal' user of climber does not change. On the system side, some differences are worth noting:
+The way jobs are run and reported to a 'normal' user of ascender does not change. On the system side, some differences are worth noting:
 
-- When a job is submitted from the API interface it gets pushed into the dispatcher queue.  Each climber instance will connect to and receive jobs from that queue using a particular scheduling algorithm. Any instance in the cluster is just as likely to receive the work and execute the task. If a instance fails while executing jobs, then the work is marked as permanently failed.
+- When a job is submitted from the API interface it gets pushed into the dispatcher queue.  Each ascender instance will connect to and receive jobs from that queue using a particular scheduling algorithm. Any instance in the cluster is just as likely to receive the work and execute the task. If a instance fails while executing jobs, then the work is marked as permanently failed.
 
 .. image:: ../common/images/clustering-visual.png
-  :alt: An illustration depicting job distribution in an climber cluster.
+  :alt: An illustration depicting job distribution in an ascender cluster.
 
 - Project updates run successfully on any instance that could potentially run a job. Projects will sync themselves to the correct version on the instance immediately prior to running the job. If the needed revision is already locally checked out and Galaxy or Collections updates are not needed, then a sync may not be performed. 
 
@@ -215,6 +215,6 @@ The way jobs are run and reported to a 'normal' user of climber does not change.
 Job Runs
 ^^^^^^^^^^^
 
-By default, when a job is submitted to the climber queue, it can be picked up by any of the workers. However, you can control where a particular job runs, such as restricting the instances from which a job runs on. 
+By default, when a job is submitted to the ascender queue, it can be picked up by any of the workers. However, you can control where a particular job runs, such as restricting the instances from which a job runs on. 
 
 In order to support temporarily taking an instance offline, there is a property enabled defined on each instance. When this property is disabled, no jobs will be assigned to that instance. Existing jobs will finish, but no new work will be assigned.

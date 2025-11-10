@@ -12,9 +12,9 @@ body:
     attributes:
       label: Please confirm the following
       options:
-        - label: I have checked the [current issues](https://github.com/ctrliq/climber/issues) for duplicates.
+        - label: I have checked the [current issues](https://github.com/ctrliq/ascender/issues) for duplicates.
           required: true
-        - label: I understand that climber is open source software provided for free and that I might not receive a timely response.
+        - label: I understand that ascender is open source software provided for free and that I might not receive a timely response.
           required: true
 
   - type: dropdown

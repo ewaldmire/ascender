@@ -6,12 +6,12 @@ Organizations
 .. index::
    single: organizations
 
-An :term:`Organization` is a logical collection of **Users**, **Teams**, **Projects**, and **Inventories**, and is the highest level in the climber object hierarchy.
+An :term:`Organization` is a logical collection of **Users**, **Teams**, **Projects**, and **Inventories**, and is the highest level in the ascender object hierarchy.
 
 |awx hierarchy|
 
-.. |awx hierarchy| image:: ../common/images/climberHierarchy.png
-   :alt: climber Hierarchy
+.. |awx hierarchy| image:: ../common/images/ascenderHierarchy.png
+   :alt: ascender Hierarchy
 
 Access the Organizations page by clicking **Organizations** from the left navigation bar. The Organizations page displays all of the existing organizations for your installation. Organizations can be searched by **Name** or **Description**. Modify and remove organizations using the **Edit** and **Delete** buttons.
 
@@ -50,7 +50,7 @@ Creating a New Organization
 
 3. Click **Save** to finish creating the organization.
 
-Once created, climber displays the Organization details, and allows for the managing access and execution environments for the organization.
+Once created, ascender displays the Organization details, and allows for the managing access and execution environments for the organization.
 
 |Organizations - show record for example organization|
 

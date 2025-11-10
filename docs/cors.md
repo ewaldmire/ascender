@@ -1,6 +1,6 @@
 ## CORS Support
 
-climber supports custom CORS headers via the Django CORS Middleware
+ascender supports custom CORS headers via the Django CORS Middleware
 (https://github.com/ottoyiu/django-cors-headers)
 
 To define CORS-specific settings, add them to ``/etc/tower/conf.d/cors.py``:
@@ -12,4 +12,4 @@ CORS_ALLOWED_ORIGINS = (
 )
 ```
 
-...and restart all climber services for changes to take effect.
+...and restart all ascender services for changes to take effect.

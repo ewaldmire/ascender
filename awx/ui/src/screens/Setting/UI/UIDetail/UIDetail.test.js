@@ -22,7 +22,7 @@ describe('<UIDetail />', () => {
         CUSTOM_LOGO: 'data:image/png',
         CUSTOM_LOGO_MENU: 'data:image/png',
         PENDO_TRACKING_STATE: 'off',
-        climber_DISABLE_GRADIENT: true,
+        ascender_DISABLE_GRADIENT: true,
       },
     });
   });

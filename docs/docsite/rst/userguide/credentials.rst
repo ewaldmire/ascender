@@ -8,11 +8,11 @@ Credentials
 
 Credentials are utilized for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system.
 
-You can grant users and teams the ability to use these credentials, without actually exposing the credential to the user. If you have a user move to a different team or leave the organization, you don’t have to re-key all of your systems just because that credential was available in climber.
+You can grant users and teams the ability to use these credentials, without actually exposing the credential to the user. If you have a user move to a different team or leave the organization, you don’t have to re-key all of your systems just because that credential was available in ascender.
 
 .. note::
 
-    climber encrypts passwords and key information in the database and never makes secret information visible via the API. See :ref:`ag_secret_handling` in the |ata| for details.
+    ascender encrypts passwords and key information in the database and never makes secret information visible via the API. See :ref:`ag_secret_handling` in the |ata| for details.
 
 .. _how_credentials_work:
 
@@ -22,9 +22,9 @@ Understanding How Credentials Work
 .. index:: 
     pair: credentials; how they work
 
-climber uses SSH to connect to remote hosts (or the Windows equivalent).  In order to pass the key from climber to SSH, the key must be decrypted before it can be written a named pipe. climber then uses that pipe to send the key to SSH (so that it is never written to disk).   
+ascender uses SSH to connect to remote hosts (or the Windows equivalent).  In order to pass the key from ascender to SSH, the key must be decrypted before it can be written a named pipe. ascender then uses that pipe to send the key to SSH (so that it is never written to disk).   
 
-If passwords are used, climber handles those by responding directly to the password prompt and decrypting the password before writing it to the prompt.
+If passwords are used, ascender handles those by responding directly to the password prompt and decrypting the password before writing it to the prompt.
 
 .. (commented out from note above, add back once api guide is extended again) Refer to :ref:`Unified Job List API Endpoint <unified_job_list>` in the |atapi| for more information.
 
@@ -123,7 +123,7 @@ Credential Types
    single: credentials; types
    single: credential types
 
-The following credential types are supported with climber:
+The following credential types are supported with ascender:
 
 .. contents::
     :local:
@@ -141,7 +141,7 @@ Amazon Web Services
 
 Selecting this credential type enables synchronization of cloud inventory with Amazon Web Services.
 
-climber uses the following environment variables for AWS credentials and are fields prompted in the user interface:
+ascender uses the following environment variables for AWS credentials and are fields prompted in the user interface:
 
 ::
 
@@ -156,7 +156,7 @@ climber uses the following environment variables for AWS credentials and are fie
 
 Traditional Amazon Web Services credentials consist of the AWS **Access Key** and **Secret Key**. 
 
-climber provides support for EC2 STS tokens (sometimes referred to as IAM STS credentials). Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users. To learn more about the IAM/EC2 STS Token, refer to: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html
+ascender provides support for EC2 STS tokens (sometimes referred to as IAM STS credentials). Security Token Service (STS) is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users. To learn more about the IAM/EC2 STS Token, refer to: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html
 
 .. note::
 
@@ -164,7 +164,7 @@ climber provides support for EC2 STS tokens (sometimes referred to as IAM STS cr
 
 .. warning::
 
-  To use implicit IAM role credentials, do not attach AWS cloud credentials in climber when relying on IAM roles to access the AWS API.  While it may seem to make sense to attach your AWS cloud credential to your job template, doing so will force the use of your AWS credentials and will not "fall through" to use your IAM role credentials (this is due to the use of the boto library.)
+  To use implicit IAM role credentials, do not attach AWS cloud credentials in ascender when relying on IAM roles to access the AWS API.  While it may seem to make sense to attach your AWS cloud credential to your job template, doing so will force the use of your AWS credentials and will not "fall through" to use your IAM role credentials (this is due to the use of the boto library.)
 
 AWS Secrets Manager 
 ^^^^^^^^^^^^^^^^^^^^^
@@ -177,7 +177,7 @@ Ansible Galaxy/Automation Hub API Token
    pair: credential types; Galaxy
    pair: credential types; Automation Hub
 
-Selecting this credential allows climber to access Galaxy or use a collection published on a local |ah|. See :ref:`ug_collections_usage` for detail. Entering the Galaxy server URL is the only required value on this screen.  
+Selecting this credential allows ascender to access Galaxy or use a collection published on a local |ah|. See :ref:`ug_collections_usage` for detail. Entering the Galaxy server URL is the only required value on this screen.  
 
 |Credentials - create galaxy credential|
 
@@ -200,7 +200,7 @@ Container Registry
 .. index::
    pair: credential types; Container Registry
 
-Selecting this credential allows climber to access a collection of container images. See `What is a container registry? <https://www.redhat.com/en/topics/cloud-native-apps/what-is-a-container-registry>`_ for more information. 
+Selecting this credential allows ascender to access a collection of container images. See `What is a container registry? <https://www.redhat.com/en/topics/cloud-native-apps/what-is-a-container-registry>`_ for more information. 
 
 Aside from specifying a name, the **Authentication URL** is the only required field on this screen, and it is already pre-populated with a default value. You may change this default by specifying the authentication endpoint for a different container registry.
 
@@ -266,7 +266,7 @@ Google Compute Engine
 
 Selecting this credential type enables synchronization of cloud inventory with Google Compute Engine (GCE).
 
-climber uses the following environment variables for GCE credentials and are fields prompted in the user interface:
+ascender uses the following environment variables for GCE credentials and are fields prompted in the user interface:
 
 ::
 
@@ -296,14 +296,14 @@ GPG Public Key
 .. index::
    pair: credential types; GPG public key
 
-Selecting this credential type allows you to create a credential that gives climber the ability to verify the integrity of the project when syncing from source control. 
+Selecting this credential type allows you to create a credential that gives ascender the ability to verify the integrity of the project when syncing from source control. 
 
 |Credentials - create GPG credential|
 
 .. |Credentials - create GPG credential| image:: ../common/images/credentials-create-gpg-credential.png
     :alt: Credentials - create GPG credential form
 
-See :ref:`ug_content_signing` for detailed information on how to generate a valid keypair, use the CLI tool to sign content, and how to add the public key to climber.
+See :ref:`ug_content_signing` for detailed information on how to generate a valid keypair, use the CLI tool to sign content, and how to add the public key to ascender.
 
 
 HashiCorp Vault Secret Lookup
@@ -339,7 +339,7 @@ Machine
    pair: credential types; machine
 
 
-Machine credentials enable climber to invoke Ansible on hosts under your management. Just like using Ansible on the command line, you can specify the SSH username, optionally provide a password, an SSH key, a key password, or even have climber prompt the user for their password at deployment time. They define ssh and user-level privilege escalation access for playbooks, and are used when submitting jobs to run playbooks on a remote host. Network connections (``httpapi``, ``netconf``, and ``network_cli``) use **Machine** for the credential type.
+Machine credentials enable ascender to invoke Ansible on hosts under your management. Just like using Ansible on the command line, you can specify the SSH username, optionally provide a password, an SSH key, a key password, or even have ascender prompt the user for their password at deployment time. They define ssh and user-level privilege escalation access for playbooks, and are used when submitting jobs to run playbooks on a remote host. Network connections (``httpapi``, ``netconf``, and ``network_cli``) use **Machine** for the credential type.
 
 Machine/SSH credentials do not use environment variables. Instead, they pass the username via the ``ansible -u`` flag, and interactively write the SSH password when the underlying SSH client prompts for it.
 
@@ -351,9 +351,9 @@ Machine/SSH credentials do not use environment variables. Instead, they pass the
 Machine credentials have several attributes that may be configured:
 
 - **Username**: The username to be used for SSH authentication.
-- **Password**: The actual password to be used for SSH authentication. This password will be stored encrypted in the database, if entered. Alternatively, you can configure climber to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, promoting the user to enter the password and password confirmation.
+- **Password**: The actual password to be used for SSH authentication. This password will be stored encrypted in the database, if entered. Alternatively, you can configure ascender to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, promoting the user to enter the password and password confirmation.
 - **SSH Private Key**: Copy or drag-and-drop the SSH private key for the machine credential.
-- **Private Key Passphrase**: If the SSH Private Key used is protected by a password, you can configure a Key Password for the private key. This password will be stored encrypted in the database, if entered. Alternatively, you can configure climber to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, prompting the user to enter the password and password confirmation.
+- **Private Key Passphrase**: If the SSH Private Key used is protected by a password, you can configure a Key Password for the private key. This password will be stored encrypted in the database, if entered. Alternatively, you can configure ascender to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, prompting the user to enter the password and password confirmation.
 - **Privilege Escalation Method**: Specifies the type of escalation privilege to assign to specific users. This is equivalent to specifying the ``--become-method=BECOME_METHOD`` parameter, where ``BECOME_METHOD`` could be any of the typical methods described below, or a custom method you've written. Begin entering the name of the method, and the appropriate name auto-populates.
 
 .. image:: ../common/images/credentials-create-machine-credential-priv-escalation.png
@@ -378,10 +378,10 @@ Machine credentials have several attributes that may be configured:
    Custom ``become`` plugins are available only starting with Ansible 2.8. For more detail on this concept, refer to `Understanding Privilege Escalation  https://docs.ansible.com/ansible/latest/user_guide/become.html` and the `list of become plugins https://docs.ansible.com/ansible/latest/plugins/become.html#plugin-list`.
 
 - **Privilege Escalation Username** field is only seen if an option for privilege escalation is selected. Enter the username to use with escalation privileges on the remote system.
-- **Privilege Escalation Password**: field is only seen if an option for privilege escalation is selected. Enter the actual password to be used to authenticate the user via the selected privilege escalation type on the remote system. This password will be stored encrypted in the database, if entered. Alternatively, you may configure climber to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, promoting the user to enter the password and password confirmation.
+- **Privilege Escalation Password**: field is only seen if an option for privilege escalation is selected. Enter the actual password to be used to authenticate the user via the selected privilege escalation type on the remote system. This password will be stored encrypted in the database, if entered. Alternatively, you may configure ascender to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, promoting the user to enter the password and password confirmation.
 
 .. note::
-   Sudo Password must be used in combination with SSH passwords or SSH Private Keys, since climber must first establish an authenticated SSH connection with the host prior to invoking sudo to change to the sudo user.
+   Sudo Password must be used in combination with SSH passwords or SSH Private Keys, since ascender must first establish an authenticated SSH connection with the host prior to invoking sudo to change to the sudo user.
 
 .. warning::
    Credentials which are used in *Scheduled Jobs* must not be configured as "**Prompt on launch**".
@@ -462,7 +462,7 @@ For an overview of connection types available for network devices, refer to `Mul
 
   .. _`Multiple Communication Protocols`: https://docs.ansible.com/ansible/devel/network/getting_started/network_differences.html#multiple-communication-protocols.
 
-climber uses the following environment variables for Network credentials and are fields prompted in the user interface:
+ascender uses the following environment variables for Network credentials and are fields prompted in the user interface:
 
 ::
 
@@ -569,7 +569,7 @@ Red Hat Satellite 6
 
 Selecting this credential type enables synchronization of cloud inventory with Red Hat Satellite 6. 
 
-climber writes a Satellite configuration file based on fields prompted in the user interface. The absolute path to the file is set in the following environment variable:
+ascender writes a Satellite configuration file based on fields prompted in the user interface. The absolute path to the file is set in the following environment variable:
 
 ::
 
@@ -596,9 +596,9 @@ Red Hat Virtualization
    pair: credential types; rhv
    pair: credential types; Red Hat Virtualization
 
-This credential allows climber to access Ansible's ``oVirt4.py`` dynamic inventory plugin, which is managed by Red Hat Virtualization (RHV). 
+This credential allows ascender to access Ansible's ``oVirt4.py`` dynamic inventory plugin, which is managed by Red Hat Virtualization (RHV). 
 
-climber uses the following environment variables for Red Hat Virtualization credentials and are fields in the user interface:
+ascender uses the following environment variables for Red Hat Virtualization credentials and are fields in the user interface:
 
 ::
 
@@ -703,9 +703,9 @@ Selecting this credential type enables synchronization of inventory with Ansible
     :alt: Credentials - create Vault credential form
 
 
-Vault credentials require the **Vault Password** and an optional **Vault Identifier** if applying multi-Vault credentialing. For more information on climber Multi-Vault support, refer to the :ref:`ag_multi_vault` section of the |ata|.
+Vault credentials require the **Vault Password** and an optional **Vault Identifier** if applying multi-Vault credentialing. For more information on ascender Multi-Vault support, refer to the :ref:`ag_multi_vault` section of the |ata|.
 
-You may configure climber to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, promoting the user to enter the password and password confirmation.
+You may configure ascender to ask the user for the password at launch time by selecting **Prompt on launch**. In these cases, a dialog opens when the job is launched, promoting the user to enter the password and password confirmation.
 
 .. warning::
 
@@ -722,7 +722,7 @@ VMware vCenter
 
 Selecting this credential type enables synchronization of inventory with VMware vCenter. 
 
-climber uses the following environment variables for VMware vCenter credentials and are fields prompted in the user interface:
+ascender uses the following environment variables for VMware vCenter credentials and are fields prompted in the user interface:
 
 ::
 

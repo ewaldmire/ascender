@@ -1,9 +1,9 @@
 **************
-climber Logfiles
+ascender Logfiles
 **************
 
 .. index::
    single: logfiles
 
-The climber logfiles are streamed real-time on the console.
+The ascender logfiles are streamed real-time on the console.
 

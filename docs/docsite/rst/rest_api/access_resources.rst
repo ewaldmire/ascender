@@ -5,7 +5,7 @@ Access Resources
 .. index::
    single: access resources
 
-Traditionally, climber uses a primary key to access individual resource objects. The named URL feature allows you to access climber resources via resource-specific human-readable identifiers. The named URL via URL path ``/api/v2/hosts/host_name++inv_name++org_name/``, for example, allows you to access a resource object without an auxiliary query string.
+Traditionally, ascender uses a primary key to access individual resource objects. The named URL feature allows you to access ascender resources via resource-specific human-readable identifiers. The named URL via URL path ``/api/v2/hosts/host_name++inv_name++org_name/``, for example, allows you to access a resource object without an auxiliary query string.
 
 Configuration Settings
 =========================
@@ -52,7 +52,7 @@ An important aspect of generating a unique identifier for named URL has to do wi
 
 Although ``NAMED_URL_FORMATS`` cannot be manually modified, modifications do occur automatically and expanded over time, reflecting underlying resource modification and expansion. Consult the ``NAMED_URL_FORMATS`` on the same cluster where you want to use the named URL feature.
 
-``NAMED_URL_GRAPH_NODES`` is another read-only list of key-value pairs that exposes the internal graph data structure used to manage named URLs. This is not intended to be human-readable but should be used for programmatically generating named URLs. An example script for generating named URL given the primary key of arbitrary resource objects that can have a named URL, using info provided by ``NAMED_URL_GRAPH_NODES``, can be found in GitHub at github.com/ctrliq/climber/blob/main/tools/scripts/pk_to_named_url.py.
+``NAMED_URL_GRAPH_NODES`` is another read-only list of key-value pairs that exposes the internal graph data structure used to manage named URLs. This is not intended to be human-readable but should be used for programmatically generating named URLs. An example script for generating named URL given the primary key of arbitrary resource objects that can have a named URL, using info provided by ``NAMED_URL_GRAPH_NODES``, can be found in GitHub at github.com/ctrliq/ascender/blob/main/tools/scripts/pk_to_named_url.py.
 
 Identifier Format Protocol
 ===============================
@@ -74,6 +74,6 @@ For resources satisfying rule #2 above, if traced back via the extra foreign key
 - Treat generated unique identifiers as the rest of the identifier components. Sort them in lexicographic order of corresponding foreign keys.
 - Combine all components together using ``++`` to generate the final identifier format.
 
-In reference to the example above, when generating an identifier format for resource ``Foo``, climber generates the stand-alone formats, ``<name>+<choice>`` for ``Foo`` and ``<fk.name>+<fk.choice>`` for ``Bar``, then combine them together to be ``<name>+<choice>++<fk.name>+<fk.choice>``.
+In reference to the example above, when generating an identifier format for resource ``Foo``, ascender generates the stand-alone formats, ``<name>+<choice>`` for ``Foo`` and ``<fk.name>+<fk.choice>`` for ``Bar``, then combine them together to be ``<name>+<choice>++<fk.name>+<fk.choice>``.
 
-When generating identifiers according to the given identifier format, there are cases where a foreign key may point to nowhere. In this case, climber substitutes the part of the format corresponding to the resource the foreign key should point to with an empty string ''. For example, if a ``Foo`` object has the name ='alice', choice ='yes', but ``fk`` field = None, its resulting identifier will be ``alice+yes++``.
+When generating identifiers according to the given identifier format, there are cases where a foreign key may point to nowhere. In this case, ascender substitutes the part of the format corresponding to the resource the foreign key should point to with an empty string ''. For example, if a ``Foo`` object has the name ='alice', choice ='yes', but ``fk`` field = None, its resulting identifier will be ``alice+yes++``.

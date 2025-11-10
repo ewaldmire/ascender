@@ -13,7 +13,7 @@ Refer to :ref:`ag_restart_awx` in the |ata| and :ref:`ug_execution_environments`
 
 .. Important::
 
-    When upgrading, it is highly recommended to always rebuild on top of the base |ee| that corresponds to the climber version you are using. See :ref:`ug_build_ees` for more information.
+    When upgrading, it is highly recommended to always rebuild on top of the base |ee| that corresponds to the ascender version you are using. See :ref:`ug_build_ees` for more information.
 
 
 .. _mesh_topology_ee:

@@ -4,7 +4,7 @@ Create a Credential
 .. index::
    single: credentials; create 
 
-Credentials authenticate the climber user to launch Ansible playbooks, which can include passwords and SSH keys, against inventory hosts. You can also require the climber user to enter a password or key phrase when a playbook launches using the credentials feature of climber.
+Credentials authenticate the ascender user to launch Ansible playbooks, which can include passwords and SSH keys, against inventory hosts. You can also require the ascender user to enter a password or key phrase when a playbook launches using the credentials feature of ascender.
 
 Access the list of credentials by clicking **Credentials** from the left navigation bar.
 

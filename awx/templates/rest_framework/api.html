@@ -1,7 +1,7 @@
 {% extends 'rest_framework/base.html' %}
 {% load i18n static %}
 
-{% block title %}{{ name }} &middot; {% trans 'climber REST API' %}{% endblock %}
+{% block title %}{{ name }} &middot; {% trans 'ascender REST API' %}{% endblock %}
 
 {% block bootstrap_theme %}
   <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/bootstrap.min.css' %}" />
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block style %}
-<link href="{% static 'media/favicon_climber.ico' %}?v={{tower_version}}" rel="shortcut icon" />
+<link href="{% static 'media/favicon_ascender.ico' %}?v={{tower_version}}" rel="shortcut icon" />
 {{ block.super }}
 {% endblock %}
 
@@ -24,7 +24,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{% url 'api:api_root_view' %}">
-          <img class="logo" src="{% static 'media/climberAuto_icon_clr_S.png' %}" width="20px">
+          <img class="logo" src="{% static 'media/ascenderAuto_icon_clr_S.png' %}" width="20px">
           <span>{% trans 'REST API' %}</span>
         </a>
         <a class="navbar-title" href="{{ request.get_full_path }}">

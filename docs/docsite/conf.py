@@ -7,7 +7,7 @@ from importlib import import_module
 
 sys.path.insert(0, os.path.abspath('./rst/rest_api/_swagger'))
 
-project = u'climber'
+project = u'ascender'
 copyright = u'2025, CtrlIQ, Inc.'
 author = u'CtrlIQ'
 
@@ -17,13 +17,13 @@ pubdate = datetime.strptime(pubdateshort, '%Y-%m-%d').strftime('%B %d, %Y')
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 # html_title = None
-html_title = 'Ansible climber community documentation'
+html_title = 'Ansible ascender community documentation'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 # html_short_title = None
-html_short_title = 'climber community documentation'
+html_short_title = 'ascender community documentation'
 
-htmlhelp_basename = 'climber_docs'
+htmlhelp_basename = 'ascender_docs'
 
 # include the swagger extension to build rest api reference
 #'swagger',
@@ -50,7 +50,7 @@ master_doc = 'index'
 version = 'latest'
 shortversion = 'latest'
 # The full version, including alpha/beta/rc tags.
-release = 'climber latest'
+release = 'ascender latest'
 
 language = 'en'
 
@@ -58,14 +58,14 @@ locale_dirs = ['locale/']  # path is example but recommended.
 gettext_compact = False  # optional.
 
 rst_epilog = """
-.. |atqi| replace:: *climber Quick Installation Guide*
-.. |atqs| replace:: *climber Quick Setup Guide*
-.. |atir| replace:: *climber Installation and Reference Guide*
-.. |ata| replace:: *climber Administration Guide*
-.. |atu| replace:: *climber User Guide*
-.. |atumg| replace:: *climber Upgrade and Migration Guide*
-.. |atapi| replace:: *climber API Guide*
-.. |atrn| replace:: *climber Release Notes*
+.. |atqi| replace:: *ascender Quick Installation Guide*
+.. |atqs| replace:: *ascender Quick Setup Guide*
+.. |atir| replace:: *ascender Installation and Reference Guide*
+.. |ata| replace:: *ascender Administration Guide*
+.. |atu| replace:: *ascender User Guide*
+.. |atumg| replace:: *ascender Upgrade and Migration Guide*
+.. |atapi| replace:: *ascender API Guide*
+.. |atrn| replace:: *ascender Release Notes*
 .. |aa| replace:: Ansible Automation
 .. |AA| replace:: Automation Analytics
 .. |aap| replace:: Ansible Automation Platform

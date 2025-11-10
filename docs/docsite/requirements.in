@@ -1,4 +1,4 @@
-# This requirements file is used for climber latest doc builds.
+# This requirements file is used for ascender latest doc builds.
 
 sphinx # Tooling to build HTML from RST source.
 sphinx-ansible-theme # Ansible community theme for Sphinx doc builds.
